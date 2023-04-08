@@ -12,12 +12,12 @@ Point::Point(const Point& point) : x{point.x}, y{point.y}
 {
 }
 
-int Point::getX()
+int Point::getX() const
 {
     return this->x;
 }
 
-int Point::getY()
+int Point::getY() const
 {
     return this->y;
 }
@@ -43,7 +43,7 @@ Point& Point::operator-(const Point& point)
     return *this;
 }
 
-bool Point::operator==(const Point& point)
+bool Point::operator==(const Point& point) const
 {
     if(this->x == point.x && this->y == point.y)
 		return true;
