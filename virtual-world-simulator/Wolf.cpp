@@ -16,5 +16,12 @@ void Wolf::update()
 
 bool Wolf::collision(Entity& entity)
 {
+	Wolf* wolf = dynamic_cast<Wolf*>(&entity);
+	if (wolf != nullptr)
+	{
+		this->breed<Wolf>(*wolf);
+		return false;
+	}
+
 	return Animal::collision(entity);
 }
