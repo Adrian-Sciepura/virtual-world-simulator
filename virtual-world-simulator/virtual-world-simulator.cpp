@@ -2,6 +2,7 @@
 
 int main()
 {
+	srand(time(NULL));
 	SimulationManager simulationManager;
 	simulationManager.start();
 

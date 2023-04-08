@@ -129,18 +129,26 @@
   <ItemGroup>
     <ClCompile Include="Animal.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="Plant.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="SimulationManager.cpp" />
+    <ClCompile Include="Utility.cpp" />
     <ClCompile Include="virtual-world-simulator.cpp" />
     <ClCompile Include="Wolf.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animal.h" />
-    <ClInclude Include="CompareAnimals.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityCompare.h" />
+    <ClInclude Include="Grass.h" />
+    <ClInclude Include="Plant.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="SimulationManager.h" />
+    <ClInclude Include="Utility.h" />
     <ClInclude Include="Wolf.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
