@@ -1,12 +1,12 @@
-#ifndef COMPARE_ANIMALS_H
-#define COMPARE_ANIMALS_H
+#ifndef ENTITY_COMPARE_H
+#define ENTITY_COMPARE_H
 
-#include "Animal.h"
+#include "Entity.h"
 
-class CompareAnimals
+class EntityCompare
 {
 public:
-	bool operator()(Animal* lhs, Animal* rhs)
+	bool operator()(Entity* lhs, Entity* rhs)
 	{
 		if (lhs->getPriority() == rhs->getPriority())
 			return lhs->getLifespan() < rhs->getLifespan();
