@@ -12,13 +12,13 @@ public:
 	Point(int x, int y);
 	Point(const Point& point);
 
-	int getX();
-	int getY();
+	int getX() const;
+	int getY() const;
 
 	Point& operator=(const Point& point);
 	Point& operator+(const Point& point);
 	Point& operator-(const Point& point);
-	bool operator==(const Point& point);
+	bool operator==(const Point& point) const;
 };
 
 #endif
