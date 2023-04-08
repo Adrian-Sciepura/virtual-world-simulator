@@ -6,9 +6,11 @@
 class Wolf : public Animal
 {
 public:
-	Wolf(Point position);
+	Wolf(World* world, Point position);
 	~Wolf();
+
 	void update();
+	void collision();
 };
 
 #endif

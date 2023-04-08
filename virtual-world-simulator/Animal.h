@@ -6,10 +6,12 @@
 class Animal : public Entity
 {
 public:
-	Animal(Point position, char symbol, int strength, int priority);
+	Animal(World* world, Point position, char symbol, int strength, int priority);
 	~Animal();
 
+	void move(const Point& newPosition);
 	virtual void update() = 0;
+	virtual void collision() = 0;
 };
 
 #endif

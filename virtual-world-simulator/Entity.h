@@ -3,10 +3,14 @@
 
 #include <iostream>
 #include "Point.h"
+#include "World.h"
+
+class World;
 
 class Entity
 {
 protected:
+	World* world;
 	Point position;
 	char symbol;
 	int strength;
@@ -14,7 +18,7 @@ protected:
 	int lifespan;
 
 public:
-	Entity(Point position, char symbol, int strength, int priority);
+	Entity(World* world, Point position, char symbol, int strength, int priority);
 	virtual ~Entity();
 
 	Point getPosition() const;
@@ -24,6 +28,7 @@ public:
 	int getLifespan() const;
 
 	virtual void update() = 0;
+	virtual void collision() = 0;
 };
 
 #endif

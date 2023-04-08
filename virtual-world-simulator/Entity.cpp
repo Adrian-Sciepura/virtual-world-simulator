@@ -1,7 +1,7 @@
 #include "Entity.h"
 
-Entity::Entity(Point position, char symbol, int strength, int priority) :
-    position{ position }, symbol{ symbol }, strength{ strength }, priority{ priority }, lifespan{ 0 }
+Entity::Entity(World* world, Point position, char symbol, int strength, int priority) :
+    world{ world }, position{ position }, symbol{ symbol }, strength{ strength }, priority{ priority }, lifespan{ 0 }
 {
 }
 
@@ -36,6 +36,5 @@ int Entity::getLifespan() const
 
 void Entity::update()
 {
-	std::cout << "Updating entity type: " << this->symbol << " with priority: " << this->priority << " and lifespan: " << this->lifespan << '\n';
-	this->lifespan++;
+    this->lifespan++;
 }
