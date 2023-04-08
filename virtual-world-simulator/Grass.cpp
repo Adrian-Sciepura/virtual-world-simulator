@@ -15,6 +15,8 @@ void Grass::update()
 	Plant::update();
 }
 
-void Grass::collision()
+bool Grass::collision(Entity& entity)
 {
+	this->isAlive = false;
+	return true;
 }

@@ -10,7 +10,7 @@ public:
 	~Grass();
 
 	void update();
-	void collision();
+	bool collision(Entity& entity);
 };
 
 #endif

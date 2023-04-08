@@ -14,6 +14,7 @@ void Wolf::update()
 	Animal::update();
 }
 
-void Wolf::collision()
+bool Wolf::collision(Entity& entity)
 {
+	return Animal::collision(entity);
 }

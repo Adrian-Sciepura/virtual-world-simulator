@@ -10,7 +10,7 @@ public:
 	~Plant();
 
 	virtual void update() = 0;
-	virtual void collision() = 0;
+	virtual bool collision(Entity& entity) = 0;
 };
 
 #endif

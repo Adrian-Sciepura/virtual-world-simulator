@@ -2,6 +2,8 @@
 #define ENTITY_H
 
 #include <iostream>
+#include <vector>
+#include "Utility.h"
 #include "Point.h"
 #include "World.h"
 
@@ -12,6 +14,7 @@ class Entity
 protected:
 	World* world;
 	Point position;
+	bool isAlive;
 	char symbol;
 	int strength;
 	int priority;
@@ -27,8 +30,10 @@ public:
 	int getPriority() const;
 	int getLifespan() const;
 
+	void kill();
+	bool checkIfAlive() const;
 	virtual void update() = 0;
-	virtual void collision() = 0;
+	virtual bool collision(Entity& entity) = 0; //returns true if entity dies
 };
 
 #endif

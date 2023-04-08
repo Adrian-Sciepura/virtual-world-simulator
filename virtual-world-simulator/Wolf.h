@@ -10,7 +10,7 @@ public:
 	~Wolf();
 
 	void update();
-	void collision();
+	bool collision(Entity& entity);
 };
 
 #endif

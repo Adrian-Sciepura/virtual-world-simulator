@@ -1,7 +1,7 @@
 #include "Entity.h"
 
 Entity::Entity(World* world, Point position, char symbol, int strength, int priority) :
-    world{ world }, position{ position }, symbol{ symbol }, strength{ strength }, priority{ priority }, lifespan{ 0 }
+    world{ world }, position{ position }, symbol{ symbol }, strength{ strength }, priority{ priority }, lifespan{ 0 }, isAlive{ true }
 {
 }
 
@@ -32,6 +32,16 @@ int Entity::getPriority() const
 int Entity::getLifespan() const
 {
     return this->lifespan;
+}
+
+void Entity::kill()
+{
+    this->isAlive = false;
+}
+
+bool Entity::checkIfAlive() const
+{
+    return this->isAlive;
 }
 
 void Entity::update()
