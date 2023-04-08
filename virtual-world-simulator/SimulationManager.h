@@ -6,7 +6,7 @@
 #include <vector>
 #include <functional>
 
-#include "CompareAnimals.h"
+#include "EntityCompare.h"
 #include "Entity.h"
 #include "Animal.h"
 #include "Wolf.h"
@@ -14,7 +14,7 @@
 class SimulationManager
 {
 private:
-	std::priority_queue < Animal*, std::vector<Animal*>, CompareAnimals> animals;
+	std::priority_queue < Entity*, std::vector<Entity*>, EntityCompare> entities;
 	Entity* map[20][20];
 
 public:

@@ -1,6 +1,6 @@
 #include "SimulationManager.h"
 
-SimulationManager::SimulationManager() : map{nullptr}
+SimulationManager::SimulationManager() : map{ nullptr }
 {
 
 }
@@ -28,19 +28,15 @@ void SimulationManager::update()
 	{
 		for (int j = 0; j < 20; j++)
 		{
-			if (map[i][j] == nullptr)
-				continue;
-
-			Animal* temp = dynamic_cast<Animal*>(map[i][j]);
-			if (temp != nullptr)
-				animals.push(temp);
+			if (map[i][j] != nullptr)
+				entities.push(map[i][j]);
 		}
 	}
 
-	while (!animals.empty())
+	while (!entities.empty())
 	{
-		animals.top()->update();
-		animals.pop();
+		entities.top()->update();
+		entities.pop();
 	}
 }
 
