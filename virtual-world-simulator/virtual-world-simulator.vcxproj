@@ -127,7 +127,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animal.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Point.cpp" />
+    <ClCompile Include="SimulationManager.cpp" />
     <ClCompile Include="virtual-world-simulator.cpp" />
+    <ClCompile Include="Wolf.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Animal.h" />
+    <ClInclude Include="CompareAnimals.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Point.h" />
+    <ClInclude Include="SimulationManager.h" />
+    <ClInclude Include="Wolf.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,9 @@
-﻿#include <iostream>
+﻿#include "SimulationManager.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	SimulationManager simulationManager;
+	simulationManager.start();
+
+	return 0;
 }
