@@ -6,10 +6,6 @@ Grass::Grass(World* world, Point position) :
 
 }
 
-Grass::~Grass()
-{
-}
-
 void Grass::update()
 {
 	int random = Utility::random(0, 10);

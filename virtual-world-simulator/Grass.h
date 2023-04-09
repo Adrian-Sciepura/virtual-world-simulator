@@ -7,7 +7,6 @@ class Grass : public Plant
 {
 public:
 	Grass(World* world, Point position);
-	~Grass();
 
 	void update();
 	bool collision(Entity& entity);

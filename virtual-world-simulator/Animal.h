@@ -48,8 +48,8 @@ public:
 	}
 
 	void move(const Point& newPosition);
-	virtual void update() = 0;
-	virtual bool collision(Entity& entity) = 0;
+	virtual void update();
+	virtual bool collision(Entity& entity);
 };
 
 #endif

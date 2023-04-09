@@ -7,10 +7,8 @@ class Wolf : public Animal
 {
 public:
 	Wolf(World* world, Point position);
-	~Wolf();
 
-	void update();
-	bool collision(Entity& entity);
+	virtual bool collision(Entity& entity);
 };
 
 #endif

@@ -5,15 +5,6 @@ Wolf::Wolf(World* world, Point position) :
 {
 }
 
-Wolf::~Wolf()
-{
-}
-
-void Wolf::update()
-{
-	Animal::update();
-}
-
 bool Wolf::collision(Entity& entity)
 {
 	Wolf* wolf = dynamic_cast<Wolf*>(&entity);

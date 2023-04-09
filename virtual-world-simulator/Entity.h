@@ -32,7 +32,7 @@ public:
 
 	void kill();
 	bool checkIfAlive() const;
-	virtual void update() = 0;
+	virtual void update();
 	virtual bool collision(Entity& entity) = 0; //returns true if entity dies
 };
 
