@@ -27,7 +27,7 @@ public:
 					continue;
 
 				if (map[i][j] == nullptr || dynamic_cast<T*>(map[i][j]) == nullptr)
-					freeFields.push_back(Point(j, i));
+					freeFields.push_back(Point(i, j));
 			}
 		}
 
