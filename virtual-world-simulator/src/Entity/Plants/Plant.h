@@ -1,7 +1,7 @@
 #ifndef PLANT_H
 #define PLANT_H
 
-#include "Entity.h"
+#include "../Entity.h"
 
 class Plant : public Entity
 {

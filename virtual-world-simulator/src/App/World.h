@@ -1,7 +1,7 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include "Entity.h"
+#include "../Entity/Entity.h"
 
 class Entity;
 

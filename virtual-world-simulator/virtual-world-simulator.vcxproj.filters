@@ -15,90 +15,90 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="virtual-world-simulator.cpp">
+    <ClCompile Include="src\App\virtual-world-simulator.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
+    <ClCompile Include="src\Entity\Entity.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Animal.cpp">
+    <ClCompile Include="src\Entity\Animals\Animal.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="SimulationManager.cpp">
+    <ClCompile Include="src\App\SimulationManager.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Point.cpp">
+    <ClCompile Include="src\Common\Point.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Wolf.cpp">
+    <ClCompile Include="src\Entity\Animals\Wolf.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Plant.cpp">
+    <ClCompile Include="src\Entity\Plants\Plant.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Grass.cpp">
+    <ClCompile Include="src\Entity\Plants\Grass.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="World.cpp">
+    <ClCompile Include="src\App\World.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Utility.cpp">
+    <ClCompile Include="src\Common\Utility.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Sheep.cpp">
+    <ClCompile Include="src\Entity\Animals\Sheep.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Fox.cpp">
+    <ClCompile Include="src\Entity\Animals\Fox.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Turtle.cpp">
+    <ClCompile Include="src\Entity\Animals\Turtle.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Antelope.cpp">
+    <ClCompile Include="src\Entity\Animals\Antelope.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Entity.h">
+    <ClInclude Include="src\Entity\Entity.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Animal.h">
+    <ClInclude Include="src\Entity\Animals\Animal.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="SimulationManager.h">
+    <ClInclude Include="src\App\SimulationManager.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Point.h">
+    <ClInclude Include="src\Common\Point.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Wolf.h">
+    <ClInclude Include="src\Entity\Animals\Wolf.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="EntityCompare.h">
+    <ClInclude Include="src\Entity\EntityCompare.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Plant.h">
+    <ClInclude Include="src\Entity\Plants\Plant.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Grass.h">
+    <ClInclude Include="src\Entity\Plants\Grass.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="World.h">
+    <ClInclude Include="src\App\World.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Utility.h">
+    <ClInclude Include="src\Common\Utility.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Sheep.h">
+    <ClInclude Include="src\Entity\Animals\Sheep.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Fox.h">
+    <ClInclude Include="src\Entity\Animals\Fox.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Turtle.h">
+    <ClInclude Include="src\Entity\Animals\Turtle.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Antelope.h">
+    <ClInclude Include="src\Entity\Animals\Antelope.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>

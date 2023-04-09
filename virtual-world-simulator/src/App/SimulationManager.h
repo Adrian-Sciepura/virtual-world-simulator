@@ -8,18 +8,18 @@
 
 
 #include "World.h"
-#include "EntityCompare.h"
-#include "Entity.h"
+#include "../Entity/EntityCompare.h"
+#include "../Entity/Entity.h"
 
-#include "Animal.h"
-#include "Wolf.h"
-#include "Sheep.h"
-#include "Fox.h"
-#include "Turtle.h"
-#include "Antelope.h"
+#include "../Entity/Animals/Animal.h"
+#include "../Entity/Animals/Wolf.h"
+#include "../Entity/Animals/Sheep.h"
+#include "../Entity/Animals/Fox.h"
+#include "../Entity/Animals/Turtle.h"
+#include "../Entity/Animals/Antelope.h"
 
-#include "Plant.h"
-#include "Grass.h"
+#include "../Entity/Plants/Plant.h"
+#include "../Entity/Plants/Grass.h"
 
 class SimulationManager
 {

@@ -3,9 +3,10 @@
 
 #include <iostream>
 #include <vector>
-#include "Utility.h"
-#include "Point.h"
-#include "World.h"
+
+#include "../Common/Utility.h"
+#include "../Common/Point.h"
+#include "../App/World.h"
 
 class World;
 

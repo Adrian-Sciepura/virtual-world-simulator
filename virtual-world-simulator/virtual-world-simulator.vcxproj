@@ -127,36 +127,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Animal.cpp" />
-    <ClCompile Include="Antelope.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="Fox.cpp" />
-    <ClCompile Include="Grass.cpp" />
-    <ClCompile Include="Plant.cpp" />
-    <ClCompile Include="Point.cpp" />
-    <ClCompile Include="Sheep.cpp" />
-    <ClCompile Include="SimulationManager.cpp" />
-    <ClCompile Include="Turtle.cpp" />
-    <ClCompile Include="Utility.cpp" />
-    <ClCompile Include="virtual-world-simulator.cpp" />
-    <ClCompile Include="Wolf.cpp" />
-    <ClCompile Include="World.cpp" />
+    <ClCompile Include="src\Entity\Animals\Animal.cpp" />
+    <ClCompile Include="src\Entity\Animals\Antelope.cpp" />
+    <ClCompile Include="src\Entity\Entity.cpp" />
+    <ClCompile Include="src\Entity\Animals\Fox.cpp" />
+    <ClCompile Include="src\Entity\Plants\Grass.cpp" />
+    <ClCompile Include="src\Entity\Plants\Plant.cpp" />
+    <ClCompile Include="src\Common\Point.cpp" />
+    <ClCompile Include="src\Entity\Animals\Sheep.cpp" />
+    <ClCompile Include="src\App\SimulationManager.cpp" />
+    <ClCompile Include="src\Entity\Animals\Turtle.cpp" />
+    <ClCompile Include="src\Common\Utility.cpp" />
+    <ClCompile Include="src\App\virtual-world-simulator.cpp" />
+    <ClCompile Include="src\Entity\Animals\Wolf.cpp" />
+    <ClCompile Include="src\App\World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animal.h" />
-    <ClInclude Include="Antelope.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="EntityCompare.h" />
-    <ClInclude Include="Fox.h" />
-    <ClInclude Include="Grass.h" />
-    <ClInclude Include="Plant.h" />
-    <ClInclude Include="Point.h" />
-    <ClInclude Include="Sheep.h" />
-    <ClInclude Include="SimulationManager.h" />
-    <ClInclude Include="Turtle.h" />
-    <ClInclude Include="Utility.h" />
-    <ClInclude Include="Wolf.h" />
-    <ClInclude Include="World.h" />
+    <ClInclude Include="src\Entity\Animals\Animal.h" />
+    <ClInclude Include="src\Entity\Animals\Antelope.h" />
+    <ClInclude Include="src\Entity\Entity.h" />
+    <ClInclude Include="src\Entity\EntityCompare.h" />
+    <ClInclude Include="src\Entity\Animals\Fox.h" />
+    <ClInclude Include="src\Entity\Plants\Grass.h" />
+    <ClInclude Include="src\Entity\Plants\Plant.h" />
+    <ClInclude Include="src\Common\Point.h" />
+    <ClInclude Include="src\Entity\Animals\Sheep.h" />
+    <ClInclude Include="src\App\SimulationManager.h" />
+    <ClInclude Include="src\Entity\Animals\Turtle.h" />
+    <ClInclude Include="src\Common\Utility.h" />
+    <ClInclude Include="src\Entity\Animals\Wolf.h" />
+    <ClInclude Include="src\App\World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
