@@ -14,34 +14,34 @@ Animal::~Animal()
 void Animal::move(const Point& newPosition)
 {
     Entity*** map = world->getMap();
-    Entity* entity = map[newPosition.getX()][newPosition.getY()];
+    Entity* entity = map[newPosition.x][newPosition.y];
     if (entity != nullptr)
     {
-        std::clog << "Collision detected at: " << newPosition.getY() << ", " << newPosition.getX() << '\n';
-        std::clog << "1. Entity type: " << this->symbol << " with priority: " << this->priority << " and lifespan: " << this->lifespan << '\n';
-        std::clog << "2. Entity type: " << entity->getSymbol() << " with priority: " << entity->getPriority() << " and lifespan: " << entity->getLifespan() << '\n';
+        //std::clog << "Collision detected at: " << newPosition.y << ", " << newPosition.x << '\n';
+        //std::clog << "1. Entity type: " << this->symbol << " with priority: " << this->priority << " and lifespan: " << this->lifespan << '\n';
+        //std::clog << "2. Entity type: " << entity->getSymbol() << " with priority: " << entity->getPriority() << " and lifespan: " << entity->getLifespan() << '\n';
         if (!entity->collision(*this))
         {
             if(this->isAlive == false)
-                map[position.getX()][position.getY()] = nullptr;
+                map[position.x][position.y] = nullptr;
             
             return;
         }
         else
         {
-            map[newPosition.getX()][newPosition.getY()] = nullptr;
+            map[newPosition.x][newPosition.y] = nullptr;
         }
     }
 
-    map[position.getX()][position.getY()] = nullptr;
+    map[position.x][position.y] = nullptr;
     this->position = newPosition;
-    map[position.getX()][position.getY()] = this;
+    map[position.x][position.y] = this;
 }
 
 void Animal::update()
 {
-    int currentX = this->position.getX();
-    int currentY = this->position.getY();
+    int currentX = this->position.x;
+    int currentY = this->position.y;
     int newX = currentX;
     int newY = currentY;
     
@@ -67,7 +67,10 @@ void Animal::update()
 
 bool Animal::collision(Entity& entity)
 {
-    if (entity.getStrength() > this->strength)
+    int entityStrength = entity.getStrength();
+
+    if (entityStrength > this->strength ||
+        (entityStrength == this->strength && entity.getLifespan() > this->lifespan))
     {
         this->isAlive = false;
         return true;

@@ -23,8 +23,8 @@ public:
 	void spread()
 	{
 		static_assert(std::is_base_of<Plant, T>::value, "T must be derived from Plant");
-		int currentX = this->position.getX();
-		int currentY = this->position.getY();
+		int currentX = this->position.x;
+		int currentY = this->position.y;
 		Entity*** map = world->getMap();
 		std::vector<Point> freeFields;
 		for (int i = currentY - 1; i < currentY + 1; i++)
@@ -40,8 +40,8 @@ public:
 		if (freeFields.size() > 0)
 		{
 			Point newPosition = freeFields[Utility::random(0, freeFields.size() - 1)];
-			map[newPosition.getX()][newPosition.getY()] = new T(world, newPosition);
-			//std::clog << "New " << newPlant->getSymbol() << " born at: " << newPosition.getY() << ", " << newPosition.getX() << '\n';
+			map[newPosition.x][newPosition.y] = new T(world, newPosition);
+			//std::clog << "New " << newPlant->getSymbol() << " born at: " << newPosition.y << ", " << newPosition.x << '\n';
 		}
 	}
 

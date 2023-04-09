@@ -14,8 +14,8 @@ public:
 	{
 		static_assert(std::is_base_of<Animal, T>::value, "T must be derived from Animal");
 
-		int currentX = this->position.getX();
-		int currentY = this->position.getY();
+		int currentX = this->position.x;
+		int currentY = this->position.y;
 		Entity*** map = world->getMap();
 		std::vector<Point> freeFields;
 
@@ -35,15 +35,15 @@ public:
 		{
 			Point newPosition = freeFields[Utility::random(0, freeFields.size() - 1)];
 			T* newAnimal = new T(world, newPosition);
-			Entity* entity = map[newPosition.getX()][newPosition.getY()];
+			Entity* entity = map[newPosition.x][newPosition.y];
 			if (entity != nullptr && !entity->collision(*newAnimal))
 			{
 				delete newAnimal;
 				return;
 			}
 
-			map[newPosition.getX()][newPosition.getY()] = newAnimal;
-			std::clog << "New " << newAnimal->getSymbol() << " born at: " << newPosition.getY() << ", " << newPosition.getX() << '\n';
+			map[newPosition.x][newPosition.y] = newAnimal;
+			//std::clog << "New " << newAnimal->getSymbol() << " born at: " << newPosition.y << ", " << newPosition.x << '\n';
 		}
 	}
 

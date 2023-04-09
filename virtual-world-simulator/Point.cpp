@@ -12,16 +12,6 @@ Point::Point(const Point& point) : x{point.x}, y{point.y}
 {
 }
 
-int Point::getX() const
-{
-    return this->x;
-}
-
-int Point::getY() const
-{
-    return this->y;
-}
-
 Point& Point::operator=(const Point& point)
 {
     this->x = point.x;
