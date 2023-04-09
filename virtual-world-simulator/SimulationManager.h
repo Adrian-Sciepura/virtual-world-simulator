@@ -6,11 +6,18 @@
 #include <vector>
 #include <functional>
 
+
 #include "World.h"
 #include "EntityCompare.h"
 #include "Entity.h"
+
 #include "Animal.h"
 #include "Wolf.h"
+#include "Sheep.h"
+#include "Fox.h"
+#include "Turtle.h"
+#include "Antelope.h"
+
 #include "Plant.h"
 #include "Grass.h"
 
