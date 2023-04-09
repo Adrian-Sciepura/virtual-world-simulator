@@ -1,7 +1,7 @@
 #include "Grass.h"
 
 Grass::Grass(World* world, Point position) :
-	Plant { world, position, 'G', 0 }
+	Plant { world, position, 'G', 0, SpreadChance::HIGH }
 {
 
 }
@@ -12,7 +12,11 @@ Grass::~Grass()
 
 void Grass::update()
 {
-	Plant::update();
+	int random = Utility::random(0, 10);
+	if (random <= this->spreadChance)
+		this->spread<Grass>();
+
+	Entity::update();
 }
 
 bool Grass::collision(Entity& entity)
