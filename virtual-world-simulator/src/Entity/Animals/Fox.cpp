@@ -9,20 +9,19 @@ void Fox::update()
 {
     int currentX = this->position.x;
     int currentY = this->position.y;
-    int newX = currentX;
-    int newY = currentY;
 
     std::vector<Point> possibleMoves;
     Entity*** map = world->getMap();
 
-    for (int i = currentY - 1; i < currentY + 1; i++)
+    for (int i = currentX - 1; i <= currentX + 1; i++)
     {
-        for (int j = currentX - 1; j < currentX + 1; j++)
-        {
-			if(i < 0 || i > world->getHeight() - 1 || j < 0 || j > world->getWidth() - 1)
-				continue;
+        if (i < 0 || i > world->getHeight() - 1)
+            continue;
 
-            if (i == currentY && j == currentX)
+        for (int j = currentY - 1; j <= currentY + 1; j++)
+        {
+            if (j < 0 || j > world->getWidth() - 1 ||
+                (i == currentX && j == currentY))
                 continue;
 
             if (map[i][j] == nullptr || map[i][j]->getStrength() <= this->strength)

@@ -6,17 +6,20 @@ bool Antelope::runAway()
     int currentX = this->position.x;
     int currentY = this->position.y;
     
-    for (int i = currentY - 1; i < currentY + 1; i++)
+    for (int i = currentX - 1; i <= currentX + 1; i++)
     {
-        for (int j = currentX - 1; j < currentX + 1; j++)
+        if (i < 0 || i > world->getHeight() - 1)
+            continue;
+
+        for (int j = currentY - 1; j <= currentY + 1; j++)
         {
-            if (i < 0 || i > world->getHeight() - 1 || j < 0 || j > world->getWidth() - 1)
+            if (j < 0 || j > world->getWidth() - 1)
                 continue;
 
             if (map[i][j] == nullptr)
             {
                 map[i][j] = this;
-                map[currentY][currentX] = nullptr;
+                map[currentX][currentY] = nullptr;
                 this->position = { i, j };
                 return true;
             }

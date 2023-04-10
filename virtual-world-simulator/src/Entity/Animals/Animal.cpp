@@ -26,13 +26,14 @@ void Animal::move(const Point& newPosition)
         }
         else
         {
-            map[newPosition.x][newPosition.y] = nullptr;
+            if (entity->checkIfAlive() == false && entity->getPriority() > this->priority)
+                delete entity;
         }
     }
 
     map[position.x][position.y] = nullptr;
     this->position = newPosition;
-    map[position.x][position.y] = this;
+    map[newPosition.x][newPosition.y] = this;
 }
 
 void Animal::update()
@@ -64,6 +65,10 @@ void Animal::update()
 
 bool Animal::collision(Entity& entity)
 {
+    //New animals are immortal in the first round
+    if(this->lifespan == 0)
+		return false;
+
     int entityStrength = entity.getStrength();
 
     if (entityStrength > this->strength ||

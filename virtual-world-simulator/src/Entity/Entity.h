@@ -34,7 +34,9 @@ public:
 	void kill();
 	bool checkIfAlive() const;
 	virtual void update();
-	virtual bool collision(Entity& entity) = 0; //returns true if entity dies
+	
+	//returns true if occupied field becomes free
+	virtual bool collision(Entity& entity) = 0;
 };
 
 #endif

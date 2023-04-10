@@ -8,8 +8,10 @@ Turtle::Turtle(World* world, Point position) :
 void Turtle::update()
 {
     int chance = Utility::random(1, 4);
-    if (chance == 4)
-        Animal::update();
+	if (chance == 4)
+		Animal::update();
+	else
+		Entity::update();
 }
 
 bool Turtle::collision(Entity& entity)

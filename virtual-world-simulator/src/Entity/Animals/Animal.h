@@ -30,7 +30,7 @@ public:
 					(i == currentX && j == currentY))
 					continue;
 				
-				if (map[i][j] == nullptr || dynamic_cast<T*>(map[i][j]) == nullptr)
+				if (map[i][j] == nullptr || map[i][j]->getPriority() == 0)
 					freeFields.push_back(Point(i, j));
 			}
 		}
@@ -40,12 +40,9 @@ public:
 			Point newPosition = freeFields[Utility::random(0, freeFields.size() - 1)];
 			T* newAnimal = new T(world, newPosition);
 			Entity* entity = map[newPosition.x][newPosition.y];
-			if (entity != nullptr && !entity->collision(*newAnimal))
-			{
-				delete newAnimal;
-				return;
-			}
-
+			if (entity != nullptr)
+				entity->kill();
+			
 			map[newPosition.x][newPosition.y] = newAnimal;
 		}
 	}
