@@ -17,7 +17,26 @@ void Animal::move(const Point& newPosition)
     Entity* entity = map[newPosition.x][newPosition.y];
     if (entity != nullptr)
     {
-        if (!entity->collision(*this))
+
+        bool result = entity->collision(*this);
+
+        if (this->isAlive == false)
+        {
+            map[position.x][position.y] = nullptr;
+            return;
+        }
+
+        if (result)
+        {
+            if (entity->checkIfAlive() == false && entity->getPriority() > this->priority)
+                delete entity;
+        }
+        else
+        {
+            return;
+        }
+
+        /*if (!entity->collision(*this))
         {
             if(this->isAlive == false)
                 map[position.x][position.y] = nullptr;
@@ -28,7 +47,13 @@ void Animal::move(const Point& newPosition)
         {
             if (entity->checkIfAlive() == false && entity->getPriority() > this->priority)
                 delete entity;
-        }
+
+            if (this->isAlive == false)
+            {
+                map[position.x][position.y] = nullptr;
+                return;
+            }
+        }*/
     }
 
     map[position.x][position.y] = nullptr;
