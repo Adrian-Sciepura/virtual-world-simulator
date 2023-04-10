@@ -7,16 +7,13 @@ Nightshade::Nightshade(World* world, Point position) :
 
 void Nightshade::update()
 {
-    int random = Utility::random(1, 25);
-	if (random <= this->spreadChance)
-		this->spread<Nightshade>();
-
+	this->spread<Nightshade>();
 	Entity::update();
 }
 
 bool Nightshade::collision(Entity& entity)
 {
-	this->isAlive = false;
 	entity.kill();
-    return true;
+	world->getMap()[position.x][position.y] = nullptr;
+    return Plant::collision(entity);
 }

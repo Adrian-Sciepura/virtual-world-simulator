@@ -9,3 +9,9 @@ Plant::Plant(World* world, Point position, char symbol, int strength, SpreadChan
 Plant::~Plant()
 {
 }
+
+bool Plant::collision(Entity& entity)
+{
+	this->isAlive = false;
+	return true;
+}

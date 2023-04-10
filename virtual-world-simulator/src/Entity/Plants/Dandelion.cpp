@@ -8,17 +8,7 @@ Dandelion::Dandelion(World* world, Point position) :
 void Dandelion::update()
 {
 	for(int i = 0; i < 3; i++)
-	{
-		int random = Utility::random(1, 25);
-		if (random <= this->spreadChance)
-			this->spread<Dandelion>();
-	}
+		this->spread<Dandelion>();
 
 	Entity::update();
-}
-
-bool Dandelion::collision(Entity& entity)
-{
-	this->isAlive = false;
-    return true;
 }

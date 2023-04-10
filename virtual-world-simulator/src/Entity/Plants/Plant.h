@@ -23,6 +23,11 @@ public:
 	void spread()
 	{
 		static_assert(std::is_base_of<Plant, T>::value, "T must be derived from Plant");
+
+		int random = Utility::random(1, 25);
+		if (random > this->spreadChance)
+			return;
+
 		int currentX = this->position.x;
 		int currentY = this->position.y;
 		Entity*** map = world->getMap();
@@ -50,7 +55,7 @@ public:
 	}
 
 	virtual void update() = 0;
-	virtual bool collision(Entity& entity) = 0;
+	virtual bool collision(Entity& entity);
 };
 
 #endif

@@ -8,8 +8,7 @@ class Grass : public Plant
 public:
 	Grass(World* world, Point position);
 
-	void update();
-	bool collision(Entity& entity);
+	virtual void update();
 };
 
 #endif
