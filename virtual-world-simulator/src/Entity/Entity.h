@@ -31,6 +31,8 @@ public:
 	int getPriority() const;
 	int getLifespan() const;
 
+	void setStrength(int strength);
+
 	void kill();
 	bool checkIfAlive() const;
 	virtual void update();

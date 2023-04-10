@@ -34,6 +34,11 @@ int Entity::getLifespan() const
     return this->lifespan;
 }
 
+void Entity::setStrength(int strength)
+{
+    this->strength = strength;
+}
+
 void Entity::kill()
 {
     this->isAlive = false;
