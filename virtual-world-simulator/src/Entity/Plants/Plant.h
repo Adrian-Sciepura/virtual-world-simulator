@@ -9,9 +9,9 @@ protected:
 	int spreadChance;
 	enum SpreadChance
 	{
-		LOW = 2,
-		MEDIUM = 3,
-		HIGH = 4
+		LOW = 1,
+		MEDIUM = 2,
+		HIGH = 3
 	};
 
 public:
@@ -27,21 +27,25 @@ public:
 		int currentY = this->position.y;
 		Entity*** map = world->getMap();
 		std::vector<Point> freeFields;
-		for (int i = currentY - 1; i < currentY + 1; i++)
+		for (int i = currentX - 1; i <= currentX + 1; i++)
 		{
-			for (int j = currentX - 1; j < currentX + 1; j++)
+			if (i < 0 || i > world->getHeight() - 1)
+				continue;
+
+			for (int j = currentY - 1; j <= currentY + 1; j++)
 			{
-				if (i < 0 || i > world->getHeight() - 1 || j < 0 || j > world->getWidth() - 1)
+				if (j < 0 || j > world->getWidth() - 1)
 					continue;
+
 				if (map[i][j] == nullptr)
 					freeFields.push_back(Point(i, j));
 			}
 		}
+
 		if (freeFields.size() > 0)
 		{
 			Point newPosition = freeFields[Utility::random(0, freeFields.size() - 1)];
 			map[newPosition.x][newPosition.y] = new T(world, newPosition);
-			//std::clog << "New " << newPlant->getSymbol() << " born at: " << newPosition.y << ", " << newPosition.x << '\n';
 		}
 	}
 
