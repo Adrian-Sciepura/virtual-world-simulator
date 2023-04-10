@@ -19,13 +19,17 @@ public:
 		Entity*** map = world->getMap();
 		std::vector<Point> freeFields;
 
-		for (int i = currentY - 1; i < currentY + 1; i++)
+		for (int i = currentX - 1; i <= currentX + 1; i++)
 		{
-			for (int j = currentX - 1; j < currentX + 1; j++)
-			{
-				if (i < 0 || i > world->getHeight() - 1 || j < 0 || j > world->getWidth() - 1)
-					continue;
+			if (i < 0 || i > world->getHeight() - 1)
+				continue;
 
+			for (int j = currentY - 1; j <= currentY + 1; j++)
+			{
+				if (j < 0 || j > world->getWidth() - 1 ||
+					(i == currentX && j == currentY))
+					continue;
+				
 				if (map[i][j] == nullptr || dynamic_cast<T*>(map[i][j]) == nullptr)
 					freeFields.push_back(Point(i, j));
 			}
@@ -43,7 +47,6 @@ public:
 			}
 
 			map[newPosition.x][newPosition.y] = newAnimal;
-			//std::clog << "New " << newAnimal->getSymbol() << " born at: " << newPosition.y << ", " << newPosition.x << '\n';
 		}
 	}
 

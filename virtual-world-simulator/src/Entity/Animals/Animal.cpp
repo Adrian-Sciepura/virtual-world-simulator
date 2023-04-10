@@ -17,9 +17,6 @@ void Animal::move(const Point& newPosition)
     Entity* entity = map[newPosition.x][newPosition.y];
     if (entity != nullptr)
     {
-        //std::clog << "Collision detected at: " << newPosition.y << ", " << newPosition.x << '\n';
-        //std::clog << "1. Entity type: " << this->symbol << " with priority: " << this->priority << " and lifespan: " << this->lifespan << '\n';
-        //std::clog << "2. Entity type: " << entity->getSymbol() << " with priority: " << entity->getPriority() << " and lifespan: " << entity->getLifespan() << '\n';
         if (!entity->collision(*this))
         {
             if(this->isAlive == false)
@@ -52,12 +49,12 @@ void Animal::update()
 
         if (newX < 0)
             newX = 0;
-        else if (newX > world->getWidth() - 1)
+        else if (newX > world->getHeight() - 1)
             newX -= 1;
 
         if (newY < 0)
             newY = 0;
-        else if (newY > world->getHeight() - 1)
+        else if (newY > world->getWidth() - 1)
             newY -= 1;
     }
 
