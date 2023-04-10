@@ -127,6 +127,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Entity\Animals\Human.cpp" />
+    <ClCompile Include="src\Entity\Plants\Nightshade.cpp" />
+    <ClCompile Include="src\Entity\Plants\Guarana.cpp" />
+    <ClCompile Include="src\Entity\Plants\Dandelion.cpp" />
     <ClCompile Include="src\Entity\Animals\Animal.cpp" />
     <ClCompile Include="src\Entity\Animals\Antelope.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
@@ -143,6 +147,10 @@
     <ClCompile Include="src\App\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Entity\Animals\Human.h" />
+    <ClInclude Include="src\Entity\Plants\Nightshade.h" />
+    <ClInclude Include="src\Entity\Plants\Guarana.h" />
+    <ClInclude Include="src\Entity\Plants\Dandelion.h" />
     <ClInclude Include="src\Entity\Animals\Animal.h" />
     <ClInclude Include="src\Entity\Animals\Antelope.h" />
     <ClInclude Include="src\Entity\Entity.h" />

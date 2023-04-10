@@ -17,9 +17,13 @@
 #include "../Entity/Animals/Fox.h"
 #include "../Entity/Animals/Turtle.h"
 #include "../Entity/Animals/Antelope.h"
+#include "../Entity/Animals/Human.h"
 
 #include "../Entity/Plants/Plant.h"
 #include "../Entity/Plants/Grass.h"
+#include "../Entity/Plants/Dandelion.h"
+#include "../Entity/Plants/Guarana.h"
+#include "../Entity/Plants/Nightshade.h"
 
 class SimulationManager
 {
@@ -35,6 +39,7 @@ public:
 
 	void start();
 	void update();
+	void draw();
 };
 
 #endif

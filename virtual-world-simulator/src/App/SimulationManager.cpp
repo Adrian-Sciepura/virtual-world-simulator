@@ -37,10 +37,13 @@ void SimulationManager::update()
 		{
 			delete entity;
 		}
-
+		
 		entities.pop();
 	}
+}
 
+void SimulationManager::draw()
+{
 	std::cout << "-----------------------\n";
 	for (int i = 0; i < worldHeight; i++)
 	{
@@ -55,26 +58,34 @@ void SimulationManager::update()
 
 void SimulationManager::start()
 {
-	worldMap[1][1] = new Grass(&world, { 1, 1 });
-	worldMap[3][3] = new Grass(&world, { 3, 3 });
-	worldMap[1][2] = new Grass(&world, { 1, 2 });
-	worldMap[1][0] = new Grass(&world, { 1, 0 });
-	worldMap[0][1] = new Wolf(&world, { 0, 1 });
-	worldMap[4][4] = new Wolf(&world, { 4, 4 });
-	worldMap[3][1] = new Sheep(&world, { 3, 1 });
-	worldMap[10][10] = new Fox(&world, { 10, 10 });
-	worldMap[5][5] = new Turtle(&world, { 5, 5 });
-	worldMap[7][14] = new Antelope(&world, { 7, 14 });
-	worldMap[1][18] = new Antelope(&world, { 1, 18 });
-	worldMap[1][19] = new Antelope(&world, { 1, 19 });
+	worldMap[1][1] = new Fox(&world, Point(1, 1));
+	worldMap[1][8] = new Fox(&world, Point(1, 8));
+	worldMap[1][10] = new Fox(&world, Point(1, 10));
+	worldMap[10][10] = new Fox(&world, Point(10, 10));
+	worldMap[2][2] = new Wolf(&world, Point(2, 2));
+	worldMap[2][3] = new Wolf(&world, Point(2, 3));
+	worldMap[7][18] = new Turtle(&world, Point(7, 18));
+	worldMap[7][19] = new Turtle(&world, Point(7, 19));
+	worldMap[19][19] = new Antelope(&world, Point(19, 19));
+	worldMap[19][18] = new Antelope(&world, Point(19, 18));
+	worldMap[18][18] = new Grass(&world, Point(18, 18));
+	worldMap[17][16] = new Grass(&world, Point(17, 16));
+	worldMap[15][15] = new Dandelion(&world, Point(15, 15));
+	worldMap[13][13] = new Guarana(&world, Point(13, 13));
+	worldMap[8][8] = new Nightshade(&world, Point(8, 8));
+	worldMap[8][9] = new Nightshade(&world, Point(8, 9));
+	worldMap[8][8] = new Human(&world, Point(8, 8));
 
 	char c = NULL;
 	while (c != 'q')
 	{
 		system("cls");
+		draw();
 		update();
+		system("cls");
+		draw();
 
-		std::cout << "\nNacisnij q aby zakonczyc lub ENTER aby kontynuowac\n";
+		std::cout << "\Press q to quit game or ENTER to continue\n";
 		c = getchar();
 	}
 }
