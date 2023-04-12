@@ -3,6 +3,8 @@
 
 #include <stdlib.h>
 #include <Windows.h>
+#include "Color.h"
+#include "BMPFile.h"
 
 class GraphicsEngine
 {
@@ -12,6 +14,7 @@ private:
 	int numberOfChars;
 
 	wchar_t* screenBuffer;
+	WORD* screenColorsBuffer;
 	HANDLE console;
 	DWORD bytesWritten;
 	CONSOLE_FONT_INFOEX font;
@@ -26,7 +29,13 @@ public:
 	void setFont(int width, int height, int weight);
 	void changeCursorVisibility(bool visible);
 
-	void draw();
+	void drawBMP(BMPFile* image, int x, int y);
+	void drawBuffer();
+
+	wchar_t* getScreenBuffer();
+	WORD* getScreenColorsBuffer();
+	int getScreenWidth() const;
+	int getScreenHeight() const;
 };
 
 #endif
