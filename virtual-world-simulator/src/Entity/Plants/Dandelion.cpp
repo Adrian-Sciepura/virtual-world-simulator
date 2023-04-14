@@ -5,10 +5,10 @@ Dandelion::Dandelion(World* world, Point position) :
 {
 }
 
-void Dandelion::update()
+void Dandelion::update(std::fstream& logFile)
 {
 	for(int i = 0; i < 3; i++)
-		this->spread<Dandelion>();
+		this->spread<Dandelion>(logFile);
 
-	Entity::update();
+	Entity::update(logFile);
 }

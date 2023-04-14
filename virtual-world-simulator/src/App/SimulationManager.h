@@ -4,7 +4,7 @@
 #include <iostream>
 #include <queue>
 #include <vector>
-#include <functional>
+#include <fstream>
 
 #include "../Common/KeyCodes.h"
 
@@ -56,6 +56,7 @@ private:
 	void updateInfo();
 	void update();
 	bool checkKey(int keyCode);
+	void logMode();
 
 public:
 	SimulationManager();

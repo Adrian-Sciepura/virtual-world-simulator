@@ -49,7 +49,7 @@ bool Human::setNewPosition(int keyCode)
     return false;
 }
 
-void Human::update()
+void Human::update(std::fstream& logFile)
 {
-    this->move(newPosition);
+    this->move(logFile, newPosition);
 }

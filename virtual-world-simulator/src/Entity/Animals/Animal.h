@@ -13,7 +13,7 @@ public:
 	~Animal();
 
 	template <class T>
-	void breed(T& animal)
+	void breed(std::fstream& logFile, T& animal)
 	{
 		static_assert(std::is_base_of<Animal, T>::value, "T must be derived from Animal");
 
@@ -47,12 +47,13 @@ public:
 				entity->kill();
 			
 			map[newPosition.x][newPosition.y] = newAnimal;
+			logFile << newPosition << " The " << symbol << " was born\n";
 		}
 	}
 
-	void move(const Point& newPosition);
-	virtual void update();
-	virtual bool collision(Entity& entity);
+	void move(std::fstream& logFile, const Point& newPosition);
+	virtual void update(std::fstream& logFile);
+	virtual bool collision(std::fstream& logFile, Entity& entity);
 	
 	static int getNumberOfAnimals();
 };

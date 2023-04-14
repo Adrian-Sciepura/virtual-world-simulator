@@ -8,7 +8,7 @@ class Dandelion : public Plant
 public:
 	Dandelion(World* world, Point position);
 
-	virtual void update();
+	virtual void update(std::fstream& logFile);
 };
 
 #endif

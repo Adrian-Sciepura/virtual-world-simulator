@@ -14,7 +14,7 @@ public:
 	Human(World* world, Point position);
 	
 	bool setNewPosition(int keyCode);
-	virtual void update();
+	virtual void update(std::fstream& logFile);
 };
 
 #endif

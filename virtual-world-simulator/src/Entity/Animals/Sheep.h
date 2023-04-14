@@ -8,7 +8,7 @@ class Sheep : public Animal
 public:
 	Sheep(World* world, Point position);
 
-	virtual bool collision(Entity& entity);
+	virtual bool collision(std::fstream& logFile, Entity& entity);
 };
 
 #endif

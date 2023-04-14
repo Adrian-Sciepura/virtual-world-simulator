@@ -40,3 +40,9 @@ bool Point::operator==(const Point& point) const
 	else
 		return false;
 }
+
+std::ostream& operator<<(std::ostream& os, const Point& point)
+{
+    os << '(' << point.y << ", " << point.x << ')';
+    return os;
+}

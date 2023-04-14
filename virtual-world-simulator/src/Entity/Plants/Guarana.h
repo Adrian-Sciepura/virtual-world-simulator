@@ -8,8 +8,8 @@ class Guarana : public Plant
 public:
 	Guarana(World* world, Point position);
 	
-	virtual void update();
-	virtual bool collision(Entity& entity);
+	virtual void update(std::fstream& logFile);
+	virtual bool collision(std::fstream& logFile, Entity& entity);
 };
 
 #endif

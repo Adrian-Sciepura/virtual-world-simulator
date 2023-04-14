@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 #include "../Common/Utility.h"
 #include "../Common/Point.h"
@@ -38,10 +39,10 @@ public:
 
 	void kill();
 	bool checkIfAlive() const;
-	virtual void update();
+	virtual void update(std::fstream& logFile);
 	
 	//returns true if occupied field becomes free
-	virtual bool collision(Entity& entity) = 0;
+	virtual bool collision(std::fstream& logFile, Entity& entity) = 0;
 };
 
 #endif

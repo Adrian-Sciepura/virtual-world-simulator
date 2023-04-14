@@ -13,8 +13,9 @@ Plant::~Plant()
 	numberOfPlants--;
 }
 
-bool Plant::collision(Entity& entity)
+bool Plant::collision(std::fstream& logFile, Entity& entity)
 {
+	logFile << this->position << " The " << this->symbol << " has been eaten by " << entity.getSymbol() << "\n";
 	this->isAlive = false;
 	return true;
 }

@@ -6,8 +6,8 @@ Grass::Grass(World* world, Point position) :
 
 }
 
-void Grass::update()
+void Grass::update(std::fstream& logFile)
 {
-	this->spread<Grass>();
-	Entity::update();
+	this->spread<Grass>(logFile);
+	Entity::update(logFile);
 }

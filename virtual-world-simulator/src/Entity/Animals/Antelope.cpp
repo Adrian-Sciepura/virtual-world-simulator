@@ -34,7 +34,7 @@ Antelope::Antelope(World* world, Point position) :
 {
 }
 
-void Antelope::update()
+void Antelope::update(std::fstream& logFile)
 {
     int range = Utility::random(1, 2);
     int currentX = this->position.x;
@@ -58,16 +58,16 @@ void Antelope::update()
             newY -= range;
     }
 
-    this->move({ newX, newY });
-    Entity::update();
+    this->move(logFile, { newX, newY });
+    Entity::update(logFile);
 }
 
-bool Antelope::collision(Entity& entity)
+bool Antelope::collision(std::fstream& logFile, Entity& entity)
 {
     Antelope* antelope = dynamic_cast<Antelope*>(&entity);
     if (antelope != nullptr)
     {
-        this->breed<Antelope>(*antelope);
+        this->breed<Antelope>(logFile, *antelope);
         return false;
     }
 
@@ -75,5 +75,5 @@ bool Antelope::collision(Entity& entity)
     if(runAwayChance == 2 && this->runAway())
 		return true;
 
-    return Animal::collision(entity);
+    return Animal::collision(logFile, entity);
 }

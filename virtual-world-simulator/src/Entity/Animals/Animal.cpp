@@ -13,14 +13,14 @@ Animal::~Animal()
     numberOfAnimals--;
 }
 
-void Animal::move(const Point& newPosition)
+void Animal::move(std::fstream& logFile, const Point& newPosition)
 {
     Entity*** map = world->getMap();
     Entity* entity = map[newPosition.x][newPosition.y];
     if (entity != nullptr)
     {
 
-        bool result = entity->collision(*this);
+        bool result = entity->collision(logFile, *this);
 
         if (this->isAlive == false)
         {
@@ -37,25 +37,6 @@ void Animal::move(const Point& newPosition)
         {
             return;
         }
-
-        /*if (!entity->collision(*this))
-        {
-            if(this->isAlive == false)
-                map[position.x][position.y] = nullptr;
-            
-            return;
-        }
-        else
-        {
-            if (entity->checkIfAlive() == false && entity->getPriority() > this->priority)
-                delete entity;
-
-            if (this->isAlive == false)
-            {
-                map[position.x][position.y] = nullptr;
-                return;
-            }
-        }*/
     }
 
     map[position.x][position.y] = nullptr;
@@ -63,7 +44,7 @@ void Animal::move(const Point& newPosition)
     map[newPosition.x][newPosition.y] = this;
 }
 
-void Animal::update()
+void Animal::update(std::fstream& logFile)
 {
     int currentX = this->position.x;
     int currentY = this->position.y;
@@ -86,11 +67,11 @@ void Animal::update()
             newY -= 1;
     }
 
-    this->move({ newX, newY });
-	Entity::update();
+    this->move(logFile, { newX, newY });
+	Entity::update(logFile);
 }
 
-bool Animal::collision(Entity& entity)
+bool Animal::collision(std::fstream& logFile, Entity& entity)
 {
     //New animals are immortal in the first round
     if(this->lifespan == 0)
@@ -101,10 +82,12 @@ bool Animal::collision(Entity& entity)
     if (entityStrength > this->strength ||
         (entityStrength == this->strength && entity.getLifespan() > this->lifespan))
     {
+        logFile << entity.getPosition() << ' ' << this->symbol << " was killed by " << entity.getSymbol() << '\n';
         this->isAlive = false;
         return true;
     }
 
+    logFile << entity.getPosition() << ' ' << entity.getSymbol() << " was killed by " << this->symbol << '\n';
     entity.kill();
     return false;
 }

@@ -6,6 +6,10 @@ SimulationManager::SimulationManager() :
 	colorBuffer{ graphicsEngine.getScreenColorsBuffer() }, round{ 0 }, abilityCooldown{ 5 }, gameOver{ false },
 	player{ nullptr }
 {
+
+	std::fstream logFile = std::fstream("log.txt", std::ios::out);
+	logFile.close();
+
 	assetManager->loadAsset("font", "./assets/font.bmp");
 
 	assetManager->loadAsset("blank", "./assets/blank.bmp");
@@ -79,10 +83,8 @@ void SimulationManager::updateInfo()
 	else
 	{
 		ab.append("- ");
-		drawText(ab, { 330, 180 }, Color::RED);
+		drawText(ab, { 330, 180 }, Color::GREEN);
 	}
-
-	
 }
 
 void SimulationManager::drawText(std::string text, const Point& position, Color color)
@@ -141,12 +143,14 @@ void SimulationManager::update()
 		}
 	}
 
+	std::fstream logFile = std::fstream("log.txt", std::ios::app);
+	logFile << "$\n";
 	while (!entities.empty())
 	{
 		Entity* entity = entities.top();
 		if (entity->checkIfAlive())
 		{
-			entity->update();
+			entity->update(logFile);
 			if (!entity->checkIfAlive())
 			{
 				delete entity;
@@ -159,6 +163,7 @@ void SimulationManager::update()
 
 		entities.pop();
 	}
+	logFile.close();
 }
 
 void SimulationManager::start()

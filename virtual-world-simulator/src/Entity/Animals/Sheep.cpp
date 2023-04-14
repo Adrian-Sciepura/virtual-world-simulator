@@ -5,14 +5,14 @@ Sheep::Sheep(World* world, Point position) :
 {
 }
 
-bool Sheep::collision(Entity& entity)
+bool Sheep::collision(std::fstream& logFile, Entity& entity)
 {
 	Sheep* sheep = dynamic_cast<Sheep*>(&entity);
 	if (sheep != nullptr)
 	{
-		this->breed<Sheep>(*sheep);
+		this->breed<Sheep>(logFile, *sheep);
 		return false;
 	}
 
-	return Animal::collision(entity);
+	return Animal::collision(logFile, entity);
 }

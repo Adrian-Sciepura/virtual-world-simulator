@@ -8,7 +8,7 @@ class Grass : public Plant
 public:
 	Grass(World* world, Point position);
 
-	virtual void update();
+	virtual void update(std::fstream& logFile);
 };
 
 #endif

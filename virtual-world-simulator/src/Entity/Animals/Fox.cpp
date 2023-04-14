@@ -5,7 +5,7 @@ Fox::Fox(World* world, Point position) :
 {
 }
 
-void Fox::update()
+void Fox::update(std::fstream& logFile)
 {
     int currentX = this->position.x;
     int currentY = this->position.y;
@@ -31,19 +31,19 @@ void Fox::update()
     if(possibleMoves.size() > 0)
     {
         Point newPosition = possibleMoves[Utility::random(0, possibleMoves.size() - 1)];
-        this->move(newPosition);
+        this->move(logFile, newPosition);
     }
-    Entity::update();
+    Entity::update(logFile);
 }
 
-bool Fox::collision(Entity& entity)
+bool Fox::collision(std::fstream& logFile, Entity& entity)
 {
     Fox* fox = dynamic_cast<Fox*>(&entity);
     if (fox != nullptr)
     {
-        this->breed<Fox>(*fox);
+        this->breed<Fox>(logFile, *fox);
         return false;
     }
 
-    return Animal::collision(entity);
+    return Animal::collision(logFile, entity);
 }

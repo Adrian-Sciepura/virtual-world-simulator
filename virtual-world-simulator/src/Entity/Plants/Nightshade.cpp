@@ -5,15 +5,17 @@ Nightshade::Nightshade(World* world, Point position) :
 {
 }
 
-void Nightshade::update()
+void Nightshade::update(std::fstream& logFile)
 {
-	this->spread<Nightshade>();
-	Entity::update();
+	this->spread<Nightshade>(logFile);
+	Entity::update(logFile);
 }
 
-bool Nightshade::collision(Entity& entity)
+bool Nightshade::collision(std::fstream& logFile, Entity& entity)
 {
+	logFile << this->position << " " << entity.getSymbol() << " was killed when eating " << this->symbol << '\n';
 	entity.kill();
 	world->getMap()[position.x][position.y] = nullptr;
-    return Plant::collision(entity);
+	this->isAlive = false;
+    return true;
 }

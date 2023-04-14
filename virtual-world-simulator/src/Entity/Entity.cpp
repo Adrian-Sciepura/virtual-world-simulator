@@ -54,7 +54,7 @@ bool Entity::checkIfAlive() const
     return this->isAlive;
 }
 
-void Entity::update()
+void Entity::update(std::fstream& logFile)
 {
     this->lifespan++;
 }

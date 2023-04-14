@@ -5,26 +5,26 @@ Turtle::Turtle(World* world, Point position) :
 {
 }
 
-void Turtle::update()
+void Turtle::update(std::fstream& logFile)
 {
     int chance = Utility::random(1, 4);
 	if (chance == 4)
-		Animal::update();
+		Animal::update(logFile);
 	else
-		Entity::update();
+		Entity::update(logFile);
 }
 
-bool Turtle::collision(Entity& entity)
+bool Turtle::collision(std::fstream& logFile, Entity& entity)
 {
 	Turtle* turtle = dynamic_cast<Turtle*>(&entity);
 	if (turtle != nullptr)
 	{
-		this->breed<Turtle>(*turtle);
+		this->breed<Turtle>(logFile, *turtle);
 		return false;
 	}
 
 	if(entity.getStrength() < 5)
 		return false;
 
-	return Animal::collision(entity);
+	return Animal::collision(logFile, entity);
 }

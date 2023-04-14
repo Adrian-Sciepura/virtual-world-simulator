@@ -5,14 +5,14 @@ Guarana::Guarana(World* world, Point position) :
 {
 }
 
-void Guarana::update()
+void Guarana::update(std::fstream& logFile)
 {
-	this->spread<Guarana>();
-	Entity::update();
+	this->spread<Guarana>(logFile);
+	Entity::update(logFile);
 }
 
-bool Guarana::collision(Entity& entity)
+bool Guarana::collision(std::fstream& logFile, Entity& entity)
 {
 	entity.setStrength(entity.getStrength() + 3);
-    return Plant::collision(entity);
+    return Plant::collision(logFile, entity);
 }

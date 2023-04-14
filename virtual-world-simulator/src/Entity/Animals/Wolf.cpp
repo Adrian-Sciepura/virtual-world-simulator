@@ -5,14 +5,14 @@ Wolf::Wolf(World* world, Point position) :
 {
 }
 
-bool Wolf::collision(Entity& entity)
+bool Wolf::collision(std::fstream& logFile, Entity& entity)
 {
 	Wolf* wolf = dynamic_cast<Wolf*>(&entity);
 	if (wolf != nullptr)
 	{
-		this->breed<Wolf>(*wolf);
+		this->breed<Wolf>(logFile, *wolf);
 		return false;
 	}
 
-	return Animal::collision(entity);
+	return Animal::collision(logFile, entity);
 }

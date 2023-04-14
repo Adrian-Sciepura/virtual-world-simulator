@@ -22,7 +22,7 @@ public:
 
 
 	template <class T>
-	void spread()
+	void spread(std::fstream& logFile)
 	{
 		static_assert(std::is_base_of<Plant, T>::value, "T must be derived from Plant");
 
@@ -53,11 +53,12 @@ public:
 		{
 			Point newPosition = freeFields[Utility::random(0, freeFields.size() - 1)];
 			map[newPosition.x][newPosition.y] = new T(world, newPosition);
+			logFile << newPosition << " New " << symbol << " has grown\n";
 		}
 	}
 
-	virtual void update() = 0;
-	virtual bool collision(Entity& entity);
+	virtual void update(std::fstream& logFile) = 0;
+	virtual bool collision(std::fstream& logFile, Entity& entity);
 
 	static int getNumberOfPlants();
 };
