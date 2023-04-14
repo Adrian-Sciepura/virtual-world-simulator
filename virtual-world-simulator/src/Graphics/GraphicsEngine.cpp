@@ -85,6 +85,12 @@ void GraphicsEngine::drawBuffer()
 	WriteConsoleOutputAttribute(console, screenColorsBuffer, numberOfChars, { 0,0 }, &bytesWritten);
 }
 
+void GraphicsEngine::clearBuffer()
+{
+	for (int i = 0; i < numberOfChars; i++)
+		screenColorsBuffer[i] = Color::BLACK;
+}
+
 wchar_t* GraphicsEngine::getScreenBuffer()
 {
 	return this->screenBuffer;

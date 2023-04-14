@@ -34,6 +34,7 @@ public:
 	void drawBMP(BMPFile* image, const Point& position);
 	void drawBMPChunk(BMPFile* image, const Point& position, const Point& start, const Point& end);
 	void drawBuffer();
+	void clearBuffer();
 
 	wchar_t* getScreenBuffer();
 	WORD* getScreenColorsBuffer();
