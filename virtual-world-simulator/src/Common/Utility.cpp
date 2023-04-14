@@ -56,6 +56,7 @@ BMPFile* Utility::readBMP(const char* path)
         }
     }
 
+    delete[] data;
     fclose(f);
     return bmpFile;
 }
