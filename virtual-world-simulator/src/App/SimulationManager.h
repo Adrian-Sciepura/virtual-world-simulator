@@ -6,6 +6,8 @@
 #include <vector>
 #include <functional>
 
+#include "../Common/KeyCodes.h"
+
 #include "../Graphics/GraphicsEngine.h"
 #include "../Graphics/AssetManager.h"
 
@@ -38,19 +40,23 @@ private:
 	AssetManager* assetManager;
 	const int singleEntitySize;
 
+	Human* player;
 	World world;
 	Entity*** worldMap;
 	int worldWidth, worldHeight;
 
 	int round;
+	int abilityCooldown;
+	bool gameOver;
 	
 	void draw();
 	void drawBoard();
-	void drawText(std::string text, const Point& position);
+	void drawText(std::string text, const Point& position, Color color = Color::NONE);
 	void drawInfo();
 	void updateInfo();
-
 	void update();
+	bool checkKey(int keyCode);
+
 public:
 	SimulationManager();
 	~SimulationManager();

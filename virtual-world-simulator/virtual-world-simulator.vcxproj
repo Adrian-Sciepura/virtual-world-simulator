@@ -152,6 +152,7 @@
     <ClCompile Include="src\App\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Common\KeyCodes.h" />
     <ClInclude Include="src\Graphics\Asset.h" />
     <ClInclude Include="src\Graphics\AssetManager.h" />
     <ClInclude Include="src\Graphics\RGBColor.h" />

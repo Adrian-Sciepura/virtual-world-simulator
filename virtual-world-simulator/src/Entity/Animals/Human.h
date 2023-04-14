@@ -2,22 +2,18 @@
 #define HUMAN_H
 
 #include <conio.h>
+#include "../../Common/KeyCodes.h"
 #include "Animal.h"
 
 class Human : public Animal
 {
 protected:
-	enum keyCodes
-	{
-		UP = 72,
-		DOWN = 80,
-		LEFT = 75,
-		RIGHT = 77
-	};
+	Point newPosition;
 
 public:
 	Human(World* world, Point position);
 	
+	bool setNewPosition(int keyCode);
 	virtual void update();
 };
 

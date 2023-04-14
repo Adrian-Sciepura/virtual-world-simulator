@@ -2,8 +2,9 @@
 
 SimulationManager::SimulationManager() : 
 	world{ 15, 15 }, worldMap{ world.getMap() }, worldWidth{ world.getWidth() }, worldHeight{ world.getHeight() }, 
-	assetManager{ AssetManager::getAssetManager() }, singleEntitySize{ 16 }, graphicsEngine{ 500, 287 }, colorBuffer{ graphicsEngine.getScreenColorsBuffer() },
-	round{ 0 }
+	assetManager{ AssetManager::getAssetManager() }, singleEntitySize{ 16 }, graphicsEngine{ 500, 287 }, 
+	colorBuffer{ graphicsEngine.getScreenColorsBuffer() }, round{ 0 }, abilityCooldown{ 5 }, gameOver{ false },
+	player{ nullptr }
 {
 	assetManager->loadAsset("font", "./assets/font.bmp");
 
@@ -46,13 +47,15 @@ void SimulationManager::drawInfo()
 {
 	drawText("Adrian Sciepura", { 330, 20 });
 	drawText(">-----------------<", { 314, 35 });
-	drawText("q - quit", { 330, 50 });
-	drawText("n - new game", { 330, 60 });
-	drawText("s - save game", { 330, 70 });
-	drawText("l - load game", { 330, 80 });
-	drawText("enter - next round", { 330, 90 });
-	drawText("arrows - movement", { 330, 100 });
-	drawText(">---------------------<", { 306, 115 });
+	drawText("a - ability", { 330, 50 });
+	drawText("q - quit", { 330, 60 });
+	drawText("n - new game", { 330, 70 });
+	drawText("s - save game", { 330, 80 });
+	drawText("l - load game", { 330, 90 });
+	drawText("m - show logs", { 330, 100 });
+	drawText("enter - next round", { 330, 110 });
+	drawText("arrows - movement", { 330, 120 });
+	drawText(">---------------------<", { 306, 135 });
 
 	updateInfo();
 }
@@ -62,13 +65,27 @@ void SimulationManager::updateInfo()
 	std::string rn = "Round: " + std::to_string(this->round) + "   ";
 	std::string anim = "Animals: " + std::to_string(Animal::getNumberOfAnimals()) + "   ";
 	std::string pl = "Plants: " + std::to_string(Plant::getNumberOfPlants()) + "   ";
+	std::string ab = "Ability cooldown: ";
 
-	drawText(rn, {330, 130});
-	drawText(anim, { 330, 140 });
-	drawText(pl, { 330, 150 });
+	drawText(rn, {330, 150});
+	drawText(anim, { 330, 160 });
+	drawText(pl, { 330, 170 });
+
+	if (abilityCooldown > 0)
+	{
+		ab.append(std::to_string(abilityCooldown) + " ");
+		drawText(ab, { 330, 180 }, Color::WHITE);
+	}
+	else
+	{
+		ab.append("- ");
+		drawText(ab, { 330, 180 }, Color::RED);
+	}
+
+	
 }
 
-void SimulationManager::drawText(std::string text, const Point& position)
+void SimulationManager::drawText(std::string text, const Point& position, Color color)
 {
 	const int lineSpacing = 2;
 	int currentCharASCII = 0;
@@ -93,6 +110,9 @@ void SimulationManager::drawText(std::string text, const Point& position)
 		graphicsEngine.drawBMPChunk(assetManager->getAsset("font"), { position.x + letter * 8, position.y + line * (8 + lineSpacing) }, { column * 8, row * 8 }, { (column + 1) * 8, (row + 1) * 8 });
 		letter++;
 	}
+
+	if (color != Color::NONE)
+		graphicsEngine.recolor(color, position, { position.x + letter * 8, position.y + (line + 1) * 8 });
 }
 
 void SimulationManager::draw()
@@ -145,7 +165,9 @@ void SimulationManager::start()
 {
 	drawBoard();
 	drawInfo();
+	player = new Human(&world, Point(5, 10));
 
+	worldMap[5][10] = player;
 	worldMap[1][1] = new Fox(&world, Point(1, 1));
 	worldMap[1][8] = new Fox(&world, Point(1, 8));
 	worldMap[1][10] = new Fox(&world, Point(1, 10));
@@ -163,15 +185,60 @@ void SimulationManager::start()
 	worldMap[13][13] = new Guarana(&world, Point(13, 13));
 	worldMap[8][8] = new Nightshade(&world, Point(8, 8));
 	worldMap[8][9] = new Nightshade(&world, Point(8, 9));
-	//worldMap[8][10] = new Human(&world, Point(8, 10));
 	
-	char c = NULL;
-	while (c != 'q')
+	int key = NULL;
+	draw();
+	while (!gameOver)
 	{
+		key = _getch();
+		if (checkKey(key))
+			continue;
+
 		update();
+		updateInfo();
 		draw();
 		round++;
-		updateInfo();
-		c = getchar();
 	}
+}
+
+bool SimulationManager::checkKey(int keyCode)
+{
+	switch (keyCode)
+	{
+		case KeyCodes::A:
+		{
+
+			break;
+		}
+		case KeyCodes::Q:
+		{
+			gameOver = true;
+			break;
+		}
+		case KeyCodes::N:
+		{
+			break;
+		}
+		case KeyCodes::S:
+		{
+			break;
+		}
+		case KeyCodes::L:
+		{
+			break;
+		}
+		case KeyCodes::M:
+		{
+			break;
+		}
+		default:
+		{
+			if (player->setNewPosition(keyCode))
+				return false;
+
+			break;
+		}
+	}
+
+	return true;
 }

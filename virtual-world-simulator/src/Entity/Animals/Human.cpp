@@ -1,58 +1,55 @@
 #include "Human.h"
 
 Human::Human(World* world, Point position) :
-    Animal{ AssetManager::getAssetManager()->getAsset("human"), world, position, 'H', 5, 4 }
+    Animal{ AssetManager::getAssetManager()->getAsset("human"), world, position, 'H', 5, 4 }, newPosition{ position }
 {
+}
+
+bool Human::setNewPosition(int keyCode)
+{
+    int mapWidth = this->world->getWidth();
+    int mapHeight = this->world->getHeight();
+
+    switch (keyCode)
+    {
+        case KeyCodes::UP:
+        {
+            if (this->position.x == 0)
+                break;
+
+            newPosition.x = (this->position.x - 1);
+            return true;
+        }
+        case KeyCodes::DOWN:
+        {
+            if (this->position.x == mapHeight - 1)
+                break;
+
+            newPosition.x = (this->position.x + 1);
+            return true;
+        }
+        case KeyCodes::LEFT:
+        {
+            if (this->position.y == 0)
+                break;
+
+            newPosition.y = (this->position.y - 1);
+            return true;
+        }
+        case KeyCodes::RIGHT:
+        {
+            if (this->position.y == mapWidth - 1)
+                break;
+
+            newPosition.y = (this->position.y + 1);
+            return true;
+        }
+    }
+
+    return false;
 }
 
 void Human::update()
 {
-    int mapWidth = this->world->getWidth();
-    int mapHeight = this->world->getHeight();
-    bool correctKey = false;
-    int key = NULL;
-
-    while (!correctKey)
-    {
-        key = _getch();
-        switch(key)
-        {
-            case keyCodes::UP:
-            {
-                if (this->position.x == 0)
-                    continue;
-
-                this->move({ this->position.x - 1, this->position.y });
-                correctKey = true;
-                break;
-            }
-            case keyCodes::DOWN:
-            {
-                if(this->position.x == mapHeight - 1)
-					continue;
-
-                this->move({ this->position.x + 1, this->position.y });
-                correctKey = true;
-                break;
-            }
-            case keyCodes::LEFT:
-            {
-                if (this->position.y == 0)
-					continue;
-
-                this->move({ this->position.x, this->position.y - 1 });
-                correctKey = true;
-                break;
-            }
-            case keyCodes::RIGHT:
-            {
-                if (this->position.y == mapWidth - 1)
-                    continue;
-
-                this->move({ this->position.x, this->position.y + 1 });
-                correctKey = true;
-                break;
-            }
-        }
-    }
+    this->move(newPosition);
 }
