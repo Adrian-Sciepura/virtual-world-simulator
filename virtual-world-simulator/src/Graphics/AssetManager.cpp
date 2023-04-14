@@ -1,6 +1,7 @@
 #include "AssetManager.h"
 
-AssetManager* AssetManager::assetManager = nullptr;
+std::mutex AssetManager::mutex_;
+AssetManager* AssetManager::assetManager_ = nullptr;
 
 AssetManager::AssetManager()
 {
@@ -13,23 +14,24 @@ AssetManager::~AssetManager()
     {
         delete (*it);
     }
-    //this->assets.clear();
+    this->assets.clear();
 }
 
 AssetManager* AssetManager::getAssetManager()
 {
-    if(assetManager == nullptr)
-		assetManager = new AssetManager();
+    std::lock_guard<std::mutex> lock(mutex_);
+    if(assetManager_ == nullptr)
+		assetManager_ = new AssetManager();
     
-    return assetManager;
+    return assetManager_;
 }
 
 void AssetManager::destroyAssetManager()
 {
-    if(assetManager != nullptr)
-		delete assetManager;
+    if(assetManager_ != nullptr)
+		delete assetManager_;
 	
-	assetManager = nullptr;
+	assetManager_ = nullptr;
 }
 
 BMPFile* AssetManager::loadAsset(std::string name, const char* path)

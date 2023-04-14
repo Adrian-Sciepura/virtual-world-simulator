@@ -4,11 +4,13 @@
 #include <list>
 #include "Asset.h"
 #include "../Common/Utility.h"
+#include <mutex>
 
 class AssetManager
 {
 private:
-	static AssetManager* assetManager;
+	static std::mutex mutex_;
+	static AssetManager* assetManager_;
 	std::list<Asset*> assets;
 
 	AssetManager();
