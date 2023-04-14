@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include "Color.h"
 #include "BMPFile.h"
+#include "../Common/Point.h"
 
 class GraphicsEngine
 {
@@ -29,7 +30,8 @@ public:
 	void setFont(int width, int height, int weight);
 	void changeCursorVisibility(bool visible);
 
-	void drawBMP(BMPFile* image, int x, int y);
+	void drawBMP(BMPFile* image, const Point& position);
+	void drawBMPChunk(BMPFile* image, const Point& position, const Point& start, const Point& end);
 	void drawBuffer();
 
 	wchar_t* getScreenBuffer();

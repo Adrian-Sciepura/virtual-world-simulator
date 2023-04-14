@@ -58,11 +58,18 @@ void GraphicsEngine::changeCursorVisibility(bool visible)
 	SetConsoleCursorInfo(console, &cursorInfo);
 }
 
-void GraphicsEngine::drawBMP(BMPFile* image, int x, int y)
+void GraphicsEngine::drawBMP(BMPFile* image, const Point& position)
 {
 	for (int i = 0; i < image->height; i++)
 		for (int j = 0; j < image->width; j++)
-			screenColorsBuffer[(y + i) * screenWidth + x + j] = image->pixels[i * image->width + j];
+			screenColorsBuffer[(position.y + i) * screenWidth + position.x + j] = image->pixels[i * image->width + j];
+}
+
+void GraphicsEngine::drawBMPChunk(BMPFile* image, const Point& position, const Point& start, const Point& end)
+{
+	for (int i = start.y; i < end.y; i++)
+		for (int j = start.x; j < end.x; j++)
+			screenColorsBuffer[(position.y + i - start.y) * screenWidth + position.x + j - start.x] = image->pixels[i * image->width + j];
 }
 
 void GraphicsEngine::drawBuffer()
