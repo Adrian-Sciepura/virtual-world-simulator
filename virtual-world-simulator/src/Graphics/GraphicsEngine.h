@@ -30,6 +30,7 @@ public:
 	void setFont(int width, int height, int weight);
 	void changeCursorVisibility(bool visible);
 
+	void recolor(Color newColor, const Point& start, const Point& end);
 	void drawBMP(BMPFile* image, const Point& position);
 	void drawBMPChunk(BMPFile* image, const Point& position, const Point& start, const Point& end);
 	void drawBuffer();

@@ -5,7 +5,8 @@
 
 enum Color
 {
-    BLACK = 0,
+    NONE = -1,
+    BLACK,
     DARKBLUE,
     DARKGREEN,
     DARKCYAN,

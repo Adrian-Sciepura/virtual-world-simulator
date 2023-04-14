@@ -58,6 +58,14 @@ void GraphicsEngine::changeCursorVisibility(bool visible)
 	SetConsoleCursorInfo(console, &cursorInfo);
 }
 
+void GraphicsEngine::recolor(Color newColor, const Point& start, const Point& end)
+{
+	for(int i = start.y; i < end.y; i++)
+		for (int j = start.x; j < end.x; j++)
+			if (screenColorsBuffer[i * screenWidth + j] != Color::BLACK)
+				screenColorsBuffer[i * screenWidth + j] = newColor;
+}
+
 void GraphicsEngine::drawBMP(BMPFile* image, const Point& position)
 {
 	for (int i = 0; i < image->height; i++)
