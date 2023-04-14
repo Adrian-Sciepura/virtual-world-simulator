@@ -6,6 +6,8 @@
 #include <vector>
 #include <functional>
 
+#include "../Graphics/GraphicsEngine.h"
+#include "../Graphics/AssetManager.h"
 
 #include "World.h"
 #include "../Entity/EntityCompare.h"
@@ -29,17 +31,29 @@ class SimulationManager
 {
 private:
 	std::priority_queue < Entity*, std::vector<Entity*>, EntityCompare> entities;
-	World world;
-	int worldWidth, worldHeight;
-	Entity*** worldMap;
+	
+	GraphicsEngine graphicsEngine;
+	WORD* colorBuffer;
 
+	AssetManager* assetManager;
+	const int singleEntitySize;
+
+	World world;
+	Entity*** worldMap;
+	int worldWidth, worldHeight;
+	
+
+	void draw();
+	void drawBoard();
+
+	void update();
 public:
 	SimulationManager();
 	~SimulationManager();
 
 	void start();
-	void update();
-	void draw();
+	
+	
 };
 
 #endif
