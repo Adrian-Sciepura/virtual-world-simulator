@@ -5,6 +5,9 @@
 
 class Animal : public Entity
 {
+protected:
+	static int numberOfAnimals;
+
 public:
 	Animal(BMPFile* texture, World* world, Point position, char symbol, int strength, int priority);
 	~Animal();
@@ -50,6 +53,8 @@ public:
 	void move(const Point& newPosition);
 	virtual void update();
 	virtual bool collision(Entity& entity);
+	
+	static int getNumberOfAnimals();
 };
 
 #endif

@@ -1,14 +1,16 @@
 #include "Animal.h"
 
+int Animal::numberOfAnimals = 0;
+
 Animal::Animal(BMPFile* texture, World* world, Point position, char symbol, int strength, int priority) :
 	Entity{ texture, world, position, symbol, strength, priority }
 {
-
+    numberOfAnimals++;
 }
 
 Animal::~Animal()
 {
-
+    numberOfAnimals--;
 }
 
 void Animal::move(const Point& newPosition)
@@ -105,4 +107,9 @@ bool Animal::collision(Entity& entity)
 
     entity.kill();
     return false;
+}
+
+int Animal::getNumberOfAnimals()
+{
+    return numberOfAnimals;
 }

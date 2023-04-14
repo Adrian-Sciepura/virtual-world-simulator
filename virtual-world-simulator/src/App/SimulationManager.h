@@ -41,10 +41,14 @@ private:
 	World world;
 	Entity*** worldMap;
 	int worldWidth, worldHeight;
-	
 
+	int round;
+	
 	void draw();
 	void drawBoard();
+	void drawText(std::string text, const Point& position);
+	void drawInfo();
+	void updateInfo();
 
 	void update();
 public:

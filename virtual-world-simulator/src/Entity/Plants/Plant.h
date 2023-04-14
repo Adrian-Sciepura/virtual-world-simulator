@@ -6,6 +6,8 @@
 class Plant : public Entity
 {
 protected:
+	static int numberOfPlants;
+
 	int spreadChance;
 	enum SpreadChance
 	{
@@ -56,6 +58,8 @@ public:
 
 	virtual void update() = 0;
 	virtual bool collision(Entity& entity);
+
+	static int getNumberOfPlants();
 };
 
 #endif

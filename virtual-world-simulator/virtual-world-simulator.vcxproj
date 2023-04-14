@@ -127,6 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Graphics\Asset.cpp" />
+    <ClCompile Include="src\Graphics\AssetManager.cpp" />
+    <ClCompile Include="src\Graphics\RGBColor.cpp" />
+    <ClCompile Include="src\Graphics\BMPFile.cpp" />
+    <ClCompile Include="src\Graphics\GraphicsEngine.cpp" />
     <ClCompile Include="src\Entity\Animals\Human.cpp" />
     <ClCompile Include="src\Entity\Plants\Nightshade.cpp" />
     <ClCompile Include="src\Entity\Plants\Guarana.cpp" />
@@ -147,6 +152,12 @@
     <ClCompile Include="src\App\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Graphics\Asset.h" />
+    <ClInclude Include="src\Graphics\AssetManager.h" />
+    <ClInclude Include="src\Graphics\RGBColor.h" />
+    <ClInclude Include="src\Graphics\Color.h" />
+    <ClInclude Include="src\Graphics\BMPFile.h" />
+    <ClInclude Include="src\Graphics\GraphicsEngine.h" />
     <ClInclude Include="src\Entity\Animals\Human.h" />
     <ClInclude Include="src\Entity\Plants\Nightshade.h" />
     <ClInclude Include="src\Entity\Plants\Guarana.h" />
