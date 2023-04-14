@@ -43,6 +43,6 @@ bool Point::operator==(const Point& point) const
 
 std::ostream& operator<<(std::ostream& os, const Point& point)
 {
-    os << '(' << point.y << ", " << point.x << ')';
+    os << '[' << point.y << ", " << point.x << ']';
     return os;
 }

@@ -57,6 +57,7 @@ private:
 	void update();
 	bool checkKey(int keyCode);
 	void logMode();
+	void drawLogMenu(int cursorPosition);
 
 public:
 	SimulationManager();

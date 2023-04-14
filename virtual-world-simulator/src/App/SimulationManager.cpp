@@ -200,9 +200,9 @@ void SimulationManager::start()
 			continue;
 
 		update();
+		round++;
 		updateInfo();
 		draw();
-		round++;
 	}
 }
 
@@ -234,6 +234,11 @@ bool SimulationManager::checkKey(int keyCode)
 		}
 		case KeyCodes::M:
 		{
+			logMode();
+			drawBoard();
+			drawInfo();
+			draw();
+			graphicsEngine.drawBuffer();
 			break;
 		}
 		default:
@@ -246,4 +251,129 @@ bool SimulationManager::checkKey(int keyCode)
 	}
 
 	return true;
+}
+
+void SimulationManager::logMode()
+{
+	graphicsEngine.clearBuffer();
+	std::fstream logFile = std::fstream("log.txt", std::ios::in);
+	const int maxLines = (graphicsEngine.getScreenHeight() - 15) / 10;
+	int currentCursorPosition = 0;
+	int howManyLinesToSkip = 0;
+	int numberOfLines = 0;
+
+	std::vector<std::streampos> sections;
+	std::string line;
+
+
+	while (getline(logFile, line))
+		if(line == "$")
+			sections.push_back(logFile.tellg());
+
+	logFile.clear();
+
+	int key = NULL;
+	bool refresh = true;
+	while (key != KeyCodes::M)
+	{
+		switch (key)
+		{
+			case KeyCodes::LEFT:
+			{
+				if (currentCursorPosition > 0)
+				{
+					howManyLinesToSkip = 0;
+					currentCursorPosition--;
+					refresh = true;
+				}
+				break;
+			}
+			case KeyCodes::RIGHT:
+			{
+				if(currentCursorPosition < round - 1)
+				{
+					howManyLinesToSkip = 0;
+					currentCursorPosition++;
+					refresh = true;
+				}
+				break;
+			}
+			case KeyCodes::DOWN:
+			{
+				if (numberOfLines - howManyLinesToSkip > maxLines)
+				{
+					howManyLinesToSkip++;
+					refresh = true;
+				}
+				break;
+			}
+			case KeyCodes::UP:
+			{
+				if (howManyLinesToSkip > 0)
+				{
+					howManyLinesToSkip--;
+					refresh = true;
+				}
+				break;
+			}
+		}
+	
+		if (refresh)
+		{
+			refresh = false;
+			graphicsEngine.clearBuffer();
+			drawLogMenu(currentCursorPosition);
+			logFile.seekg(sections[currentCursorPosition]);
+			
+			int lineNumber = 0;
+			int skipped = 0;
+			while (getline(logFile, line))
+			{
+				if (line == "$")
+					break;
+
+				if(skipped > howManyLinesToSkip)
+					drawText(line, { 5, 8 + (lineNumber - howManyLinesToSkip) * 10 });
+				else
+					skipped++;
+
+				lineNumber++;
+			}
+			numberOfLines = lineNumber;
+
+			if (currentCursorPosition == round - 1)
+				logFile.clear();
+
+			graphicsEngine.drawBuffer();
+		}
+
+		key = _getch();
+	}
+
+	logFile.close();
+	graphicsEngine.clearBuffer();
+}
+
+void SimulationManager::drawLogMenu(int cursorPosition)
+{
+	int skip = 12 * graphicsEngine.getScreenWidth();
+	for (int i = 0; i < graphicsEngine.getScreenWidth()*2; i++)
+		colorBuffer[skip + i] = Color::BLUE;
+
+	int number = cursorPosition;
+	std::string numAsString = std::to_string(number);
+	drawText(numAsString, { 4, 1 }, Color::RED);
+	int length = 4 + numAsString.size() * 8 + 4;
+	number++;
+
+	
+
+	while (length-4 < graphicsEngine.getScreenWidth())
+	{
+		numAsString = std::to_string(number);
+		drawText(numAsString, { length, 1 });
+		length += numAsString.size() * 8;
+		length += 4;
+		number++;
+	}
 }
