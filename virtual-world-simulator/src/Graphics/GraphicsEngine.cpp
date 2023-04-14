@@ -68,16 +68,36 @@ void GraphicsEngine::recolor(Color newColor, const Point& start, const Point& en
 
 void GraphicsEngine::drawBMP(BMPFile* image, const Point& position)
 {
+	int pos = 0;
 	for (int i = 0; i < image->height; i++)
 		for (int j = 0; j < image->width; j++)
-			screenColorsBuffer[(position.y + i) * screenWidth + position.x + j] = image->pixels[i * image->width + j];
+		{
+			if (position.x + j > screenWidth)
+				continue;
+			
+			pos = (position.y + i) * screenWidth + position.x + j;
+			if (pos > numberOfChars)
+				break;
+
+			screenColorsBuffer[pos] = image->pixels[i * image->width + j];
+		}
 }
 
 void GraphicsEngine::drawBMPChunk(BMPFile* image, const Point& position, const Point& start, const Point& end)
 {
+	int pos = 0;
 	for (int i = start.y; i < end.y; i++)
 		for (int j = start.x; j < end.x; j++)
-			screenColorsBuffer[(position.y + i - start.y) * screenWidth + position.x + j - start.x] = image->pixels[i * image->width + j];
+		{
+			if (position.x + j - start.x > screenWidth)
+				continue;
+
+			pos = (position.y + i - start.y) * screenWidth + position.x + j - start.x;
+			if (pos > numberOfChars)
+				break;
+
+			screenColorsBuffer[pos] = image->pixels[i * image->width + j];
+		}
 }
 
 void GraphicsEngine::drawBuffer()
