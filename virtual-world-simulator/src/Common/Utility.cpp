@@ -52,7 +52,7 @@ BMPFile* Utility::readBMP(const char* path)
             tmp = data[j];
             data[j] = data[j + 2];
             data[j + 2] = tmp;
-            bmpFile->pixels[numOfPixels - (i * width + j / 3) - 1] = convertRGBtoColor(RGBColor(data[j], data[j + 1], data[j + 2]));
+            bmpFile->pixels[(height - i - 1) * width + j / 3] = convertRGBtoColor(RGBColor(data[j], data[j + 1], data[j + 2]));
         }
     }
 
