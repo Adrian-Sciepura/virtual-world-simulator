@@ -6,7 +6,7 @@
 class Animal : public Entity
 {
 public:
-	Animal(World* world, Point position, char symbol, int strength, int priority);
+	Animal(BMPFile* texture, World* world, Point position, char symbol, int strength, int priority);
 	~Animal();
 
 	template <class T>

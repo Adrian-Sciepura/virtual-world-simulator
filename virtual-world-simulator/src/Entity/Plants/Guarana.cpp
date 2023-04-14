@@ -1,7 +1,7 @@
 #include "Guarana.h"
 
 Guarana::Guarana(World* world, Point position) :
-    Plant { world, position, 'U', 0, SpreadChance::MEDIUM }
+    Plant { AssetManager::getAssetManager()->getAsset("guarana"), world, position, 'U', 0, SpreadChance::MEDIUM }
 {
 }
 

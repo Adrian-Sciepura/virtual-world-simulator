@@ -1,7 +1,7 @@
 #include "Human.h"
 
 Human::Human(World* world, Point position) :
-    Animal(world, position, 'H', 5, 4)
+    Animal{ AssetManager::getAssetManager()->getAsset("human"), world, position, 'H', 5, 4 }
 {
 }
 

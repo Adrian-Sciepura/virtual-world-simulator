@@ -1,7 +1,7 @@
 #include "Wolf.h"
 
 Wolf::Wolf(World* world, Point position) :
-	Animal{ world, position, 'W', 9, 5 }
+	Animal{ AssetManager::getAssetManager()->getAsset("wolf"), world, position, 'W', 9, 5 }
 {
 }
 

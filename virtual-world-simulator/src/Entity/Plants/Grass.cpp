@@ -1,7 +1,7 @@
 #include "Grass.h"
 
 Grass::Grass(World* world, Point position) :
-	Plant { world, position, 'G', 0, SpreadChance::MEDIUM }
+	Plant { AssetManager::getAssetManager()->getAsset("grass"), world, position, 'G', 0, SpreadChance::MEDIUM }
 {
 
 }

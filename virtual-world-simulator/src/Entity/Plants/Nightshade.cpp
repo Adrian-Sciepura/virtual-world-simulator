@@ -1,7 +1,7 @@
 #include "Nightshade.h"
 
 Nightshade::Nightshade(World* world, Point position) :
-    Plant{ world, position, 'N', 99, SpreadChance::LOW }
+    Plant{ AssetManager::getAssetManager()->getAsset("nightShade"), world, position, 'N', 99, SpreadChance::LOW }
 {
 }
 

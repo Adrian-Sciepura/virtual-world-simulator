@@ -1,7 +1,7 @@
 #include "Dandelion.h"
 
 Dandelion::Dandelion(World* world, Point position) :
-	Plant { world, position, 'D', 0, SpreadChance::LOW }
+	Plant { AssetManager::getAssetManager()->getAsset("dandelion"), world, position, 'D', 0, SpreadChance::LOW }
 {
 }
 

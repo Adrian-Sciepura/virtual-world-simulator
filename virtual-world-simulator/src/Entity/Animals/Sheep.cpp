@@ -1,7 +1,7 @@
 #include "Sheep.h"
 
 Sheep::Sheep(World* world, Point position) : 
-    Animal{ world, position, 'S', 4, 4 }
+    Animal{ AssetManager::getAssetManager()->getAsset("sheep"), world, position, 'S', 4, 4 }
 {
 }
 

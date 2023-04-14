@@ -1,7 +1,7 @@
 #include "Turtle.h"
 
 Turtle::Turtle(World* world, Point position) :
-    Animal(world, position, 'T', 2, 1)
+	Animal{ AssetManager::getAssetManager()->getAsset("turtle"), world, position, 'T', 2, 1 }
 {
 }
 

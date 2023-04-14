@@ -7,12 +7,14 @@
 #include "../Common/Utility.h"
 #include "../Common/Point.h"
 #include "../App/World.h"
+#include "../Graphics/AssetManager.h"
 
 class World;
 
 class Entity
 {
 protected:
+	BMPFile* texture;
 	World* world;
 	Point position;
 	bool isAlive;
@@ -22,9 +24,10 @@ protected:
 	int lifespan;
 
 public:
-	Entity(World* world, Point position, char symbol, int strength, int priority);
+	Entity(BMPFile* texture, World* world, Point position, char symbol, int strength, int priority);
 	virtual ~Entity();
 
+	BMPFile* getTexture() const;
 	Point getPosition() const;
 	char getSymbol() const;
 	int getStrength() const;

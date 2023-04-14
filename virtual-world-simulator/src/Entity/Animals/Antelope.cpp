@@ -30,7 +30,7 @@ bool Antelope::runAway()
 }
 
 Antelope::Antelope(World* world, Point position) :
-    Animal{ world, position, 'A', 4, 4 }
+    Animal{ AssetManager::getAssetManager()->getAsset("antelope"), world, position, 'A', 4, 4}
 {
 }
 

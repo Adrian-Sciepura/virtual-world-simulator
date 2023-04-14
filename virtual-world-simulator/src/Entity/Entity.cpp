@@ -1,12 +1,17 @@
 #include "Entity.h"
 
-Entity::Entity(World* world, Point position, char symbol, int strength, int priority) :
-    world{ world }, position{ position }, symbol{ symbol }, strength{ strength }, priority{ priority }, lifespan{ 0 }, isAlive{ true }
+Entity::Entity(BMPFile* texture, World* world, Point position, char symbol, int strength, int priority) :
+    texture{ texture }, world { world }, position{ position }, symbol{ symbol }, strength{ strength }, priority{ priority }, lifespan{ 0 }, isAlive{ true }
 {
 }
 
 Entity::~Entity()
 {
+}
+
+BMPFile* Entity::getTexture() const
+{
+    return this->texture;
 }
 
 Point Entity::getPosition() const

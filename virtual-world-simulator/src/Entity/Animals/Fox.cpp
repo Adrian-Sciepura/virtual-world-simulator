@@ -1,7 +1,7 @@
 #include "Fox.h"
 
 Fox::Fox(World* world, Point position) :
-    Animal{ world, position, 'F', 3, 7 }
+    Animal{ AssetManager::getAssetManager()->getAsset("fox"), world, position, 'F', 3, 7 }
 {
 }
 

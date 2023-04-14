@@ -1,7 +1,7 @@
 #include "Animal.h"
 
-Animal::Animal(World* world, Point position, char symbol, int strength, int priority) :
-	Entity{ world, position, symbol, strength, priority }
+Animal::Animal(BMPFile* texture, World* world, Point position, char symbol, int strength, int priority) :
+	Entity{ texture, world, position, symbol, strength, priority }
 {
 
 }
