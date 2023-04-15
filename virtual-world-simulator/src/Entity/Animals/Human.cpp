@@ -5,6 +5,11 @@ Human::Human(World* world, Point position) :
 {
 }
 
+Point Human::getNewPosition() const
+{
+    return this->newPosition;
+}
+
 bool Human::setNewPosition(int keyCode)
 {
     int mapWidth = this->world->getWidth();

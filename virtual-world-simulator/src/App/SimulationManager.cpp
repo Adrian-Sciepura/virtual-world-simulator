@@ -64,6 +64,8 @@ void SimulationManager::updateInfo()
 	std::string anim = "Animals: " + std::to_string(Animal::getNumberOfAnimals()) + "   ";
 	std::string pl = "Plants: " + std::to_string(Plant::getNumberOfPlants()) + "   ";
 	std::string ab = "Ability cooldown: ";
+	std::string x = "X: " + (world->checkIfGameOver() ? " -- " : std::to_string(player->getPosition().y) + "   ");
+	std::string y = "Y: " + (world->checkIfGameOver() ? " -- " : std::to_string(player->getPosition().x) + "   ");
 
 	graphicsEngine.drawText(font, rn, {330, 120});
 	graphicsEngine.drawText(font, anim, { 330, 130 });
@@ -79,16 +81,23 @@ void SimulationManager::updateInfo()
 		ab.append("- ");
 		graphicsEngine.drawText(font, ab, { 330, 150 }, Color::GREEN);
 	}
+
+	graphicsEngine.drawText(font, x, { 330, 160 });
+	graphicsEngine.drawText(font, y, { 330, 170 });
 }
 
 void SimulationManager::draw()
 {
 	BMPFile* currentTexture = nullptr;
+	int x = 0;
+	int y = 0;
 	for (int i = 0; i < 15; i++)
 	{
 		for (int j = 0; j < 15; j++)
 		{
-			currentTexture = worldMap[i][j] != nullptr ? worldMap[i][j]->getTexture() : assetManager->getAsset("blank");
+			y = i + horizontalMapShift;
+			x = j + verticalMapShift;
+			currentTexture = worldMap[y][x] != nullptr ? worldMap[y][x]->getTexture() : assetManager->getAsset("blank");
 			graphicsEngine.drawBMP(currentTexture, { 2 + j * 19, 2 + i * 19 });
 		}
 	}
@@ -172,14 +181,6 @@ bool SimulationManager::checkKey(int keyCode)
 			quit = true;
 			break;
 		}
-		case KeyCodes::N:
-		{
-			break;
-		}
-		case KeyCodes::S:
-		{
-			break;
-		}
 		case KeyCodes::M:
 		{
 			menuMode(false);
@@ -202,7 +203,19 @@ bool SimulationManager::checkKey(int keyCode)
 				return true;
 
 			if (player->setNewPosition(keyCode))
+			{
+				Point newPosition = player->getNewPosition();
+				if (newPosition.x > 14 + horizontalMapShift)
+					horizontalMapShift++;
+				else if (newPosition.x < horizontalMapShift)
+					horizontalMapShift--;
+				else if (newPosition.y > 14 + verticalMapShift)
+					verticalMapShift++;
+				else if (newPosition.y < verticalMapShift)
+					verticalMapShift--;
+
 				return false;
+			}
 
 			break;
 		}
@@ -218,7 +231,7 @@ void SimulationManager::gameOver()
 	std::string line = "----------";
 	std::string message = "Game over!";
 
-	int pos = (worldWidth * (singleEntitySize + 3) - message.length() * 8) / 2;
+	int pos = (15 * (singleEntitySize + 3) - message.length() * 8) / 2;
 
 	graphicsEngine.drawText(font, line, { pos, 100 }, Color::DARKRED);
 	graphicsEngine.drawText(font, message, { pos, 115 }, Color::RED);
@@ -376,11 +389,37 @@ bool SimulationManager::newGame()
 	if(world != nullptr)
 		delete world;
 
-	world = new World(15, 15);
+	Menu dimmensionsMenu(&graphicsEngine, "Enter world dimensions");
+	dimmensionsMenu.addItem({ MenuItem::ItemType::ENTRY, "  Width  " });
+	dimmensionsMenu.addItem({ MenuItem::ItemType::ENTRY, "  Height  " });
+	dimmensionsMenu.addItem({ MenuItem::ItemType::TEXT, "  Accept  " });
+
+	bool correctData = false;
+	int width = 0;
+	int height = 0;
+	while (!correctData)
+	{
+		std::vector<std::string> result = dimmensionsMenu.open(2);
+		try
+		{
+			width = stoi(result[1]);
+			height = stoi(result[2]);
+			if(height > 5 && width > 5)
+				correctData = true;
+		}
+		catch (std::invalid_argument)
+		{
+
+		}
+	}
+
+	world = new World(width, height);
 	worldMap = world->getMap();
-	worldWidth = 15;
-	worldHeight = 15;
+	worldWidth = width;
+	worldHeight = height;
 	round = 0;
+	verticalMapShift = 0;
+	horizontalMapShift = 0;
 	availableMenuOptions = 2;
 
 	player = new Human(world, { 2, 2 });

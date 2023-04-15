@@ -13,6 +13,7 @@ protected:
 public:
 	Human(World* world, Point position);
 	
+	Point getNewPosition() const;
 	bool setNewPosition(int keyCode);
 	virtual void update(std::fstream& logFile);
 	virtual bool collision(std::fstream& logFile, Entity& entity);

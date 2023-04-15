@@ -51,6 +51,8 @@ private:
 	int round;
 	int abilityCooldown;
 	int availableMenuOptions;
+	int verticalMapShift;
+	int horizontalMapShift;
 	
 	void draw();
 	void drawBoard();

@@ -127,6 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Graphics\Menu.cpp" />
+    <ClCompile Include="src\Graphics\MenuItem.cpp" />
     <ClCompile Include="src\Graphics\Asset.cpp" />
     <ClCompile Include="src\Graphics\AssetManager.cpp" />
     <ClCompile Include="src\Graphics\RGBColor.cpp" />
@@ -152,6 +154,8 @@
     <ClCompile Include="src\App\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Graphics\Menu.h" />
+    <ClInclude Include="src\Graphics\MenuItem.h" />
     <ClInclude Include="src\Common\KeyCodes.h" />
     <ClInclude Include="src\Graphics\Asset.h" />
     <ClInclude Include="src\Graphics\AssetManager.h" />
