@@ -46,6 +46,7 @@ private:
 	World* world;
 	Entity*** worldMap;
 	int worldWidth, worldHeight;
+	int renderMapWidth, renderMapHeight;
 
 	bool quit;
 	int round;
@@ -61,6 +62,7 @@ private:
 	void update();
 	bool checkKey(int keyCode);
 
+	void placeEntities();
 	void gameOver();
 	void logMode();
 	void drawLogMenu(int cursorPosition);
@@ -68,6 +70,8 @@ private:
 	bool newGame();
 	bool saveGame();
 	bool loadGame();
+
+	Entity* getEntityFromSymbol(World* world, Point position, char symbol, int lifespan = 0, int strength = 0, int priority = 0);
 
 public:
 	SimulationManager();

@@ -34,13 +34,13 @@ void SimulationManager::drawBoard()
 	int screenHeight = graphicsEngine.getScreenHeight();
 
 	//Horizontal
-	for (int i = 0; i <= 15; i++)
-		for (int j = 0; j < 15 * singleEntitySize + 15 * 3; j++)
+	for (int i = 0; i <= renderMapHeight; i++)
+		for (int j = 0; j < renderMapWidth * (singleEntitySize + 3); j++)
 			colorBuffer[i * (singleEntitySize + 3) * screenWidth + j] = Color::WHITE;
 
 	//Vertical
-	for (int i = 0; i < 15 * (singleEntitySize + 3); i++)
-		for (int j = 0; j <= 15; j++)
+	for (int i = 0; i < renderMapHeight * (singleEntitySize + 3); i++)
+		for (int j = 0; j <= renderMapWidth; j++)
 			colorBuffer[i * screenWidth + j * (singleEntitySize + 3)] = Color::WHITE;
 }
 
@@ -91,9 +91,9 @@ void SimulationManager::draw()
 	BMPFile* currentTexture = nullptr;
 	int x = 0;
 	int y = 0;
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < renderMapHeight; i++)
 	{
-		for (int j = 0; j < 15; j++)
+		for (int j = 0; j < renderMapWidth; j++)
 		{
 			y = i + horizontalMapShift;
 			x = j + verticalMapShift;
@@ -223,6 +223,29 @@ bool SimulationManager::checkKey(int keyCode)
 
 	graphicsEngine.drawBuffer();
 	return true;
+}
+
+void SimulationManager::placeEntities()
+{
+	int freeSpace = worldWidth * worldHeight;
+	char types[] = { 'A', 'F', 'S', 'T', 'W', 'G', 'D', 'N', 'U' };
+
+	int x = 0;
+	int y = 0;
+	int type = 0;
+	int howMany = freeSpace / 3;
+	for (int i = 0; i < howMany; i++)
+	{
+		y = rand() % worldHeight;
+		x = rand() % worldWidth;
+		type = rand() % 9;
+
+		if (worldMap[y][x] == nullptr)
+		{
+			worldMap[y][x] = getEntityFromSymbol(world, {y, x}, types[type]);
+		}
+	}
+
 }
 
 void SimulationManager::gameOver()
@@ -417,6 +440,8 @@ bool SimulationManager::newGame()
 	worldMap = world->getMap();
 	worldWidth = width;
 	worldHeight = height;
+	renderMapWidth = (worldWidth < 15 ? worldWidth : 15);
+	renderMapHeight = (worldHeight < 15 ? worldHeight : 15);
 	round = 0;
 	verticalMapShift = 0;
 	horizontalMapShift = 0;
@@ -424,26 +449,8 @@ bool SimulationManager::newGame()
 
 	player = new Human(world, { 2, 2 });
 	worldMap[2][2] = player;
-
-	worldMap[1][1] = new Fox(world, Point(1, 1));
-	worldMap[1][8] = new Fox(world, Point(1, 8));
-	worldMap[1][10] = new Fox(world, Point(1, 10));
-	worldMap[10][10] = new Fox(world, Point(10, 10));
-	worldMap[2][7] = new Wolf(world, Point(2, 7));
-	worldMap[2][3] = new Wolf(world, Point(2, 3));
-	worldMap[3][3] = new Turtle(world, Point(3, 3));
-	worldMap[4][4] = new Turtle(world, Point(4, 4));
-	worldMap[5][5] = new Antelope(world, Point(5, 5));
-	worldMap[5][6] = new Antelope(world, Point(5, 6));
-	worldMap[7][2] = new Grass(world, Point(7, 2));
-	worldMap[7][3] = new Grass(world, Point(7, 3));
-	worldMap[7][12] = new Dandelion(world, Point(7, 12));
-	worldMap[7][13] = new Dandelion(world, Point(7, 13));
-	worldMap[13][13] = new Guarana(world, Point(13, 13));
-	worldMap[8][8] = new Nightshade(world, Point(8, 8));
-	worldMap[8][9] = new Nightshade(world, Point(8, 9));
-
-
+	placeEntities();
+	
 	std::fstream logFile = std::fstream("log.txt", std::ios::out);
 	logFile.close();
 
@@ -458,4 +465,23 @@ bool SimulationManager::saveGame()
 bool SimulationManager::loadGame()
 {
 	return false;
+}
+
+Entity* SimulationManager::getEntityFromSymbol(World* world, Point position, char symbol, int lifespan, int strength, int priority)
+{
+	switch (symbol)
+	{
+		case 'H': return new Human(world, position);
+		case 'A': return new Antelope(world, position);
+		case 'F': return new Fox(world, position);
+		case 'S': return new Sheep(world, position);
+		case 'T': return new Turtle(world, position);
+		case 'W': return new Wolf(world, position);
+		case 'G': return new Grass(world, position);
+		case 'D': return new Dandelion(world, position);
+		case 'N': return new Nightshade(world, position);
+		case 'U': return new Guarana(world, position);
+	}
+
+	return nullptr;
 }
