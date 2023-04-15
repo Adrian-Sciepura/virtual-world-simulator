@@ -17,6 +17,7 @@ struct Point
 	Point& operator-(const Point& point);
 	bool operator==(const Point& point) const;
 	friend std::ostream& operator<<(std::ostream& os, const Point& point);
+	friend std::istream& operator>>(std::istream& is, Point& point);
 };
 
 #endif

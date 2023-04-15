@@ -46,3 +46,9 @@ std::ostream& operator<<(std::ostream& os, const Point& point)
     os << '[' << point.y << ", " << point.x << ']';
     return os;
 }
+
+std::istream& operator>>(std::istream& is, Point& point)
+{
+    is >> point.x >> point.y;
+    return is;
+}

@@ -459,7 +459,22 @@ bool SimulationManager::newGame()
 
 bool SimulationManager::saveGame()
 {
-	return false;
+	std::fstream saveFile = std::fstream("save.txt", std::ios::out);
+	
+	saveFile << worldWidth << ' ' << worldHeight << '\n';
+	Entity* curr = nullptr;
+	for(int i = 0; i < worldHeight; i++)
+		for (int j = 0; j < worldWidth; j++)
+			if (worldMap[i][j] != nullptr)
+			{
+				curr = worldMap[i][j];
+				saveFile << curr->getSymbol() << ' ' << i << ' ' << j << ' ' << worldMap[i][j]->getLifespan() << ' ' << worldMap[i][j]->getStrength() << '\n';
+			}
+
+	saveFile.close();
+
+
+	return true;
 }
 
 bool SimulationManager::loadGame()
@@ -467,7 +482,7 @@ bool SimulationManager::loadGame()
 	return false;
 }
 
-Entity* SimulationManager::getEntityFromSymbol(World* world, Point position, char symbol, int lifespan, int strength, int priority)
+Entity* SimulationManager::getEntityFromSymbol(World* world, Point position, char symbol, int lifespan, int strength)
 {
 	switch (symbol)
 	{
