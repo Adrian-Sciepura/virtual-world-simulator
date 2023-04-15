@@ -7,6 +7,7 @@ enum KeyCodes
 	DOWN = 80,
 	LEFT = 75,
 	RIGHT = 77,
+	ENTER = 13,
 	A = 'a',
 	Q = 'q',
 	N = 'n',

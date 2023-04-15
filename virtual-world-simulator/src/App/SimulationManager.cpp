@@ -1,15 +1,10 @@
 #include "SimulationManager.h"
 
 SimulationManager::SimulationManager() : 
-	world{ 15, 15 }, worldMap{ world.getMap() }, worldWidth{ world.getWidth() }, worldHeight{ world.getHeight() }, 
-	assetManager{ AssetManager::getAssetManager() }, singleEntitySize{ 16 }, graphicsEngine{ 500, 287 }, 
+	world{ nullptr }, assetManager{ AssetManager::getAssetManager() }, singleEntitySize{ 16 }, graphicsEngine{ 500, 287 }, 
 	colorBuffer{ graphicsEngine.getScreenColorsBuffer() }, round{ 0 }, abilityCooldown{ 5 }, gameOver{ false },
-	player{ nullptr }
+	player{ nullptr }, availableMenuOptions{ 0 }
 {
-
-	std::fstream logFile = std::fstream("log.txt", std::ios::out);
-	logFile.close();
-
 	assetManager->loadAsset("font", "./assets/font.bmp");
 
 	assetManager->loadAsset("blank", "./assets/blank.bmp");
@@ -24,10 +19,13 @@ SimulationManager::SimulationManager() :
 	assetManager->loadAsset("dandelion", "./assets/dandelion.bmp");
 	assetManager->loadAsset("guarana", "./assets/guarana.bmp");
 	assetManager->loadAsset("nightShade", "./assets/nightShade.bmp");
+
+	menuMode(true);
 }
 
 SimulationManager::~SimulationManager()
 {
+	delete world;
 	AssetManager::destroyAssetManager();
 }
 
@@ -53,13 +51,10 @@ void SimulationManager::drawInfo()
 	drawText(">-----------------<", { 314, 35 });
 	drawText("a - ability", { 330, 50 });
 	drawText("q - quit", { 330, 60 });
-	drawText("n - new game", { 330, 70 });
-	drawText("s - save game", { 330, 80 });
-	drawText("l - load game", { 330, 90 });
-	drawText("m - show logs", { 330, 100 });
-	drawText("enter - next round", { 330, 110 });
-	drawText("arrows - movement", { 330, 120 });
-	drawText(">---------------------<", { 306, 135 });
+	drawText("l - open logs", { 330, 70 });
+	drawText("m - open menu", { 330, 80 });
+	drawText("arrows - movement", { 330, 90 });
+	drawText(">---------------------<", { 306, 105 });
 
 	updateInfo();
 }
@@ -71,19 +66,19 @@ void SimulationManager::updateInfo()
 	std::string pl = "Plants: " + std::to_string(Plant::getNumberOfPlants()) + "   ";
 	std::string ab = "Ability cooldown: ";
 
-	drawText(rn, {330, 150});
-	drawText(anim, { 330, 160 });
-	drawText(pl, { 330, 170 });
+	drawText(rn, {330, 120});
+	drawText(anim, { 330, 130 });
+	drawText(pl, { 330, 140 });
 
 	if (abilityCooldown > 0)
 	{
 		ab.append(std::to_string(abilityCooldown) + " ");
-		drawText(ab, { 330, 180 }, Color::WHITE);
+		drawText(ab, { 330, 150 }, Color::WHITE);
 	}
 	else
 	{
 		ab.append("- ");
-		drawText(ab, { 330, 180 }, Color::GREEN);
+		drawText(ab, { 330, 150 }, Color::GREEN);
 	}
 }
 
@@ -168,29 +163,10 @@ void SimulationManager::update()
 
 void SimulationManager::start()
 {
+	graphicsEngine.clearBuffer();
 	drawBoard();
 	drawInfo();
-	player = new Human(&world, Point(5, 10));
 
-	worldMap[5][10] = player;
-	worldMap[1][1] = new Fox(&world, Point(1, 1));
-	worldMap[1][8] = new Fox(&world, Point(1, 8));
-	worldMap[1][10] = new Fox(&world, Point(1, 10));
-	worldMap[10][10] = new Fox(&world, Point(10, 10));
-	worldMap[2][2] = new Wolf(&world, Point(2, 2));
-	worldMap[2][3] = new Wolf(&world, Point(2, 3));
-	worldMap[3][3] = new Turtle(&world, Point(3, 3));
-	worldMap[4][4] = new Turtle(&world, Point(4, 4));
-	worldMap[5][5] = new Antelope(&world, Point(5, 5));
-	worldMap[5][6] = new Antelope(&world, Point(5, 6));
-	worldMap[7][2] = new Grass(&world, Point(7, 2));
-	worldMap[7][3] = new Grass(&world, Point(7, 3));
-	worldMap[7][12] = new Dandelion(&world, Point(7, 12));
-	worldMap[7][13] = new Dandelion(&world, Point(7, 13));
-	worldMap[13][13] = new Guarana(&world, Point(13, 13));
-	worldMap[8][8] = new Nightshade(&world, Point(8, 8));
-	worldMap[8][9] = new Nightshade(&world, Point(8, 9));
-	
 	int key = NULL;
 	draw();
 	while (!gameOver)
@@ -228,17 +204,20 @@ bool SimulationManager::checkKey(int keyCode)
 		{
 			break;
 		}
-		case KeyCodes::L:
+		case KeyCodes::M:
 		{
+			menuMode(false);
+			drawBoard();
+			drawInfo();
+			draw();
 			break;
 		}
-		case KeyCodes::M:
+		case KeyCodes::L:
 		{
 			logMode();
 			drawBoard();
 			drawInfo();
 			draw();
-			graphicsEngine.drawBuffer();
 			break;
 		}
 		default:
@@ -250,6 +229,7 @@ bool SimulationManager::checkKey(int keyCode)
 		}
 	}
 
+	graphicsEngine.drawBuffer();
 	return true;
 }
 
@@ -274,7 +254,7 @@ void SimulationManager::logMode()
 
 	int key = NULL;
 	bool refresh = true;
-	while (key != KeyCodes::M)
+	while (key != KeyCodes::L)
 	{
 		switch (key)
 		{
@@ -376,4 +356,126 @@ void SimulationManager::drawLogMenu(int cursorPosition)
 		length += 4;
 		number++;
 	}
+}
+
+void SimulationManager::menuMode(bool firstGame)
+{
+	graphicsEngine.clearBuffer();
+
+	std::string title = "Virtual world simulator";
+	int length = title.size() * 8;
+
+	drawText(title, { (graphicsEngine.getScreenWidth() - length) / 2, 80 }, Color::GREEN);
+
+	bool (SimulationManager::*functions[])() = { &SimulationManager::newGame, &SimulationManager::loadGame, &SimulationManager::saveGame };
+	std::string options[] = { "New game", "Load game", "Save game" };
+
+	int optionsLength = 16;
+	for (int i = 0; i < 3; i++)
+		optionsLength += options[i].size() * 8;
+
+	int currentOption = 0;
+	int key = NULL;
+	bool operationSuccess = false;
+
+	while (key != KeyCodes::M || firstGame)
+	{
+		switch (key)
+		{
+			case KeyCodes::LEFT:
+			{
+				if(currentOption > 0)
+					currentOption--;
+				
+				break;
+			}
+			case KeyCodes::RIGHT:
+			{
+				if(currentOption < availableMenuOptions)
+					currentOption++;
+
+				break;
+			}
+			case KeyCodes::ENTER:
+			{
+				operationSuccess = (this->*functions[currentOption])();
+				break;
+			}
+		}
+
+		if (operationSuccess)
+			break;
+
+		int temp = 0;
+		Color color;
+		for(int i = 0; i < 3; i++)
+		{
+			if(i == currentOption)
+				color = Color::RED;
+			else
+				if(i > availableMenuOptions)
+					color = Color::GRAY;
+				else
+					color = Color::WHITE;
+
+			drawText(options[i], { (graphicsEngine.getScreenWidth() - optionsLength) / 2 + temp, 120 }, color);
+			temp += options[i].size() * 8 + 16;
+		}
+
+		graphicsEngine.drawBuffer();
+		key = _getch();
+	}
+
+	graphicsEngine.clearBuffer();
+}
+
+bool SimulationManager::newGame()
+{
+	if(world != nullptr)
+		delete world;
+
+	world = new World(15, 15);
+	worldMap = world->getMap();
+	worldWidth = 15;
+	worldHeight = 15;
+	round = 0;
+	gameOver = false;
+	availableMenuOptions = 2;
+
+	player = new Human(world, { 2, 2 });
+	worldMap[2][2] = player;
+
+	worldMap[1][1] = new Fox(world, Point(1, 1));
+	worldMap[1][8] = new Fox(world, Point(1, 8));
+	worldMap[1][10] = new Fox(world, Point(1, 10));
+	worldMap[10][10] = new Fox(world, Point(10, 10));
+	worldMap[2][7] = new Wolf(world, Point(2, 7));
+	worldMap[2][3] = new Wolf(world, Point(2, 3));
+	worldMap[3][3] = new Turtle(world, Point(3, 3));
+	worldMap[4][4] = new Turtle(world, Point(4, 4));
+	worldMap[5][5] = new Antelope(world, Point(5, 5));
+	worldMap[5][6] = new Antelope(world, Point(5, 6));
+	worldMap[7][2] = new Grass(world, Point(7, 2));
+	worldMap[7][3] = new Grass(world, Point(7, 3));
+	worldMap[7][12] = new Dandelion(world, Point(7, 12));
+	worldMap[7][13] = new Dandelion(world, Point(7, 13));
+	worldMap[13][13] = new Guarana(world, Point(13, 13));
+	worldMap[8][8] = new Nightshade(world, Point(8, 8));
+	worldMap[8][9] = new Nightshade(world, Point(8, 9));
+
+
+	std::fstream logFile = std::fstream("log.txt", std::ios::out);
+	logFile.close();
+
+	return true;
+}
+
+bool SimulationManager::saveGame()
+{
+	return false;
+}
+
+bool SimulationManager::loadGame()
+{
+	return false;
 }

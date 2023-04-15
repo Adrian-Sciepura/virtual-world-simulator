@@ -41,13 +41,14 @@ private:
 	const int singleEntitySize;
 
 	Human* player;
-	World world;
+	World* world;
 	Entity*** worldMap;
 	int worldWidth, worldHeight;
 
 	int round;
 	int abilityCooldown;
 	bool gameOver;
+	int availableMenuOptions;
 	
 	void draw();
 	void drawBoard();
@@ -58,14 +59,16 @@ private:
 	bool checkKey(int keyCode);
 	void logMode();
 	void drawLogMenu(int cursorPosition);
+	void menuMode(bool firstGame);
+	bool newGame();
+	bool saveGame();
+	bool loadGame();
 
 public:
 	SimulationManager();
 	~SimulationManager();
 
 	void start();
-	
-	
 };
 
 #endif
