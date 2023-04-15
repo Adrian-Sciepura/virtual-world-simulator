@@ -58,6 +58,7 @@ void Menu::draw(int availableMenuOptions, std::vector<std::string>& values)
 
 std::vector<std::string> Menu::open(int availableMenuOptions)
 {
+	cursorPosition = 0;
 	std::vector<std::string> result;
 	
 	result.push_back("");
