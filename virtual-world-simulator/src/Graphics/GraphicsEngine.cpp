@@ -100,6 +100,36 @@ void GraphicsEngine::drawBMPChunk(BMPFile* image, const Point& position, const P
 		}
 }
 
+void GraphicsEngine::drawText(BMPFile* font, const std::string& text, const Point& position, Color color)
+{
+	const int lineSpacing = 2;
+	int currentCharASCII = 0;
+	int row = 0;
+	int column = 0;
+	int line = 0;
+	int letter = 0;
+
+	for (int i = 0; i < text.length(); i++)
+	{
+		if (text[i] == '\n')
+		{
+			line++;
+			letter = 0;
+			continue;
+		}
+
+		currentCharASCII = (int)text[i];
+		row = currentCharASCII / 16;
+		column = currentCharASCII % 16;
+
+		drawBMPChunk(font, { position.x + letter * 8, position.y + line * (8 + lineSpacing) }, { column * 8, row * 8 }, { (column + 1) * 8, (row + 1) * 8 });
+		letter++;
+	}
+
+	if (color != Color::NONE)
+		recolor(color, position, { position.x + letter * 8, position.y + (line + 1) * 8 });
+}
+
 void GraphicsEngine::drawBuffer()
 {
 	WriteConsoleOutputAttribute(console, screenColorsBuffer, numberOfChars, { 0,0 }, &bytesWritten);

@@ -4,7 +4,7 @@ SimulationManager::SimulationManager() :
 	world{ nullptr }, assetManager{ AssetManager::getAssetManager() }, singleEntitySize{ 16 }, graphicsEngine{ 500, 287 }, 
 	colorBuffer{ graphicsEngine.getScreenColorsBuffer() }, round{ 0 }, abilityCooldown{ 5 }, player{ nullptr }, availableMenuOptions{ 0 }, quit{ false }
 {
-	assetManager->loadAsset("font", "./assets/font.bmp");
+	font = assetManager->loadAsset("font", "./assets/font.bmp");
 
 	assetManager->loadAsset("blank", "./assets/blank.bmp");
 	assetManager->loadAsset("sheep", "./assets/sheep.bmp");
@@ -46,14 +46,14 @@ void SimulationManager::drawBoard()
 
 void SimulationManager::drawInfo()
 {
-	drawText("Adrian Sciepura", { 330, 20 });
-	drawText(">-----------------<", { 314, 35 });
-	drawText("a - ability", { 330, 50 });
-	drawText("q - quit", { 330, 60 });
-	drawText("l - open logs", { 330, 70 });
-	drawText("m - open menu", { 330, 80 });
-	drawText("arrows - movement", { 330, 90 });
-	drawText(">---------------------<", { 306, 105 });
+	graphicsEngine.drawText(font, "Adrian Sciepura", { 330, 20 });
+	graphicsEngine.drawText(font, ">-----------------<", { 314, 35 });
+	graphicsEngine.drawText(font, "a - ability", { 330, 50 });
+	graphicsEngine.drawText(font, "q - quit", { 330, 60 });
+	graphicsEngine.drawText(font, "l - open logs", { 330, 70 });
+	graphicsEngine.drawText(font, "m - open menu", { 330, 80 });
+	graphicsEngine.drawText(font, "arrows - movement", { 330, 90 });
+	graphicsEngine.drawText(font, ">---------------------<", { 306, 105 });
 
 	updateInfo();
 }
@@ -65,50 +65,20 @@ void SimulationManager::updateInfo()
 	std::string pl = "Plants: " + std::to_string(Plant::getNumberOfPlants()) + "   ";
 	std::string ab = "Ability cooldown: ";
 
-	drawText(rn, {330, 120});
-	drawText(anim, { 330, 130 });
-	drawText(pl, { 330, 140 });
+	graphicsEngine.drawText(font, rn, {330, 120});
+	graphicsEngine.drawText(font, anim, { 330, 130 });
+	graphicsEngine.drawText(font, pl, { 330, 140 });
 
 	if (abilityCooldown > 0)
 	{
 		ab.append(std::to_string(abilityCooldown) + " ");
-		drawText(ab, { 330, 150 }, Color::WHITE);
+		graphicsEngine.drawText(font, ab, { 330, 150 }, Color::WHITE);
 	}
 	else
 	{
 		ab.append("- ");
-		drawText(ab, { 330, 150 }, Color::GREEN);
+		graphicsEngine.drawText(font, ab, { 330, 150 }, Color::GREEN);
 	}
-}
-
-void SimulationManager::drawText(std::string text, const Point& position, Color color)
-{
-	const int lineSpacing = 2;
-	int currentCharASCII = 0;
-	int row = 0;
-	int column = 0;
-	int line = 0;
-	int letter = 0;
-
-	for (int i = 0; i < text.length(); i++)
-	{
-		if (text[i] == '\n')
-		{
-			line++;
-			letter = 0;
-			continue;
-		}
-
-		currentCharASCII = (int)text[i];
-		row = currentCharASCII / 16;
-		column = currentCharASCII % 16;
-
-		graphicsEngine.drawBMPChunk(assetManager->getAsset("font"), { position.x + letter * 8, position.y + line * (8 + lineSpacing) }, { column * 8, row * 8 }, { (column + 1) * 8, (row + 1) * 8 });
-		letter++;
-	}
-
-	if (color != Color::NONE)
-		graphicsEngine.recolor(color, position, { position.x + letter * 8, position.y + (line + 1) * 8 });
 }
 
 void SimulationManager::draw()
@@ -250,9 +220,9 @@ void SimulationManager::gameOver()
 
 	int pos = (worldWidth * (singleEntitySize + 3) - message.length() * 8) / 2;
 
-	drawText(line, { pos, 100 }, Color::DARKRED);
-	drawText(message, { pos, 115 }, Color::RED);
-	drawText(line, { pos, 130 }, Color::DARKRED);
+	graphicsEngine.drawText(font, line, { pos, 100 }, Color::DARKRED);
+	graphicsEngine.drawText(font, message, { pos, 115 }, Color::RED);
+	graphicsEngine.drawText(font, line, { pos, 130 }, Color::DARKRED);
 }
 
 void SimulationManager::logMode()
@@ -335,7 +305,7 @@ void SimulationManager::logMode()
 					break;
 
 				if(skipped > howManyLinesToSkip)
-					drawText(line, { 5, 8 + (lineNumber - howManyLinesToSkip) * 10 });
+					graphicsEngine.drawText(font, line, { 5, 8 + (lineNumber - howManyLinesToSkip) * 10 });
 				else
 					skipped++;
 
@@ -364,7 +334,7 @@ void SimulationManager::drawLogMenu(int cursorPosition)
 
 	int number = cursorPosition;
 	std::string numAsString = std::to_string(number);
-	drawText(numAsString, { 4, 1 }, Color::RED);
+	graphicsEngine.drawText(font, numAsString, { 4, 1 }, Color::RED);
 	int length = 4 + numAsString.size() * 8 + 4;
 	number++;
 
@@ -373,7 +343,7 @@ void SimulationManager::drawLogMenu(int cursorPosition)
 	while (length-4 < graphicsEngine.getScreenWidth())
 	{
 		numAsString = std::to_string(number);
-		drawText(numAsString, { length, 1 });
+		graphicsEngine.drawText(font, numAsString, { length, 1 });
 		length += numAsString.size() * 8;
 		length += 4;
 		number++;
@@ -387,7 +357,7 @@ void SimulationManager::menuMode(bool firstGame)
 	std::string title = "Virtual world simulator";
 	int length = title.size() * 8;
 
-	drawText(title, { (graphicsEngine.getScreenWidth() - length) / 2, 80 }, Color::GREEN);
+	graphicsEngine.drawText(font, title, { (graphicsEngine.getScreenWidth() - length) / 2, 80 }, Color::GREEN);
 
 	bool (SimulationManager::*functions[])() = { &SimulationManager::newGame, &SimulationManager::loadGame, &SimulationManager::saveGame };
 	std::string options[] = { "New game", "Load game", "Save game" };
@@ -440,7 +410,7 @@ void SimulationManager::menuMode(bool firstGame)
 				else
 					color = Color::WHITE;
 
-			drawText(options[i], { (graphicsEngine.getScreenWidth() - optionsLength) / 2 + temp, 120 }, color);
+			graphicsEngine.drawText(font, options[i], { (graphicsEngine.getScreenWidth() - optionsLength) / 2 + temp, 120 }, color);
 			temp += options[i].size() * 8 + 16;
 		}
 

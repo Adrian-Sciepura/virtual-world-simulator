@@ -34,6 +34,7 @@ class SimulationManager
 private:
 	std::priority_queue < Entity*, std::vector<Entity*>, EntityCompare> entities;
 	
+	BMPFile* font;
 	GraphicsEngine graphicsEngine;
 	WORD* colorBuffer;
 
@@ -52,7 +53,6 @@ private:
 	
 	void draw();
 	void drawBoard();
-	void drawText(std::string text, const Point& position, Color color = Color::NONE);
 	void drawInfo();
 	void updateInfo();
 	void update();

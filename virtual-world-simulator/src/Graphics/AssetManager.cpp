@@ -37,7 +37,7 @@ void AssetManager::destroyAssetManager()
 BMPFile* AssetManager::loadAsset(std::string name, const char* path)
 {
     this->assets.push_back(new Asset(name, Utility::readBMP(path)));
-    return nullptr;
+    return assets.back()->bmpFile;
 }
 
 BMPFile* AssetManager::getAsset(std::string name)

@@ -33,6 +33,7 @@ public:
 	void recolor(Color newColor, const Point& start, const Point& end);
 	void drawBMP(BMPFile* image, const Point& position);
 	void drawBMPChunk(BMPFile* image, const Point& position, const Point& start, const Point& end);
+	void drawText(BMPFile* font, const std::string& text, const Point& position, Color color = Color::NONE);
 	void drawBuffer();
 	void clearBuffer();
 
