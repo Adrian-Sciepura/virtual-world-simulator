@@ -5,6 +5,11 @@ Sheep::Sheep(World* world, Point position) :
 {
 }
 
+Sheep::Sheep(World* world, Point position, int lifeSpan, int strength) :
+	Animal{ AssetManager::getAssetManager()->getAsset("sheep"), world, position, 'S', strength, 4, lifeSpan }
+{
+}
+
 bool Sheep::collision(std::fstream& logFile, Entity& entity)
 {
 	Sheep* sheep = dynamic_cast<Sheep*>(&entity);

@@ -12,6 +12,7 @@ protected:
 
 public:
 	Human(World* world, Point position);
+	Human(World* world, Point position, int lifeSpan, int strength);
 	
 	Point getNewPosition() const;
 	bool setNewPosition(int keyCode);

@@ -18,6 +18,7 @@ protected:
 
 public:
 	Plant(BMPFile* texture, World* world, Point position, char symbol, int strength, SpreadChance spreadChance);
+	Plant(BMPFile* texture, World* world, Point position, char symbol, int strength, int lifeSpan, SpreadChance spreadChance);
 	~Plant();
 
 

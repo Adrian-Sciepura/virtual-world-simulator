@@ -5,6 +5,11 @@ Human::Human(World* world, Point position) :
 {
 }
 
+Human::Human(World* world, Point position, int lifeSpan, int strength) :
+    Animal{ AssetManager::getAssetManager()->getAsset("human"), world, position, 'H', strength, 4, lifeSpan }, newPosition{ position }
+{
+}
+
 Point Human::getNewPosition() const
 {
     return this->newPosition;

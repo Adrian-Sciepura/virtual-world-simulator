@@ -5,6 +5,11 @@ Guarana::Guarana(World* world, Point position) :
 {
 }
 
+Guarana::Guarana(World* world, Point position, int lifeSpan, int strength) :
+	Plant { AssetManager::getAssetManager()->getAsset("guarana"), world, position, 'U', strength, lifeSpan, SpreadChance::MEDIUM, }
+{
+}
+
 void Guarana::update(std::fstream& logFile)
 {
 	this->spread<Guarana>(logFile);

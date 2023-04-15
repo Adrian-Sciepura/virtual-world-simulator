@@ -26,6 +26,7 @@ protected:
 
 public:
 	Entity(BMPFile* texture, World* world, Point position, char symbol, int strength, int priority);
+	Entity(BMPFile* texture, World* world, Point position, char symbol, int strength, int priority, int lifeSpan);
 	virtual ~Entity();
 
 	BMPFile* getTexture() const;

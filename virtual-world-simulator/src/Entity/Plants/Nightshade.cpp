@@ -5,6 +5,11 @@ Nightshade::Nightshade(World* world, Point position) :
 {
 }
 
+Nightshade::Nightshade(World* world, Point position, int lifeSpan, int strength) :
+	Plant{ AssetManager::getAssetManager()->getAsset("nightShade"), world, position, 'N', strength, lifeSpan, SpreadChance::LOW, }
+{
+}
+
 void Nightshade::update(std::fstream& logFile)
 {
 	this->spread<Nightshade>(logFile);

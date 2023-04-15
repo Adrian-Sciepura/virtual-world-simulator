@@ -5,6 +5,11 @@ Turtle::Turtle(World* world, Point position) :
 {
 }
 
+Turtle::Turtle(World* world, Point position, int lifeSpan, int strength) :
+	Animal{ AssetManager::getAssetManager()->getAsset("turtle"), world, position, 'T', strength, 1, lifeSpan }
+{
+}
+
 void Turtle::update(std::fstream& logFile)
 {
     int chance = Utility::random(1, 4);

@@ -5,6 +5,11 @@ Entity::Entity(BMPFile* texture, World* world, Point position, char symbol, int 
 {
 }
 
+Entity::Entity(BMPFile* texture, World* world, Point position, char symbol, int strength, int priority, int lifeSpan) :
+    texture{ texture }, world{ world }, position{ position }, symbol{ symbol }, strength{ strength }, priority{ priority }, lifespan{ lifeSpan }, isAlive{ true }
+{
+}
+
 Entity::~Entity()
 {
 }

@@ -71,7 +71,7 @@ private:
 	bool saveGame();
 	bool loadGame();
 
-	Entity* getEntityFromSymbol(World* world, Point position, char symbol, int lifespan = 0, int strength = 0);
+	Entity* getEntityFromSymbol(World* world, const Point& position, char symbol, int lifeSpan = 0, int strength = 0);
 
 public:
 	SimulationManager();

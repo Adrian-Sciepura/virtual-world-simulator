@@ -5,6 +5,11 @@ Fox::Fox(World* world, Point position) :
 {
 }
 
+Fox::Fox(World* world, Point position, int lifeSpan, int strength) :
+    Animal{ AssetManager::getAssetManager()->getAsset("fox"), world, position, 'F', strength, 7, lifeSpan }
+{
+}
+
 void Fox::update(std::fstream& logFile)
 {
     int currentX = this->position.x;

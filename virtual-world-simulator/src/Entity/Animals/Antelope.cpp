@@ -34,6 +34,11 @@ Antelope::Antelope(World* world, Point position) :
 {
 }
 
+Antelope::Antelope(World* world, Point position, int lifeSpan, int strength) :
+    Animal{ AssetManager::getAssetManager()->getAsset("antelope"), world, position, 'A', strength, 4, lifeSpan }
+{
+}
+
 void Antelope::update(std::fstream& logFile)
 {
     int range = Utility::random(1, 2);

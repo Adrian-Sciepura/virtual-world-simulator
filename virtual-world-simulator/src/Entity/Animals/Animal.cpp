@@ -8,6 +8,12 @@ Animal::Animal(BMPFile* texture, World* world, Point position, char symbol, int 
     numberOfAnimals++;
 }
 
+Animal::Animal(BMPFile* texture, World* world, Point position, char symbol, int strength, int priority, int lifeSpan) :
+    Entity{ texture, world, position, symbol, strength, priority, lifeSpan }
+{
+    numberOfAnimals++;
+}
+
 Animal::~Animal()
 {
     numberOfAnimals--;

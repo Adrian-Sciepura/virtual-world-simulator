@@ -8,6 +8,12 @@ Plant::Plant(BMPFile* texture, World* world, Point position, char symbol, int st
 	numberOfPlants++;
 }
 
+Plant::Plant(BMPFile* texture, World* world, Point position, char symbol, int strength, int lifeSpan, SpreadChance spreadChance) :
+	Entity{ texture, world, position, symbol, strength, 0, lifeSpan }, spreadChance{ spreadChance }
+{
+	numberOfPlants++;
+}
+
 Plant::~Plant()
 {
 	numberOfPlants--;

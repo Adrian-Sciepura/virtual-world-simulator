@@ -10,6 +10,7 @@ protected:
 
 public:
 	Animal(BMPFile* texture, World* world, Point position, char symbol, int strength, int priority);
+	Animal(BMPFile* texture, World* world, Point position, char symbol, int strength, int priority, int lifeSpan);
 	~Animal();
 
 	template <class T>

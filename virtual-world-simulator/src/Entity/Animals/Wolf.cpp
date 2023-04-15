@@ -5,6 +5,11 @@ Wolf::Wolf(World* world, Point position) :
 {
 }
 
+Wolf::Wolf(World* world, Point position, int lifeSpan, int strength) :
+	Animal{ AssetManager::getAssetManager()->getAsset("wolf"), world, position, 'W', strength, 5, lifeSpan }
+{
+}
+
 bool Wolf::collision(std::fstream& logFile, Entity& entity)
 {
 	Wolf* wolf = dynamic_cast<Wolf*>(&entity);

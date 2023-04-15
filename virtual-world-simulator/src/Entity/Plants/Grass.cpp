@@ -6,6 +6,11 @@ Grass::Grass(World* world, Point position) :
 
 }
 
+Grass::Grass(World* world, Point position, int lifeSpan, int strength) :
+	Plant { AssetManager::getAssetManager()->getAsset("grass"), world, position, 'G', strength, lifeSpan, SpreadChance::MEDIUM, }
+{
+}
+
 void Grass::update(std::fstream& logFile)
 {
 	this->spread<Grass>(logFile);

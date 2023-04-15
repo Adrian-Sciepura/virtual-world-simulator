@@ -461,7 +461,7 @@ bool SimulationManager::saveGame()
 {
 	std::fstream saveFile = std::fstream("save.txt", std::ios::out);
 	
-	saveFile << worldWidth << ' ' << worldHeight << '\n';
+	saveFile << worldWidth << ' ' << worldHeight << ' ' << round << '\n';
 	Entity* curr = nullptr;
 	for(int i = 0; i < worldHeight; i++)
 		for (int j = 0; j < worldWidth; j++)
@@ -486,26 +486,60 @@ bool SimulationManager::saveGame()
 
 bool SimulationManager::loadGame()
 {
+	std::fstream saveFile = std::fstream("save.txt", std::ios::in);
+	if (!saveFile.is_open())
+		return false;
 
+	if (world != nullptr)
+		delete world;
 
+	saveFile >> worldWidth >> worldHeight >> round;
 
-	return false;
+	world = new World(worldWidth, worldHeight);
+	worldMap = world->getMap();
+	renderMapWidth = (worldWidth < 15 ? worldWidth : 15);
+	renderMapHeight = (worldHeight < 15 ? worldHeight : 15);
+	verticalMapShift = 0;
+	horizontalMapShift = 0;
+	availableMenuOptions = 2;
+
+	Point position;
+	char symbol;
+	int lifeSpan;
+	int strength;
+
+	while (saveFile >> symbol >> position >> lifeSpan >> strength)
+	{
+		worldMap[position.x][position.y] = getEntityFromSymbol(world, position, symbol, lifeSpan, strength);
+		if(symbol == 'H')
+			player = dynamic_cast<Human*>(worldMap[position.x][position.y]);
+	}
+
+	std::fstream saveLogFile = std::fstream("saveLog.txt", std::ios::in);
+	std::fstream logFile = std::fstream("log.txt", std::ios::out);
+
+	logFile << saveLogFile.rdbuf();
+
+	saveLogFile.close();
+	logFile.close();
+
+	return true;
 }
 
-Entity* SimulationManager::getEntityFromSymbol(World* world, Point position, char symbol, int lifespan, int strength)
+Entity* SimulationManager::getEntityFromSymbol(World* world, const Point& position, char symbol, int lifeSpan, int strength)
 {
 	switch (symbol)
 	{
-		case 'H': return new Human(world, position);
-		case 'A': return new Antelope(world, position);
-		case 'F': return new Fox(world, position);
-		case 'S': return new Sheep(world, position);
-		case 'T': return new Turtle(world, position);
-		case 'W': return new Wolf(world, position);
-		case 'G': return new Grass(world, position);
-		case 'D': return new Dandelion(world, position);
-		case 'N': return new Nightshade(world, position);
-		case 'U': return new Guarana(world, position);
+		case 'H': return new Human(world, position, lifeSpan, strength);
+		case 'A': return new Antelope(world, position, lifeSpan, strength);
+		case 'F': return new Fox(world, position, lifeSpan, strength);
+		case 'S': return new Sheep(world, position, lifeSpan, strength);
+		case 'T': return new Turtle(world, position, lifeSpan, strength);
+		case 'W': return new Wolf(world, position, lifeSpan, strength);
+		case 'G': return new Grass(world, position, lifeSpan, strength);
+		case 'D': return new Dandelion(world, position, lifeSpan, strength);
+		case 'N': return new Nightshade(world, position, lifeSpan, strength);
+		case 'U': return new Guarana(world, position, lifeSpan, strength);
 	}
 
 	return nullptr;

@@ -5,6 +5,11 @@ Dandelion::Dandelion(World* world, Point position) :
 {
 }
 
+Dandelion::Dandelion(World* world, Point position, int lifeSpan, int strength) :
+	Plant { AssetManager::getAssetManager()->getAsset("dandelion"), world, position, 'D', strength, lifeSpan, SpreadChance::LOW }
+{
+}
+
 void Dandelion::update(std::fstream& logFile)
 {
 	for(int i = 0; i < 3; i++)
