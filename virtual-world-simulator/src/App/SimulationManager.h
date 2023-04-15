@@ -10,6 +10,7 @@
 
 #include "../Graphics/GraphicsEngine.h"
 #include "../Graphics/AssetManager.h"
+#include "../Graphics/Menu.h"
 
 #include "World.h"
 #include "../Entity/EntityCompare.h"

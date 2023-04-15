@@ -354,68 +354,18 @@ void SimulationManager::menuMode(bool firstGame)
 {
 	graphicsEngine.clearBuffer();
 
-	std::string title = "Virtual world simulator";
-	int length = title.size() * 8;
+	bool (SimulationManager:: * functions[])() = { &SimulationManager::newGame, &SimulationManager::loadGame, &SimulationManager::saveGame };
+	int options = firstGame ? 1 : 2;
+	Menu menu(&graphicsEngine, "Virtual world simulator");
+	menu.addItem({ MenuItem::ItemType::TEXT, "New Game" });
+	menu.addItem({ MenuItem::ItemType::TEXT, "Load Game" });
+	menu.addItem({ MenuItem::ItemType::TEXT, "Save Game" });
+	bool success = false;
 
-	graphicsEngine.drawText(font, title, { (graphicsEngine.getScreenWidth() - length) / 2, 80 }, Color::GREEN);
-
-	bool (SimulationManager::*functions[])() = { &SimulationManager::newGame, &SimulationManager::loadGame, &SimulationManager::saveGame };
-	std::string options[] = { "New game", "Load game", "Save game" };
-
-	int optionsLength = 16;
-	for (int i = 0; i < 3; i++)
-		optionsLength += options[i].size() * 8;
-
-	int currentOption = 0;
-	int key = NULL;
-	bool operationSuccess = false;
-
-	while (key != KeyCodes::M || firstGame)
+	while (!success)
 	{
-		switch (key)
-		{
-			case KeyCodes::LEFT:
-			{
-				if(currentOption > 0)
-					currentOption--;
-				
-				break;
-			}
-			case KeyCodes::RIGHT:
-			{
-				if(currentOption < availableMenuOptions)
-					currentOption++;
-
-				break;
-			}
-			case KeyCodes::ENTER:
-			{
-				operationSuccess = (this->*functions[currentOption])();
-				break;
-			}
-		}
-
-		if (operationSuccess)
-			break;
-
-		int temp = 0;
-		Color color;
-		for(int i = 0; i < 3; i++)
-		{
-			if(i == currentOption)
-				color = Color::RED;
-			else
-				if(i > availableMenuOptions)
-					color = Color::GRAY;
-				else
-					color = Color::WHITE;
-
-			graphicsEngine.drawText(font, options[i], { (graphicsEngine.getScreenWidth() - optionsLength) / 2 + temp, 120 }, color);
-			temp += options[i].size() * 8 + 16;
-		}
-
-		graphicsEngine.drawBuffer();
-		key = _getch();
+		std::vector<std::string> result = menu.open(options);
+		success = (this->*functions[stoi(result[0])])();
 	}
 
 	graphicsEngine.clearBuffer();
