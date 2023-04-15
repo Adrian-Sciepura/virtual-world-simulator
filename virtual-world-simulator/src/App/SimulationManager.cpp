@@ -473,12 +473,22 @@ bool SimulationManager::saveGame()
 
 	saveFile.close();
 
+	std::fstream saveLogFile = std::fstream("saveLog.txt", std::ios::out);
+	std::fstream logFile = std::fstream("log.txt", std::ios::in);
+
+	saveLogFile << logFile.rdbuf();
+
+	saveLogFile.close();
+	logFile.close();
 
 	return true;
 }
 
 bool SimulationManager::loadGame()
 {
+
+
+
 	return false;
 }
 
