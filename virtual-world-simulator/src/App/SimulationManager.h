@@ -45,9 +45,9 @@ private:
 	Entity*** worldMap;
 	int worldWidth, worldHeight;
 
+	bool quit;
 	int round;
 	int abilityCooldown;
-	bool gameOver;
 	int availableMenuOptions;
 	
 	void draw();
@@ -57,6 +57,8 @@ private:
 	void updateInfo();
 	void update();
 	bool checkKey(int keyCode);
+
+	void gameOver();
 	void logMode();
 	void drawLogMenu(int cursorPosition);
 	void menuMode(bool firstGame);

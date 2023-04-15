@@ -2,8 +2,7 @@
 
 SimulationManager::SimulationManager() : 
 	world{ nullptr }, assetManager{ AssetManager::getAssetManager() }, singleEntitySize{ 16 }, graphicsEngine{ 500, 287 }, 
-	colorBuffer{ graphicsEngine.getScreenColorsBuffer() }, round{ 0 }, abilityCooldown{ 5 }, gameOver{ false },
-	player{ nullptr }, availableMenuOptions{ 0 }
+	colorBuffer{ graphicsEngine.getScreenColorsBuffer() }, round{ 0 }, abilityCooldown{ 5 }, player{ nullptr }, availableMenuOptions{ 0 }, quit{ false }
 {
 	assetManager->loadAsset("font", "./assets/font.bmp");
 
@@ -123,6 +122,9 @@ void SimulationManager::draw()
 			graphicsEngine.drawBMP(currentTexture, { 2 + j * 19, 2 + i * 19 });
 		}
 	}
+	
+	if (world->checkIfGameOver())
+		gameOver();
 
 	graphicsEngine.drawBuffer();
 }
@@ -169,15 +171,19 @@ void SimulationManager::start()
 
 	int key = NULL;
 	draw();
-	while (!gameOver)
+	while (!quit)
 	{
 		key = _getch();
 		if (checkKey(key))
 			continue;
 
-		update();
-		round++;
-		updateInfo();
+		if (!world->checkIfGameOver())
+		{
+			update();
+			round++;
+			updateInfo();
+		}
+
 		draw();
 	}
 }
@@ -193,7 +199,7 @@ bool SimulationManager::checkKey(int keyCode)
 		}
 		case KeyCodes::Q:
 		{
-			gameOver = true;
+			quit = true;
 			break;
 		}
 		case KeyCodes::N:
@@ -222,6 +228,9 @@ bool SimulationManager::checkKey(int keyCode)
 		}
 		default:
 		{
+			if(world->checkIfGameOver())
+				return true;
+
 			if (player->setNewPosition(keyCode))
 				return false;
 
@@ -231,6 +240,19 @@ bool SimulationManager::checkKey(int keyCode)
 
 	graphicsEngine.drawBuffer();
 	return true;
+}
+
+void SimulationManager::gameOver()
+{
+	availableMenuOptions = 1;
+	std::string line = "----------";
+	std::string message = "Game over!";
+
+	int pos = (worldWidth * (singleEntitySize + 3) - message.length() * 8) / 2;
+
+	drawText(line, { pos, 100 }, Color::DARKRED);
+	drawText(message, { pos, 115 }, Color::RED);
+	drawText(line, { pos, 130 }, Color::DARKRED);
 }
 
 void SimulationManager::logMode()
@@ -439,7 +461,6 @@ bool SimulationManager::newGame()
 	worldWidth = 15;
 	worldHeight = 15;
 	round = 0;
-	gameOver = false;
 	availableMenuOptions = 2;
 
 	player = new Human(world, { 2, 2 });

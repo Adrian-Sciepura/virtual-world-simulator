@@ -11,14 +11,18 @@ private:
 	Entity*** map;
 	int width;
 	int height;
+	int gameOver;
 
 public:
 	World(int width, int height);
 	~World();
 
 	Entity***& getMap();
-	int getWidth();
-	int getHeight();
+	int getWidth() const;
+	int getHeight() const;
+	bool checkIfGameOver() const;
+
+	void endGame();
 };
 
 #endif

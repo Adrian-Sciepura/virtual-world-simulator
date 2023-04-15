@@ -1,6 +1,6 @@
 #include "World.h"
 
-World::World(int width, int height) : width{ width }, height{ height }
+World::World(int width, int height) : width{ width }, height{ height }, gameOver{ false }
 {
 	this->map = new Entity**[this->height];
 	for (int i = 0; i < this->height; i++)
@@ -32,12 +32,22 @@ Entity***& World::getMap()
 	return this->map;
 }
 
-int World::getWidth()
+int World::getWidth() const
 {
 	return this->width;
 }
 
-int World::getHeight()
+int World::getHeight() const
 {
 	return this->height;
+}
+
+bool World::checkIfGameOver() const
+{
+	return this->gameOver;
+}
+
+void World::endGame()
+{
+	this->gameOver = true;
 }

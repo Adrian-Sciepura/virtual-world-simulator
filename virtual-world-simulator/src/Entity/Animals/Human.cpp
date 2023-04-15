@@ -52,4 +52,16 @@ bool Human::setNewPosition(int keyCode)
 void Human::update(std::fstream& logFile)
 {
     this->move(logFile, newPosition);
+
+    if (!this->isAlive)
+        world->endGame();
+}
+
+bool Human::collision(std::fstream& logFile, Entity& entity)
+{
+    bool temp = Animal::collision(logFile, entity);
+    if (!this->isAlive)
+        world->endGame();
+
+    return temp;
 }
