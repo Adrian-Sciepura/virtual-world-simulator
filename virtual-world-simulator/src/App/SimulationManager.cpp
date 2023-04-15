@@ -254,7 +254,7 @@ void SimulationManager::gameOver()
 	std::string line = "----------";
 	std::string message = "Game over!";
 
-	int pos = (15 * (singleEntitySize + 3) - message.length() * 8) / 2;
+	int pos = (renderMapWidth * (singleEntitySize + 3) - message.length() * 8) / 2;
 
 	graphicsEngine.drawText(font, line, { pos, 100 }, Color::DARKRED);
 	graphicsEngine.drawText(font, message, { pos, 115 }, Color::RED);

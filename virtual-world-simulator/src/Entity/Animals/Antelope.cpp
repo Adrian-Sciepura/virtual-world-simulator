@@ -54,12 +54,12 @@ void Antelope::update(std::fstream& logFile)
 
         if (newX < 0)
             newX = 0;
-        else if (newX > world->getWidth() - 1)
+        else if (newX > world->getWidth() - range)
             newX -= range;
 
         if (newY < 0)
             newY = 0;
-        else if (newY > world->getHeight() - 1)
+        else if (newY > world->getHeight() - range)
             newY -= range;
     }
 
