@@ -29,6 +29,7 @@
 #include "../Entity/Plants/Dandelion.h"
 #include "../Entity/Plants/Guarana.h"
 #include "../Entity/Plants/Nightshade.h"
+#include "../Entity/Plants/PineHogweed.h"
 
 class SimulationManager
 {

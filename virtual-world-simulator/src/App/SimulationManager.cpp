@@ -18,6 +18,7 @@ SimulationManager::SimulationManager() :
 	assetManager->loadAsset("dandelion", "./assets/dandelion.bmp");
 	assetManager->loadAsset("guarana", "./assets/guarana.bmp");
 	assetManager->loadAsset("nightShade", "./assets/nightShade.bmp");
+	assetManager->loadAsset("pineHogweed", "./assets/pineHogweed.bmp");
 
 	menuMode(true);
 }
@@ -243,7 +244,7 @@ bool SimulationManager::checkKey(int keyCode)
 void SimulationManager::placeEntities()
 {
 	int freeSpace = worldWidth * worldHeight;
-	char types[] = { 'A', 'F', 'S', 'T', 'W', 'G', 'D', 'N', 'U' };
+	char types[] = { 'A', 'F', 'S', 'T', 'W', 'G', 'D', 'N', 'U', 'P' };
 
 	int x = 0;
 	int y = 0;
@@ -253,7 +254,7 @@ void SimulationManager::placeEntities()
 	{
 		y = rand() % worldHeight;
 		x = rand() % worldWidth;
-		type = rand() % 9;
+		type = rand() % 10;
 
 		if (worldMap[y][x] == nullptr)
 		{
@@ -557,6 +558,7 @@ Entity* SimulationManager::getEntityFromSymbol(World* world, const Point& positi
 		case 'D': return new Dandelion(world, position, lifeSpan, strength);
 		case 'N': return new Nightshade(world, position, lifeSpan, strength);
 		case 'U': return new Guarana(world, position, lifeSpan, strength);
+		case 'P': return new PineHogweed(world, position, lifeSpan, strength);
 	}
 
 	return nullptr;

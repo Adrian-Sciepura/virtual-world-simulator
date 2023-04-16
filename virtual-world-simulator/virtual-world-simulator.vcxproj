@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Entity\Plants\PineHogweed.cpp" />
     <ClCompile Include="src\Graphics\Menu.cpp" />
     <ClCompile Include="src\Graphics\MenuItem.cpp" />
     <ClCompile Include="src\Graphics\Asset.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="src\App\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Entity\Plants\PineHogweed.h" />
     <ClInclude Include="src\Graphics\Menu.h" />
     <ClInclude Include="src\Graphics\MenuItem.h" />
     <ClInclude Include="src\Common\KeyCodes.h" />
