@@ -125,21 +125,13 @@ void SimulationManager::update()
 	{
 		Entity* entity = entities.top();
 		if (entity->checkIfAlive())
-		{
 			entity->update(logFile);
-			if (!entity->checkIfAlive())
-			{
-				delete entity;
-			}
-		}
-		else
-		{
-			delete entity;
-		}
 
 		entities.pop();
 	}
 	logFile.close();
+
+	world->clearGarbage();
 }
 
 void SimulationManager::start()

@@ -20,7 +20,6 @@ bool Nightshade::collision(std::fstream& logFile, Entity& entity)
 {
 	logFile << this->position << " " << entity.getSymbol() << " was killed when eating " << this->symbol << '\n';
 	entity.kill();
-	world->getMap()[position.x][position.y] = nullptr;
-	this->isAlive = false;
+	this->kill();
     return true;
 }

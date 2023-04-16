@@ -47,6 +47,20 @@ bool World::checkIfGameOver() const
 	return this->gameOver;
 }
 
+void World::addEntityToDelete(Entity* entity)
+{
+	garbage.push(entity);
+}
+
+void World::clearGarbage()
+{
+	while (!garbage.empty())
+	{
+		delete garbage.front();
+		garbage.pop();
+	}
+}
+
 void World::endGame()
 {
 	this->gameOver = true;

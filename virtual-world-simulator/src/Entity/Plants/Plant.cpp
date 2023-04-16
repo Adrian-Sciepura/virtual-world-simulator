@@ -22,7 +22,7 @@ Plant::~Plant()
 bool Plant::collision(std::fstream& logFile, Entity& entity)
 {
 	logFile << this->position << " The " << this->symbol << " has been eaten by " << entity.getSymbol() << "\n";
-	this->isAlive = false;
+	this->kill();
 	return true;
 }
 

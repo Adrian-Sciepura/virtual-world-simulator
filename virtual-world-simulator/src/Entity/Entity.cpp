@@ -52,6 +52,8 @@ void Entity::setStrength(int strength)
 void Entity::kill()
 {
     this->isAlive = false;
+    world->getMap()[this->position.x][this->position.y] = nullptr;
+    world->addEntityToDelete(this);
 }
 
 bool Entity::checkIfAlive() const

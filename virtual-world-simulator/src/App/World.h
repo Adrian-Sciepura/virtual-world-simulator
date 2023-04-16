@@ -2,12 +2,14 @@
 #define WORLD_H
 
 #include "../Entity/Entity.h"
+#include <queue>
 
 class Entity;
 
 class World
 {
 private:
+	std::queue<Entity*> garbage;
 	Entity*** map;
 	int width;
 	int height;
@@ -22,6 +24,9 @@ public:
 	int getHeight() const;
 	bool checkIfGameOver() const;
 
+	void addEntityToDelete(Entity* entity);
+
+	void clearGarbage();
 	void endGame();
 };
 

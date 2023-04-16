@@ -25,24 +25,9 @@ void Animal::move(std::fstream& logFile, const Point& newPosition)
     Entity* entity = map[newPosition.x][newPosition.y];
     if (entity != nullptr)
     {
-
         bool result = entity->collision(logFile, *this);
-
-        if (this->isAlive == false)
-        {
-            map[position.x][position.y] = nullptr;
+        if (this->isAlive == false || !result)
             return;
-        }
-
-        if (result)
-        {
-            if (entity->checkIfAlive() == false && entity->getPriority() > this->priority)
-                delete entity;
-        }
-        else
-        {
-            return;
-        }
     }
 
     map[position.x][position.y] = nullptr;
@@ -89,7 +74,7 @@ bool Animal::collision(std::fstream& logFile, Entity& entity)
         (entityStrength == this->strength && entity.getLifespan() > this->lifespan))
     {
         logFile << entity.getPosition() << ' ' << this->symbol << " was killed by " << entity.getSymbol() << '\n';
-        this->isAlive = false;
+        this->kill();
         return true;
     }
 
