@@ -1,18 +1,28 @@
 #include "Human.h"
 
 Human::Human(World* world, Point position) :
-    Animal{ AssetManager::getAssetManager()->getAsset("human"), world, position, 'H', 5, 4 }, newPosition{ position }
+    Animal{ AssetManager::getAssetManager()->getAsset("human"), world, position, 'H', 5, 4 }, newPosition{ position }, abilityTurnedOn{ false }
 {
 }
 
 Human::Human(World* world, Point position, int lifeSpan, int strength) :
-    Animal{ AssetManager::getAssetManager()->getAsset("human"), world, position, 'H', strength, 4, lifeSpan }, newPosition{ position }
+    Animal{ AssetManager::getAssetManager()->getAsset("human"), world, position, 'H', strength, 4, lifeSpan }, newPosition{ position }, abilityTurnedOn{ false }
 {
 }
 
 Point Human::getNewPosition() const
 {
     return this->newPosition;
+}
+
+bool Human::checkIfAbilityTurnedOn() const
+{
+    return this->abilityTurnedOn;
+}
+
+void Human::switchAbility(bool value)
+{
+    this->abilityTurnedOn = value;
 }
 
 bool Human::setNewPosition(int keyCode)
@@ -69,6 +79,35 @@ void Human::update(std::fstream& logFile)
 
 bool Human::collision(std::fstream& logFile, Entity& entity)
 {
+    if (abilityTurnedOn)
+    {
+        Entity*** map = world->getMap();
+        int currentX = this->position.x;
+        int currentY = this->position.y;
+
+        for (int i = currentX - 1; i <= currentX + 1; i++)
+        {
+            if (i < 0 || i > world->getHeight() - 1)
+                continue;
+
+            for (int j = currentY - 1; j <= currentY + 1; j++)
+            {
+                if (j < 0 || j > world->getWidth() - 1)
+                    continue;
+
+                if (map[i][j] == nullptr)
+                {
+                    map[i][j] = this;
+                    map[currentX][currentY] = nullptr;
+                    this->position = { i, j };
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     bool temp = Animal::collision(logFile, entity);
     if (!this->isAlive)
         world->endGame();

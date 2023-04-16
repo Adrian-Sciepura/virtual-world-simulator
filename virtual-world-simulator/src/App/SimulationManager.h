@@ -51,6 +51,7 @@ private:
 	bool quit;
 	int round;
 	int abilityCooldown;
+	int abilityDuration;
 	int availableMenuOptions;
 	int verticalMapShift;
 	int horizontalMapShift;

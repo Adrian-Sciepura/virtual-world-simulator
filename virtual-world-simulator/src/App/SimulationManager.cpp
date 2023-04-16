@@ -79,6 +79,9 @@ void SimulationManager::updateInfo()
 	else
 	{
 		ab.append("- ");
+		if(abilityDuration > 0)
+			ab = "Ability duration: " + std::to_string(abilityDuration) + " ";
+
 		graphicsEngine.drawText(font, ab, { 330, 150 }, Color::GREEN);
 	}
 
@@ -110,6 +113,20 @@ void SimulationManager::draw()
 
 void SimulationManager::update()
 {
+	if (!world->checkIfGameOver() && player->checkIfAbilityTurnedOn())
+	{
+		abilityDuration--;
+		if (abilityDuration == 0)
+		{
+			player->switchAbility(false);
+			abilityCooldown = 5;
+		}
+	}
+	else
+	{
+		abilityCooldown--;
+	}
+
 	for (int i = 0; i < worldHeight; i++)
 	{
 		for (int j = 0; j < worldWidth; j++)
@@ -165,7 +182,13 @@ bool SimulationManager::checkKey(int keyCode)
 	{
 		case KeyCodes::A:
 		{
-
+			if (!world->checkIfGameOver() && !player->checkIfAbilityTurnedOn() && abilityCooldown <= 0)
+			{
+				player->switchAbility(true);
+				abilityDuration = 5;
+			}
+			
+			updateInfo();
 			break;
 		}
 		case KeyCodes::Q:
@@ -438,6 +461,8 @@ bool SimulationManager::newGame()
 	verticalMapShift = 0;
 	horizontalMapShift = 0;
 	availableMenuOptions = 2;
+	abilityCooldown = 5;
+	abilityDuration = 0;
 
 	player = new Human(world, { 2, 2 });
 	worldMap[2][2] = player;
