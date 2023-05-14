@@ -40,8 +40,10 @@ public class GameManager
         {
             for(int j = 0; j < 20; j++)
             {
+                ImageIcon image = new ImageIcon("assets/fox.png");
                 JLabel item = new JLabel();
-                item.setText(Integer.toString(i) + " " + Integer.toString(j));
+                //item.setText(Integer.toString(i) + " " + Integer.toString(j));
+                item.setIcon(image);
                 item.setPreferredSize(new Dimension(10, 10));
                 map[i][j] = item;
                 gamePanel.add(item);
