@@ -17,6 +17,8 @@ public class Wolf extends Animal
     {
         if(entity instanceof Wolf)
         {
+            Wolf wolf = new Wolf(this.world, new Point(-1, -1));
+            AddChild(wolf);
             return false;
         }
 

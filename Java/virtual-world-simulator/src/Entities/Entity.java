@@ -87,6 +87,11 @@ public abstract class Entity implements Comparable<Entity>
         return this.position;
     }
 
+    public void setPosition(Point position)
+    {
+        this.position = position;
+    }
+
     public void Kill()
     {
         this.isAlive = false;

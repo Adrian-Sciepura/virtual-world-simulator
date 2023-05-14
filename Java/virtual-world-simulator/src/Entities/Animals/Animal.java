@@ -3,8 +3,10 @@ package Entities.Animals;
 import App.World;
 import Common.Point;
 import Entities.Entity;
+import GUI.SquareMapElement;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Animal extends Entity
@@ -87,5 +89,42 @@ public class Animal extends Entity
     {
         super.Kill();
         numberOfAnimals--;
+    }
+
+    protected void AddChild(Entity entity)
+    {
+        int currentX = position.x;
+        int currentY = position.y;
+        ArrayList<SquareMapElement> freeFields = new ArrayList<SquareMapElement>();
+
+        for(int i = currentX - 1; i <= currentX + 1; i++)
+        {
+            if(i < 0 || i > world.worldHeight - 1)
+                continue;
+
+            for(int j = currentY - 1; j <= currentY + 1; j++)
+            {
+                if(j < 0 || j > world.worldWidth - 1 || (i == currentX && j == currentY))
+                    continue;
+
+                if(world.map[i][j].getEntity() == null)
+                {
+                    freeFields.add(world.map[i][j]);
+                }
+            }
+        }
+
+        if(freeFields.size() > 0)
+        {
+            Random rnd = new Random();
+            int index = rnd.nextInt(freeFields.size());
+            SquareMapElement field = freeFields.get(index);
+            field.setEntity(entity);
+            entity.setPosition(field.getPosition());
+        }
+        else
+        {
+            numberOfAnimals--;
+        }
     }
 }

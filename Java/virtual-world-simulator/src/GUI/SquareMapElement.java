@@ -143,9 +143,9 @@ public class SquareMapElement extends JComponent
             for(Map.Entry<Character, String> entry : types.entrySet())
             {
                 JMenuItem menuItem = new JMenuItem("Add: " + entry.getValue());
-                Container parent = getParent();
+
                 menuItem.addActionListener(e -> {
-                    this.setEntity(Entity.getEntityFromSymbol(GameManager.GetInstance().getWorld(), new Common.Point(20 - (parent.getHeight() - getY())/getHeight(), 20 - (parent.getWidth() - getX())/getWidth()), entry.getKey()));
+                    this.setEntity(Entity.getEntityFromSymbol(GameManager.GetInstance().getWorld(), getPosition(), entry.getKey()));
                     repaint();
                 });
                 contextMenu.add(menuItem);
@@ -153,5 +153,11 @@ public class SquareMapElement extends JComponent
 
         }
         contextMenu.show(this, getWidth(), 0);
+    }
+
+    public Common.Point getPosition()
+    {
+        Container parent = getParent();
+        return new Common.Point(20 - (parent.getHeight() - getY())/getHeight(), 20 - (parent.getWidth() - getX())/getWidth());
     }
 }
