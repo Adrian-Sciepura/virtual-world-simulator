@@ -2,8 +2,7 @@ package Entities;
 
 import App.World;
 import Common.Point;
-import Entities.Animals.Sheep;
-import Entities.Animals.Wolf;
+import Entities.Animals.*;
 
 import javax.swing.*;
 
@@ -113,10 +112,10 @@ public abstract class Entity implements Comparable<Entity>
         switch(symbol)
         {
             //case 'H': return new Human(world, position, lifeSpan, strength);
-            //case 'A': return new Antelope(world, position, lifeSpan, strength);
-            //case 'F': return new Fox(world, position, lifeSpan, strength);
+            case 'A': return new Antelope(world, position);
+            case 'F': return new Fox(world, position);
             case 'S': return new Sheep(world, position);
-            //case 'T': return new Turtle(world, position, lifeSpan, strength);
+            case 'T': return new Turtle(world, position);
             case 'W': return new Wolf(world, position);
             //case 'G': return new Grass(world, position, lifeSpan, strength);
             //case 'D': return new Dandelion(world, position, lifeSpan, strength);

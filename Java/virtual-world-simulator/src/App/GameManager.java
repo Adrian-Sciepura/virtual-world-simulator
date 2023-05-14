@@ -116,7 +116,7 @@ public class GameManager
 
     private void PlaceEntities()
     {
-        char[] types = {'W', 'S'};
+        char[] types = { 'A', 'F', 'T', 'W', 'S'};
         int freeSpace = world.worldHeight * world.worldWidth;
         int x = 0;
         int y = 0;
@@ -129,7 +129,7 @@ public class GameManager
         {
             x = rnd.nextInt(world.worldWidth);
             y = rnd.nextInt(world.worldHeight);
-            type = rnd.nextInt(2);
+            type = rnd.nextInt(5);
 
             if(world.map[y][x].getEntity() == null)
                 world.map[y][x].setEntity(Entity.getEntityFromSymbol(this.world, new Point(y, x), types[type]));
