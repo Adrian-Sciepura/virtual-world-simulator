@@ -1,3 +1,5 @@
+package App;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -77,5 +79,10 @@ public final class WindowManager
     public JPanel GetMenuPanel()
     {
         return this.menuPanel;
+    }
+
+    public JFrame GetWindow()
+    {
+        return this.window;
     }
 }
