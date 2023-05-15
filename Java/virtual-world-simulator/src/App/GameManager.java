@@ -2,6 +2,7 @@ package App;
 
 import Common.Point;
 import Entities.Animals.Animal;
+import Entities.Animals.Human;
 import Entities.Entity;
 
 import javax.swing.*;
@@ -15,6 +16,8 @@ public class GameManager
     private static volatile GameManager instance;
     private World world;
     private PriorityQueue<Entity> entities;
+    private Human player;
+
     public static GameManager GetInstance()
     {
         GameManager result = instance;
@@ -72,38 +75,23 @@ public class GameManager
                    System.out.println("Liczba zwierząt: " + Animal.getNumberOfAnimals());
                 }
 
-
-
-                /*switch(keyCode)
+                if(!world.CheckIfGameOver() && player.setNewPosition(keyCode))
                 {
-                    case KeyEvent.VK_UP:
-                        System.out.println("UP");
-                        break;
-                    case KeyEvent.VK_DOWN:
-                        System.out.println("DOWN");
-                        break;
-                    case KeyEvent.VK_LEFT:
-                        System.out.println("LEFT");
-                        break;
-                    case KeyEvent.VK_RIGHT:
-                        System.out.println("RIGHT");
-                        break;
-                }*/
+                    for(int i = 0; i < 20; i++)
+                        for(int j = 0; j < 20; j++)
+                        {
+                            Entity entity = world.map[i][j].getEntity();
+                            if(entity != null)
+                                entities.add(entity);
+                        }
 
-                for(int i = 0; i < 20; i++)
-                    for(int j = 0; j < 20; j++)
+                    Entity entity = null;
+                    while(!entities.isEmpty())
                     {
-                        Entity entity = world.map[i][j].getEntity();
-                        if(entity != null)
-                            entities.add(entity);
+                        entity = entities.poll();
+                        if(entity.checkIfAlive())
+                            entity.Update();
                     }
-
-                Entity entity = null;
-                while(!entities.isEmpty())
-                {
-                    entity = entities.poll();
-                    if(entity.checkIfAlive())
-                        entity.Update();
                 }
             }
 
@@ -123,6 +111,9 @@ public class GameManager
         int y = 0;
         int howMany = freeSpace / 3;
         int type = 0;
+
+        player = new Human(world, new Point(1, 1));
+        world.map[1][1].setEntity(player);
 
         Random rnd = new Random();
         JPanel gamePanel = WindowManager.GetInstance().GetGamePanel();

@@ -12,11 +12,14 @@ public class World
     public int worldWidth;
     public int worldHeight;
 
+    private boolean gameOver;
+
     public World()
     {
         map = new SquareMapElement[20][20];
         worldWidth = 20;
         worldHeight = 20;
+        gameOver = false;
 
         for(int i = 0; i < worldHeight; i++)
         {
@@ -26,5 +29,15 @@ public class World
                 map[i][j].setPreferredSize(new Dimension(10, 10));
             }
         }
+    }
+
+    public void EndGame()
+    {
+        gameOver = true;
+    }
+
+    public boolean CheckIfGameOver()
+    {
+        return gameOver;
     }
 }

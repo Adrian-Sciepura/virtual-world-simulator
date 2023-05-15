@@ -35,7 +35,8 @@ public abstract class Animal extends Entity
         }
 
         world.map[position.x][position.y].setEntity(null);
-        this.position = newPosition;
+        position.x = newPosition.x;
+        position.y = newPosition.y;
         world.map[newPosition.x][newPosition.y].setEntity(this);
     }
 
