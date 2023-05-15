@@ -6,6 +6,8 @@ import Entities.Animals.*;
 import Entities.Plants.*;
 
 import javax.swing.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Entity implements Comparable<Entity>
 {
@@ -29,7 +31,6 @@ public abstract class Entity implements Comparable<Entity>
         this.priority = priority;
         this.lifespan = 0;
     }
-
 
     @Override
     public int compareTo(Entity entity)
@@ -126,4 +127,20 @@ public abstract class Entity implements Comparable<Entity>
         }
         return null;
     }
+
+    public static final Map<Character, String> types = new HashMap<Character, String>(){
+        {
+            put('H', "Human");
+            put('A', "Antelope");
+            put('F', "Fox");
+            put('S', "Sheep");
+            put('T', "Turtle");
+            put('W', "Wolf");
+            put('G', "Grass");
+            put('D', "Dandelion");
+            put('N', "Nightshade");
+            put('U', "Guarana");
+            put('P', "Pine Hogweed");
+        }
+    };
 }

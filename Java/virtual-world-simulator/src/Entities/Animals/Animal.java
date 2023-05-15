@@ -78,10 +78,12 @@ public abstract class Animal extends Entity
 
         if(entityStrength > strength || (entityStrength == strength && entity.getLifespan() > lifespan))
         {
+            world.AppendLogs(position.x, position.y, Entity.types.get(this.symbol) + " was killed by " + Entity.types.get(entity.getSymbol()));
             Kill();
             return true;
         }
 
+        world.AppendLogs(position.x, position.y, Entity.types.get(entity.getSymbol()) + " was killed by " + Entity.types.get(this.symbol));
         entity.Kill();
         return false;
     }

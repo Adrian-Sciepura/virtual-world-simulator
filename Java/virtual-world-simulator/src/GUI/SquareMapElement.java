@@ -4,12 +4,10 @@ import App.GameManager;
 import App.WindowManager;
 import Entities.Entity;
 
-import javax.naming.ldap.Control;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.HashMap;
 import java.util.Map;
 
 public class SquareMapElement extends JComponent
@@ -18,21 +16,6 @@ public class SquareMapElement extends JComponent
     private Color borderColor;
     private int borderWidth;
 
-    private static Map<Character, String> types = new HashMap<Character, String>(){
-        {
-            put('H', "Human");
-            put('A', "Antelope");
-            put('F', "Fox");
-            put('S', "Sheep");
-            put('T', "Turtle");
-            put('W', "Wolf");
-            put('G', "Grass");
-            put('D', "Dandelion");
-            put('N', "Nightshade");
-            put('U', "Guarana");
-            put('P', "Pine Hogweed");
-        }
-    };
 
     public SquareMapElement()
     {
@@ -147,7 +130,7 @@ public class SquareMapElement extends JComponent
         else
         {
             Common.Point fixedSize = null;
-            for(Map.Entry<Character, String> entry : types.entrySet())
+            for(Map.Entry<Character, String> entry : Entity.types.entrySet())
             {
                 JMenuItem menuItem = new JMenuItem("Add: " + entry.getValue());
                 fixedSize = windowManager.getFixedSize(menuItem.getFont().getSize(), 0);

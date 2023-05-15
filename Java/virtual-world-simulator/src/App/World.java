@@ -1,14 +1,12 @@
 package App;
 
-import Entities.Entity;
 import GUI.SquareMapElement;
-
-import javax.swing.*;
 import java.awt.*;
 
 public class World
 {
     public SquareMapElement map[][];
+    private String logs;
     public int worldWidth;
     public int worldHeight;
 
@@ -20,6 +18,7 @@ public class World
         worldWidth = 20;
         worldHeight = 20;
         gameOver = false;
+        logs = new String("");
 
         for(int i = 0; i < worldHeight; i++)
         {
@@ -31,9 +30,25 @@ public class World
         }
     }
 
+    public void AppendLogs(int x, int y, String message)
+    {
+        logs += "[ " + x + ", " + y + " ]  " + message + "\n";
+    }
+
+    public void ClearLogs()
+    {
+        logs = new String("");
+    }
+
+    public String getLogs()
+    {
+        return logs;
+    }
+
     public void EndGame()
     {
         gameOver = true;
+        logs += "- - - - - - - - GAME OVER - - - - - - - -\n";
     }
 
     public boolean CheckIfGameOver()

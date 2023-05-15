@@ -39,6 +39,7 @@ public abstract class Plant extends Entity
 
     public boolean Collision(Entity entity)
     {
+        world.AppendLogs(position.x, position.y, Entity.types.get(this.symbol) + " has been eaten by " + Entity.types.get(entity.getSymbol()));
         Kill();
         return true;
     }
@@ -54,7 +55,10 @@ public abstract class Plant extends Entity
         Random rnd2 = new Random();
         int chance = rnd2.nextInt(25) + 1;
         if(chance > spreadChance)
+        {
+            numberOfPlants--;
             return;
+        }
 
         int currentX = position.x;
         int currentY = position.y;

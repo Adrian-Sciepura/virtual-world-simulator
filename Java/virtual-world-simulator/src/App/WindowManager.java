@@ -10,8 +10,8 @@ public final class WindowManager
     private JPanel gamePanel;
     private JPanel menuPanel;
     private boolean visibility;
-    private float widthMultiply;
-    private float heightMultiply;
+    private final float widthMultiply;
+    private final float heightMultiply;
 
     public static WindowManager GetInstance()
     {
@@ -32,9 +32,12 @@ public final class WindowManager
 
     private WindowManager()
     {
-        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        widthMultiply = 1 + (float) 1920 / screen.width;
-        heightMultiply = 1 + (float) 1080 / screen.height;
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int width = gd.getDisplayMode().getWidth();
+        int height = gd.getDisplayMode().getHeight();
+
+        widthMultiply = (float) width / 1920;
+        heightMultiply = (float) height / 1080;
 
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,11 +49,12 @@ public final class WindowManager
         gamePanel.setBackground(new Color(124, 202, 146));
         gamePanel.setLayout(new GridLayout(20, 20));
         menuPanel.setBackground(new Color(240, 237, 212));
+        menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
 
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
-        c.weightx = 2.0;
+        c.weightx = 5.0;
         c.weighty = 1.0;
         c.fill = GridBagConstraints.BOTH;
         window.add(gamePanel, c);
