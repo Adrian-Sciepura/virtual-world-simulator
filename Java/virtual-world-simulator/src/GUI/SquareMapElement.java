@@ -1,6 +1,7 @@
 package GUI;
 
 import App.GameManager;
+import App.WindowManager;
 import Entities.Entity;
 
 import javax.naming.ldap.Control;
@@ -119,15 +120,18 @@ public class SquareMapElement extends JComponent
     public void ShowContextMenu()
     {
         MapElementContextMenu contextMenu = new MapElementContextMenu();
+        WindowManager windowManager = WindowManager.GetInstance();
         contextMenu.setLayout(new BoxLayout(contextMenu, BoxLayout.Y_AXIS));
         if(entity != null)
         {
+            Common.Point fixedSize = windowManager.getFixedSize(90, 90);
             Image originalImage = entity.getIcon().getImage();
-            Image scaledImage = originalImage.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+            Image scaledImage = originalImage.getScaledInstance(fixedSize.x, fixedSize.y, Image.SCALE_SMOOTH);
             ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
             JLabel animalImage = new JLabel(scaledIcon);
-            animalImage.setPreferredSize(new Dimension(100, 100));
+            fixedSize = windowManager.getFixedSize(100, 100);
+            animalImage.setPreferredSize(new Dimension(fixedSize.x, fixedSize.y));
             contextMenu.add(animalImage);
 
             JLabel animalInfo = new JLabel(
@@ -135,15 +139,19 @@ public class SquareMapElement extends JComponent
                     "<br>Strength: " + entity.getStrength() +
                     "<br>Lifespan: " + entity.getLifespan() +
                     "<br>Priority: " + entity.getPriority() + "</html>");
+            fixedSize = windowManager.getFixedSize(animalInfo.getFont().getSize(), 0);
+            animalInfo.setFont(new Font(animalInfo.getFont().getName(), Font.PLAIN, fixedSize.x));
             animalInfo.setHorizontalAlignment(JLabel.CENTER);
             contextMenu.add(animalInfo);
         }
         else
         {
+            Common.Point fixedSize = null;
             for(Map.Entry<Character, String> entry : types.entrySet())
             {
                 JMenuItem menuItem = new JMenuItem("Add: " + entry.getValue());
-
+                fixedSize = windowManager.getFixedSize(menuItem.getFont().getSize(), 0);
+                menuItem.setFont(new Font(menuItem.getFont().getName(), Font.PLAIN, fixedSize.x));
                 menuItem.addActionListener(e -> {
                     this.setEntity(Entity.getEntityFromSymbol(GameManager.GetInstance().getWorld(), getPosition(), entry.getKey()));
                     repaint();

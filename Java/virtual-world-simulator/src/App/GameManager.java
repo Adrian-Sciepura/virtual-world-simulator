@@ -42,8 +42,9 @@ public class GameManager
     {
         PlaceEntities();
         WindowManager window = WindowManager.GetInstance();
+        Common.Point fixedSize = window.getFixedSize(1200, 800);
         window.ToggleWindowVisibility();
-        window.SetWindowSize(1200, 800);
+        window.SetWindowSize(fixedSize.x, fixedSize.y);
         window.SetWindowTitle("Adrian Ściepura 193350");
 
         JPanel gamePanel = window.GetGamePanel();
@@ -116,7 +117,7 @@ public class GameManager
 
     private void PlaceEntities()
     {
-        char[] types = { 'A', 'F', 'T', 'W', 'S'};
+        char[] types = { 'A', 'F', 'T', 'W', 'S', 'G', 'D', 'U', 'N', 'P'};
         int freeSpace = world.worldHeight * world.worldWidth;
         int x = 0;
         int y = 0;
@@ -129,7 +130,7 @@ public class GameManager
         {
             x = rnd.nextInt(world.worldWidth);
             y = rnd.nextInt(world.worldHeight);
-            type = rnd.nextInt(5);
+            type = rnd.nextInt(10);
 
             if(world.map[y][x].getEntity() == null)
                 world.map[y][x].setEntity(Entity.getEntityFromSymbol(this.world, new Point(y, x), types[type]));

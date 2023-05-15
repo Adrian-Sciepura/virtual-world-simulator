@@ -6,11 +6,12 @@ import java.awt.*;
 public final class WindowManager
 {
     private static volatile WindowManager instance;
-
     private JFrame window;
     private JPanel gamePanel;
     private JPanel menuPanel;
     private boolean visibility;
+    private float widthMultiply;
+    private float heightMultiply;
 
     public static WindowManager GetInstance()
     {
@@ -31,6 +32,10 @@ public final class WindowManager
 
     private WindowManager()
     {
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        widthMultiply = 1 + (float) 1920 / screen.width;
+        heightMultiply = 1 + (float) 1080 / screen.height;
+
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLayout(new GridBagLayout());
@@ -84,5 +89,10 @@ public final class WindowManager
     public JFrame GetWindow()
     {
         return this.window;
+    }
+
+    public Common.Point getFixedSize(int width, int height)
+    {
+        return new Common.Point((int)(width * widthMultiply), (int)(height * heightMultiply));
     }
 }
