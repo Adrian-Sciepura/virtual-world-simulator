@@ -9,7 +9,6 @@ public class World
     private String logs;
     public int worldWidth;
     public int worldHeight;
-
     private boolean gameOver;
 
     public World()
@@ -43,6 +42,19 @@ public class World
     public String getLogs()
     {
         return logs;
+    }
+
+    public void Reset()
+    {
+        for(int i = 0; i < worldHeight; i++)
+        {
+            for (int j = 0; j < worldWidth; j++)
+            {
+                if (map[i][j].getEntity() != null)
+                    map[i][j].getEntity().Kill();
+            }
+            gameOver = false;
+        }
     }
 
     public void EndGame()

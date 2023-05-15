@@ -116,12 +116,16 @@ public class GameManager
         newGameButton.setFont(new Font(menuText.getFont().getName(), Font.PLAIN, fixedSize.x));
         newGameButton.setFocusable(false);
         newGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        newGameButton.addActionListener(e -> {
+            NewGame();
+        });
         menuPanel.add(newGameButton);
 
         JPanel panel = new JPanel();
         panel.setBackground(menuPanel.getBackground());
         logArea = new JTextArea(20, 25);
         logArea.setEditable(false);
+        logArea.setFocusable(false);
         JScrollPane scrollPane = new JScrollPane(logArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         panel.add(scrollPane);
         panel.setPreferredSize(new Dimension(100, 100));
@@ -228,6 +232,17 @@ public class GameManager
             abilityButton.setEnabled(false);
 
         logArea.setText(world.getLogs());
+    }
+
+    private void NewGame()
+    {
+        world.Reset();
+        round = 0;
+        abiliyCooldown = 5;
+        abilityDuration = 0;
+        PlaceEntities();
+        world.ClearLogs();
+        UpdateMenu();
     }
 
     public World getWorld()
