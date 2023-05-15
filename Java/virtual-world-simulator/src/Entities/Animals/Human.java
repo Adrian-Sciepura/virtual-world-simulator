@@ -23,9 +23,6 @@ public class Human extends Animal
     {
         this.Move(newPosition);
         lifespan++;
-
-        if(!isAlive)
-            world.EndGame();
     }
 
     public boolean Collision(Entity entity)
@@ -55,11 +52,7 @@ public class Human extends Animal
             return false;
         }
 
-        boolean temp = super.Collision(entity);
-        if (!isAlive)
-            world.EndGame();
-
-        return temp;
+        return super.Collision(entity);
     }
 
     public boolean CheckIfAbilityTurnedOn()
@@ -119,5 +112,11 @@ public class Human extends Animal
     public Common.Point getNewPosition()
     {
         return this.newPosition;
+    }
+
+    public void Kill()
+    {
+        super.Kill();
+        world.EndGame();
     }
 }
