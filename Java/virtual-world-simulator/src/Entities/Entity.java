@@ -3,6 +3,7 @@ package Entities;
 import App.World;
 import Common.Point;
 import Entities.Animals.*;
+import Entities.Plants.*;
 
 import javax.swing.*;
 
@@ -117,11 +118,11 @@ public abstract class Entity implements Comparable<Entity>
             case 'S': return new Sheep(world, position);
             case 'T': return new Turtle(world, position);
             case 'W': return new Wolf(world, position);
-            //case 'G': return new Grass(world, position, lifeSpan, strength);
-            //case 'D': return new Dandelion(world, position, lifeSpan, strength);
-            //case 'N': return new Nightshade(world, position, lifeSpan, strength);
-            //case 'U': return new Guarana(world, position, lifeSpan, strength);
-            //case 'P': return new PineHogweed(world, position, lifeSpan, strength);
+            case 'G': return new Grass(world, position);
+            case 'D': return new Dandelion(world, position);
+            case 'N': return new Nightshade(world, position);
+            case 'U': return new Guarana(world, position);
+            case 'P': return new PineHogweed(world, position);
         }
         return null;
     }

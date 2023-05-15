@@ -3,16 +3,27 @@ package Entities.Plants;
 import App.World;
 import Common.Point;
 import Entities.Entity;
+import GUI.SquareMapElement;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Random;
 
-public class Plant extends Entity
+public abstract class Plant extends Entity
 {
     protected static int numberOfPlants = 0;
+    protected int spreadChance;
+    protected enum SpreadChance
+    {
+        LOW,
+        MEDIUM,
+        HIGH
+    }
 
-    public Plant(ImageIcon icon, World world, Point position, char symbol, int strength, int priority)
+    public Plant(ImageIcon icon, World world, Point position, char symbol, int strength, int priority, SpreadChance spreadChance)
     {
         super(icon, world, position, symbol, strength, priority);
+        this.spreadChance = spreadChance.ordinal() + 1;
         numberOfPlants++;
     }
 
@@ -23,17 +34,60 @@ public class Plant extends Entity
 
     public void Update()
     {
-
+        super.Update();
     }
 
     public boolean Collision(Entity entity)
     {
-        return false;
+        Kill();
+        return true;
     }
 
     public void Kill()
     {
         super.Kill();
         numberOfPlants--;
+    }
+
+    public void Spread(Entity entity)
+    {
+        Random rnd2 = new Random();
+        int chance = rnd2.nextInt(25) + 1;
+        if(chance > spreadChance)
+            return;
+
+        int currentX = position.x;
+        int currentY = position.y;
+        ArrayList<SquareMapElement> freeFields = new ArrayList<SquareMapElement>();
+
+        for(int i = currentX - 1; i <= currentX + 1; i++)
+        {
+            if(i < 0 || i > world.worldHeight - 1)
+                continue;
+
+            for(int j = currentY - 1; j <= currentY + 1; j++)
+            {
+                if(j < 0 || j > world.worldWidth - 1 || (i == currentX && j == currentY))
+                    continue;
+
+                if(world.map[i][j].getEntity() == null)
+                {
+                    freeFields.add(world.map[i][j]);
+                }
+            }
+        }
+
+        if(freeFields.size() > 0)
+        {
+            Random rnd = new Random();
+            int index = rnd.nextInt(freeFields.size());
+            SquareMapElement field = freeFields.get(index);
+            field.setEntity(entity);
+            entity.setPosition(field.getPosition());
+        }
+        else
+        {
+            numberOfPlants--;
+        }
     }
 }
