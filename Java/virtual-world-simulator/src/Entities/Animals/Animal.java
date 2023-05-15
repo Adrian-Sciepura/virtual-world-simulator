@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Animal extends Entity
+public abstract class Animal extends Entity
 {
     protected static int numberOfAnimals = 0;
 
@@ -107,7 +107,8 @@ public class Animal extends Entity
                 if(j < 0 || j > world.worldWidth - 1 || (i == currentX && j == currentY))
                     continue;
 
-                if(world.map[i][j].getEntity() == null)
+                Entity entityOnField = world.map[i][j].getEntity();
+                if(entityOnField == null || entityOnField.getPriority() == 0)
                 {
                     freeFields.add(world.map[i][j]);
                 }
