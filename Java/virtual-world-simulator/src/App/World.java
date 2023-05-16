@@ -51,6 +51,11 @@ public class World
         logs += "- - - - - - - - GAME OVER - - - - - - - -\n";
     }
 
+    public void setGameOver(boolean value)
+    {
+        this.gameOver = value;
+    }
+
     public boolean CheckIfGameOver()
     {
         return gameOver;

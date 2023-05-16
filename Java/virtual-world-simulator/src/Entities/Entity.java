@@ -83,6 +83,11 @@ public abstract class Entity implements Comparable<Entity>
         return this.lifespan;
     }
 
+    public void setLifespan(int value)
+    {
+        this.lifespan = value;
+    }
+
     public Point getPosition()
     {
         return this.position;
@@ -113,7 +118,7 @@ public abstract class Entity implements Comparable<Entity>
     {
         switch(symbol)
         {
-            //case 'H': return new Human(world, position, lifeSpan, strength);
+            case 'H': return new Human(world, position);
             case 'A': return new Antelope(world, position);
             case 'F': return new Fox(world, position);
             case 'S': return new Sheep(world, position);
