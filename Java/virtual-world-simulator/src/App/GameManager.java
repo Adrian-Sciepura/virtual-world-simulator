@@ -13,8 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.PriorityQueue;
 import java.util.Random;
 
@@ -106,6 +105,9 @@ public class GameManager
         saveButton.setFont(new Font(menuText.getFont().getName(), Font.PLAIN, fixedSize.x));
         saveButton.setFocusable(false);
         saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        saveButton.addActionListener(e -> {
+            SaveGame();
+        });
         menuPanel.add(saveButton);
 
         JButton loadButton = new JButton("Load game");
@@ -207,7 +209,6 @@ public class GameManager
         world.map[1][1].setEntity(player);
 
         Random rnd = new Random();
-        JPanel gamePanel = WindowManager.GetInstance().GetGamePanel();
         for(int i = 0; i < howMany; i++)
         {
             x = rnd.nextInt(world.worldWidth);
@@ -234,6 +235,31 @@ public class GameManager
             abilityButton.setEnabled(false);
 
         logArea.setText(world.getLogs());
+    }
+
+    private void SaveGame()
+    {
+        try
+        {
+            FileWriter saveFile = new FileWriter("save.txt");
+            saveFile.write(world.worldHeight + " " + world.worldWidth + " " + round + "\n");
+            saveFile.write(abilityDuration + " " + abiliyCooldown + "\n");
+            for(int i = 0; i < world.worldHeight; i++)
+            {
+                for(int j = 0; j < world.worldWidth; j++)
+                {
+                    Entity entity = world.map[i][j].getEntity();
+                    if(entity != null)
+                        saveFile.write(entity.getSymbol() + " " + entity.getPosition().x + " " + entity.getPosition().y + " " + entity.getLifespan() + " " + entity.getStrength() + "\n");
+                }
+            }
+            saveFile.close();
+
+        } catch (IOException e) {
+            System.out.println("An error has occured");
+            e.printStackTrace();
+        }
+
     }
 
     private void NewGame()
