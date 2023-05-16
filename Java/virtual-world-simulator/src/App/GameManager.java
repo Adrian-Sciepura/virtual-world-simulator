@@ -64,13 +64,13 @@ public class GameManager
         WindowManager window = WindowManager.GetInstance();
         Common.Point fixedSize = window.getFixedSize(1200, 800);
         window.ToggleWindowVisibility();
-        window.SetWindowSize(fixedSize.x, fixedSize.y);
-        window.SetWindowTitle("Adrian Ściepura 193350");
+        window.setWindowSize(fixedSize.x, fixedSize.y);
+        window.setWindowTitle("Adrian Ściepura 193350");
 
         SetupGame();
         SetupMenu();
 
-        JFrame frame = window.GetWindow();
+        JFrame frame = window.getWindow();
         frame.addKeyListener(new KeyListener()
         {
             @Override
@@ -131,8 +131,8 @@ public class GameManager
     private void SetupMenu()
     {
         WindowManager window = WindowManager.GetInstance();
-        JPanel menuPanel = window.GetMenuPanel();
-        JPanel gamePanel = window.GetGamePanel();
+        JPanel menuPanel = window.getMenuPanel();
+        JPanel gamePanel = window.getGamePanel();
         menuText = new JLabel();
         Common.Point fixedSize = window.getFixedSize(menuText.getFont().getSize()*2, 0);
         menuText.setFont(new Font(menuText.getFont().getName(), Font.PLAIN, fixedSize.x));
@@ -214,7 +214,7 @@ public class GameManager
     private void SetupGame()
     {
         WindowManager window = WindowManager.GetInstance();
-        JPanel gamePanel = window.GetGamePanel();
+        JPanel gamePanel = window.getGamePanel();
 
         if(gamePanel.getComponents().length > 0)
             gamePanel.removeAll();

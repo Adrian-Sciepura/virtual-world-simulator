@@ -110,7 +110,7 @@ public class MapElement extends JComponent
 
     public void ShowContextMenu()
     {
-        MapElementContextMenu contextMenu = new MapElementContextMenu();
+        JPopupMenu contextMenu = new JPopupMenu();
         WindowManager windowManager = WindowManager.GetInstance();
         contextMenu.setLayout(new BoxLayout(contextMenu, BoxLayout.Y_AXIS));
         if(entity != null)

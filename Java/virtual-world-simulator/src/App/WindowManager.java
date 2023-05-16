@@ -69,27 +69,27 @@ public final class WindowManager
         window.setVisible(visibility);
     }
 
-    public void SetWindowSize(int width, int height)
+    public void setWindowSize(int width, int height)
     {
         window.setSize(width, height);
     }
 
-    public void SetWindowTitle(String title)
+    public void setWindowTitle(String title)
     {
         window.setTitle(title);
     }
 
-    public JPanel GetGamePanel()
+    public JPanel getGamePanel()
     {
         return this.gamePanel;
     }
 
-    public JPanel GetMenuPanel()
+    public JPanel getMenuPanel()
     {
         return this.menuPanel;
     }
 
-    public JFrame GetWindow()
+    public JFrame getWindow()
     {
         return this.window;
     }
