@@ -59,7 +59,8 @@ public class GameManager
 
     private void Setup(int width, int height)
     {
-        world.setWorldSize(width, height);
+        Point p = LoadWorldSize();
+        world.setWorldSize(p.x, p.y);
         PlaceEntities();
         WindowManager window = WindowManager.GetInstance();
         Common.Point fixedSize = window.getFixedSize(1200, 800);
@@ -353,13 +354,55 @@ public class GameManager
 
     private void NewGame()
     {
+        Point p = LoadWorldSize();
         world.Reset();
+        world.setWorldSize(p.x, p.y);
+        SetupGame();
         round = 0;
         abiliyCooldown = 5;
         abilityDuration = 0;
         PlaceEntities();
         world.ClearLogs();
         UpdateMenu();
+    }
+
+    private Common.Point LoadWorldSize()
+    {
+        Common.Point size = null;
+        boolean validInput = false;
+        while(!validInput)
+        {
+            JPanel panel = new JPanel(new GridLayout(2, 2));
+            JTextField textField1 = new JTextField();
+            JTextField textField2 = new JTextField();
+            panel.add(textField1);
+            panel.add(textField2);
+
+            int result = JOptionPane.showConfirmDialog(null, panel, "Enter map size",
+                    JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+            if (result == JOptionPane.OK_OPTION) {
+                String input1 = textField1.getText();
+                String input2 = textField2.getText();
+
+                try
+                {
+                    int number1 = Integer.parseInt(input1);
+                    int number2 = Integer.parseInt(input2);
+                    validInput = true;
+                    size = new Common.Point(number1, number2);
+                }
+                catch (NumberFormatException e)
+                {
+                    System.out.println("Invalid input");
+                }
+            }
+            else
+            {
+                System.exit(0);
+            }
+        }
+        return size;
     }
 
     public World getWorld()
