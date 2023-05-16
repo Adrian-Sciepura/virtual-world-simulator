@@ -17,6 +17,6 @@ public class Dandelion extends Plant
         super.Update();
 
         for(int i = 0; i < 3; i++)
-            Spread(new Grass(this.world, new Point(-1, -1)));
+            Spread(new Dandelion(this.world, new Point(-1, -1)));
     }
 }

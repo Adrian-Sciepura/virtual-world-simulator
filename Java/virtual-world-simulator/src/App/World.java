@@ -13,20 +13,8 @@ public class World
 
     public World()
     {
-        map = new SquareMapElement[20][20];
-        worldWidth = 20;
-        worldHeight = 20;
         gameOver = false;
         logs = new String("");
-
-        for(int i = 0; i < worldHeight; i++)
-        {
-            for (int j = 0; j < worldWidth; j++)
-            {
-                map[i][j] = new SquareMapElement();
-                map[i][j].setPreferredSize(new Dimension(10, 10));
-            }
-        }
     }
 
     public void AppendLogs(int x, int y, String message)
@@ -53,8 +41,8 @@ public class World
                 if (map[i][j].getEntity() != null)
                     map[i][j].getEntity().Kill();
             }
-            gameOver = false;
         }
+        gameOver = false;
     }
 
     public void EndGame()
@@ -66,5 +54,22 @@ public class World
     public boolean CheckIfGameOver()
     {
         return gameOver;
+    }
+
+    public void setWorldSize(int width, int height)
+    {
+        this.worldWidth = width;
+        this.worldHeight = height;
+
+        map = new SquareMapElement[height][width];
+
+        for(int i = 0; i < worldHeight; i++)
+        {
+            for (int j = 0; j < worldWidth; j++)
+            {
+                map[i][j] = new SquareMapElement();
+                map[i][j].setPreferredSize(new Dimension(10, 10));
+            }
+        }
     }
 }

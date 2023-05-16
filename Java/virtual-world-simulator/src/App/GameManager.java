@@ -59,6 +59,7 @@ public class GameManager
 
     public void Start()
     {
+        world.setWorldSize(25, 22);
         PlaceEntities();
         WindowManager window = WindowManager.GetInstance();
         Common.Point fixedSize = window.getFixedSize(1200, 800);
@@ -67,8 +68,9 @@ public class GameManager
         window.SetWindowTitle("Adrian Ściepura 193350");
 
         JPanel gamePanel = window.GetGamePanel();
-        for(int i = 0; i < 20; i++)
-            for(int j = 0; j < 20; j++)
+        gamePanel.setLayout(new GridLayout(world.worldHeight, world.worldWidth));
+        for(int i = 0; i < world.worldHeight; i++)
+            for(int j = 0; j < world.worldWidth; j++)
                 gamePanel.add(world.map[i][j]);
 
 
@@ -163,8 +165,8 @@ public class GameManager
                             abiliyCooldown--;
                     }
 
-                    for(int i = 0; i < 20; i++)
-                        for(int j = 0; j < 20; j++)
+                    for(int i = 0; i < world.worldHeight; i++)
+                        for(int j = 0; j < world.worldWidth; j++)
                         {
                             Entity entity = world.map[i][j].getEntity();
                             if(entity != null)

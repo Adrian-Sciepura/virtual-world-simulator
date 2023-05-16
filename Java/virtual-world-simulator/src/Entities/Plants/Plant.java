@@ -86,8 +86,11 @@ public abstract class Plant extends Entity
             Random rnd = new Random();
             int index = rnd.nextInt(freeFields.size());
             SquareMapElement field = freeFields.get(index);
-            field.setEntity(entity);
+            int x = field.getPosition().x;
+            int y = field.getPosition().y;
             entity.setPosition(field.getPosition());
+            field.setEntity(entity);
+            world.AppendLogs(x, y, Entity.types.get(entity.getSymbol()) + " spread");
         }
         else
         {

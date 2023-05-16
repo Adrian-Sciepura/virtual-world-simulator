@@ -17,6 +17,8 @@ public class Sheep extends Animal
     {
         if(entity instanceof Sheep)
         {
+            Sheep sheep = new Sheep(this.world, new Point(-1, -1));
+            AddChild(sheep);
             return false;
         }
 

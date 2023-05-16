@@ -16,7 +16,7 @@ public class Guarana extends Plant
     public void Update()
     {
         super.Update();
-        Spread(new Grass(this.world, new Point(-1, -1)));
+        Spread(new Guarana(this.world, new Point(-1, -1)));
     }
 
     public boolean Collision(Entity entity)

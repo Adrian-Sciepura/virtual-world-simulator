@@ -16,7 +16,7 @@ public class Nightshade extends Plant
     public void Update()
     {
         super.Update();
-        Spread(new Grass(this.world, new Point(-1, -1)));
+        Spread(new Nightshade(this.world, new Point(-1, -1)));
     }
 
     public boolean Collision(Entity entity)

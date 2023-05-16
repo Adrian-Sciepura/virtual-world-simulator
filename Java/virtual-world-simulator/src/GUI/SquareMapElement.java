@@ -16,7 +16,6 @@ public class SquareMapElement extends JComponent
     private Color borderColor;
     private int borderWidth;
 
-
     public SquareMapElement()
     {
         super();
@@ -149,6 +148,7 @@ public class SquareMapElement extends JComponent
     public Common.Point getPosition()
     {
         Container parent = getParent();
-        return new Common.Point(20 - (parent.getHeight() - getY())/getHeight(), 20 - (parent.getWidth() - getX())/getWidth());
+        GridLayout layout = (GridLayout) parent.getLayout();
+        return new Common.Point(layout.getRows() - (parent.getHeight() - getY())/getHeight(), layout.getColumns() - (parent.getWidth() - getX())/getWidth());
     }
 }

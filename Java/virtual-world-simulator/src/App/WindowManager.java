@@ -6,9 +6,9 @@ import java.awt.*;
 public final class WindowManager
 {
     private static volatile WindowManager instance;
-    private JFrame window;
-    private JPanel gamePanel;
-    private JPanel menuPanel;
+    private final JFrame window;
+    private final JPanel gamePanel;
+    private final JPanel menuPanel;
     private boolean visibility;
     private final float widthMultiply;
     private final float heightMultiply;
@@ -47,7 +47,6 @@ public final class WindowManager
         menuPanel = new JPanel();
 
         gamePanel.setBackground(new Color(124, 202, 146));
-        gamePanel.setLayout(new GridLayout(20, 20));
         menuPanel.setBackground(new Color(240, 237, 212));
         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
 
