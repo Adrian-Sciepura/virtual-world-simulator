@@ -5,9 +5,9 @@ import Entities.Animals.Animal;
 import Entities.Animals.Human;
 import Entities.Entity;
 import Entities.Plants.Plant;
+import GUI.MapElement;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -132,6 +132,7 @@ public class GameManager
     {
         WindowManager window = WindowManager.GetInstance();
         JPanel menuPanel = window.GetMenuPanel();
+        JPanel gamePanel = window.GetGamePanel();
         menuText = new JLabel();
         Common.Point fixedSize = window.getFixedSize(menuText.getFont().getSize()*2, 0);
         menuText.setFont(new Font(menuText.getFont().getName(), Font.PLAIN, fixedSize.x));
@@ -139,6 +140,16 @@ public class GameManager
         menuText.setHorizontalTextPosition(SwingConstants.CENTER);
         menuText.setAlignmentX(Component.CENTER_ALIGNMENT);
         menuPanel.add(menuText);
+
+        JButton changeAppearanceButton = new JButton("Change appearance");
+        changeAppearanceButton.setFont(new Font(menuText.getFont().getName(), Font.PLAIN, fixedSize.x));
+        changeAppearanceButton.setFocusable(false);
+        changeAppearanceButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        changeAppearanceButton.addActionListener(e -> {
+            MapElement.ChangeAppearance();
+            gamePanel.repaint();
+        });
+        menuPanel.add(changeAppearanceButton);
 
         abilityButton = new JButton("Activate ability");
         abilityButton.setFont(new Font(menuText.getFont().getName(), Font.PLAIN, fixedSize.x));

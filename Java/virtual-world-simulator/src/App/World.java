@@ -1,11 +1,11 @@
 package App;
 
-import GUI.SquareMapElement;
+import GUI.MapElement;
 import java.awt.*;
 
 public class World
 {
-    public SquareMapElement map[][];
+    public MapElement map[][];
     private String logs;
     public int worldWidth;
     public int worldHeight;
@@ -66,13 +66,13 @@ public class World
         this.worldWidth = width;
         this.worldHeight = height;
 
-        map = new SquareMapElement[height][width];
+        map = new MapElement[height][width];
 
         for(int i = 0; i < worldHeight; i++)
         {
             for (int j = 0; j < worldWidth; j++)
             {
-                map[i][j] = new SquareMapElement();
+                map[i][j] = new MapElement();
                 map[i][j].setPreferredSize(new Dimension(10, 10));
             }
         }

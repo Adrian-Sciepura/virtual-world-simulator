@@ -10,13 +10,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Map;
 
-public class SquareMapElement extends JComponent
+public class MapElement extends JComponent
 {
     private Entity entity;
     private Color borderColor;
     private int borderWidth;
+    private static boolean displayMode = true;
 
-    public SquareMapElement()
+    public MapElement()
     {
         super();
         borderColor = Color.WHITE;
@@ -71,15 +72,23 @@ public class SquareMapElement extends JComponent
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(borderColor);
         Stroke oldStroke = g2d.getStroke();
         Stroke newStroke = new BasicStroke(borderWidth);
         g2d.setStroke(newStroke);
-        g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
-        g2d.setStroke(oldStroke);
 
+        if(displayMode)
+        {
+            g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
+        }
+        else
+        {
+            int height = getHeight();
+            int width = getWidth();
+            g2d.drawPolygon(new int[]{0, width / 5, (width / 5) * 4, width, (width / 5) * 4, width / 5}, new int[]{height / 2, height, height, height / 2, 0, 0}, 6);
+        }
+        g2d.setStroke(oldStroke);
          if(entity != null)
          {
              int width = getWidth();
@@ -150,5 +159,10 @@ public class SquareMapElement extends JComponent
         Container parent = getParent();
         GridLayout layout = (GridLayout) parent.getLayout();
         return new Common.Point(layout.getRows() - (parent.getHeight() - getY())/getHeight(), layout.getColumns() - (parent.getWidth() - getX())/getWidth());
+    }
+
+    public static void ChangeAppearance()
+    {
+        displayMode = !displayMode;
     }
 }

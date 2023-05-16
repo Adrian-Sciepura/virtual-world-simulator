@@ -3,7 +3,7 @@ package Entities.Plants;
 import App.World;
 import Common.Point;
 import Entities.Entity;
-import GUI.SquareMapElement;
+import GUI.MapElement;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ public abstract class Plant extends Entity
 
         int currentX = position.x;
         int currentY = position.y;
-        ArrayList<SquareMapElement> freeFields = new ArrayList<SquareMapElement>();
+        ArrayList<MapElement> freeFields = new ArrayList<MapElement>();
 
         for(int i = currentX - 1; i <= currentX + 1; i++)
         {
@@ -85,7 +85,7 @@ public abstract class Plant extends Entity
         {
             Random rnd = new Random();
             int index = rnd.nextInt(freeFields.size());
-            SquareMapElement field = freeFields.get(index);
+            MapElement field = freeFields.get(index);
             int x = field.getPosition().x;
             int y = field.getPosition().y;
             entity.setPosition(field.getPosition());

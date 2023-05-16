@@ -3,7 +3,7 @@ package Entities.Animals;
 import App.World;
 import Common.Point;
 import Entities.Entity;
-import GUI.SquareMapElement;
+import GUI.MapElement;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class Fox extends Animal
     {
         int currentX = position.x;
         int currentY = position.y;
-        ArrayList<SquareMapElement> possibleMoves = new ArrayList<SquareMapElement>();
+        ArrayList<MapElement> possibleMoves = new ArrayList<MapElement>();
 
         for(int i = currentX - 1; i <= currentX + 1; i++)
         {

@@ -3,10 +3,8 @@ package Entities.Animals;
 import App.World;
 import Common.Point;
 import Entities.Entity;
-import GUI.SquareMapElement;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Antelope extends Animal
