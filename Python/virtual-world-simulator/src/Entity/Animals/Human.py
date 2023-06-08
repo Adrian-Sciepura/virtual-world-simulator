@@ -72,3 +72,8 @@ class Human(Animal):
             return False
 
         return super().collision(entity)
+
+    def kill(self):
+        if not self._abilityTurnedOn:
+            super().kill()
+            self._world.gameOver = True

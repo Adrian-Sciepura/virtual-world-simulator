@@ -8,7 +8,11 @@ from src.Entity.Animals.Fox import Fox
 from src.Entity.Animals.Sheep import Sheep
 from src.Entity.Animals.Turtle import Turtle
 from src.Entity.Animals.Human import Human
-
+from src.Entity.Plants.Grass import Grass
+from src.Entity.Plants.Dandelion import Dandelion
+from src.Entity.Plants.Guarana import Guarana
+from src.Entity.Plants.Nightshade import Nightshade
+from src.Entity.Plants.PineHogweed import PineHogweed
 
 class GameManager:
 
@@ -52,7 +56,7 @@ class GameManager:
 
     def placeEntities(self):
         freeSpace = self._world.width * self._world.height
-        availableTypes = ['W', 'A', 'F', 'S', 'T']
+        availableTypes = ['W', 'A', 'F', 'S', 'T', 'G', 'D', 'G', 'N', 'P']
         x = 0
         y = 0
         typeToPlace = 0
@@ -60,7 +64,7 @@ class GameManager:
         for i in range(howMany):
             y = random.randint(0, self._world.height - 1)
             x = random.randint(0, self._world.width - 1)
-            typeToPlace = random.randint(0, 4)
+            typeToPlace = random.randint(0, 9)
 
             if self._world.getMapElement(y, x) is None:
                 self._world.setMapElement(y, x, self.getEntityFromSymbol(self._world, (y, x), availableTypes[typeToPlace]))
@@ -71,7 +75,12 @@ class GameManager:
             'A': Antelope(world, position),
             'F': Fox(world, position),
             'S': Sheep(world, position),
-            'T': Turtle(world, position)
+            'T': Turtle(world, position),
+            'G': Grass(world, position),
+            'D': Dandelion(world, position),
+            'U': Guarana(world, position),
+            'N': Nightshade(world, position),
+            'P': PineHogweed(world, position)
         }
 
         return types.get(symbol)

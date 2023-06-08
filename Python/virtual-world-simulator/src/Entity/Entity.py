@@ -13,9 +13,9 @@ class Entity:
 
     def __lt__(self, other):
         if self._priority == other.priority:
-            return self._lifespan < other.lifespan
+            return self._lifespan > other.lifespan
         else:
-            return self._priority < other.priority
+            return self._priority > other.priority
 
     def kill(self):
         self._isAlive = False
@@ -49,6 +49,10 @@ class Entity:
     @property
     def strength(self):
         return self._strength
+
+    @strength.setter
+    def strength(self, value):
+        self._strength = value
 
     @property
     def priority(self):
