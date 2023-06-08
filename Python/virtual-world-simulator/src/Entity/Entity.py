@@ -19,12 +19,13 @@ class Entity:
 
     def kill(self):
         self._isAlive = False
+        self._world.setMapElement(self._position[0], self._position[1], None)
 
     def checkIfAlive(self):
         return self._isAlive
 
     def update(self):
-        self._lifespan += 1
+        raise NotImplementedError("Abstract method")
 
     def collision(self, entity):
         raise NotImplementedError("Abstract method")

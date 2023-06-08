@@ -50,7 +50,7 @@ class World:
         for i in range(self._height):
             for j in range(self._width):
                 if self._map[i][j] is not None:
-                    self._screen.blit(self._map[i][j].texture, (i * self._scale, j * self._scale))
+                    self._screen.blit(self._map[i][j].texture, (j * self._scale, i * self._scale))
 
         for i in range(self._height + 1):
             pygame.draw.line(self._screen, (255, 255, 255), (0, i * self._scale), (self._width * self._scale, i * self._scale))

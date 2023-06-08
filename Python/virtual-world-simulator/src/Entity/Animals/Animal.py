@@ -15,7 +15,7 @@ class Animal(Entity):
                 return
 
         self._world.setMapElement(self._position[0], self._position[1], None)
-        self._position = newPosition
+        self._position = (newPosition[0], newPosition[1])
         self._world.setMapElement(self._position[0], self._position[1], self)
 
     def update(self):
@@ -39,6 +39,7 @@ class Animal(Entity):
                 newY -= 1
 
         self.move((newX, newY))
+        self._lifespan += 1
 
     def collision(self, entity):
         if self._lifespan == 0:
