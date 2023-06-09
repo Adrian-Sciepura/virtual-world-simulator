@@ -57,3 +57,9 @@ class World:
 
         for i in range(self._width + 1):
             pygame.draw.line(self._screen, (255, 255, 255), (i * self._scale, 0), (i * self._scale, self._height * self._scale))
+
+    def restart(self):
+        for i in range(self._height):
+            for j in range(self._width):
+                self._map[i][j] = None
+                self._gameOver = False

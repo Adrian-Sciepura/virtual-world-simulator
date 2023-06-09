@@ -61,3 +61,7 @@ class Entity:
     @property
     def lifespan(self):
         return self._lifespan
+
+    @lifespan.setter
+    def lifespan(self, value):
+        self._lifespan = value
