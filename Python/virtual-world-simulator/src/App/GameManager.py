@@ -47,8 +47,8 @@ class GameManager:
                     bt.handleEvent(event)
 
             self._screen.fill(self.BACKGROUND_COLOR)
-            self.displayMenu()
             self._world.drawWorld()
+            self.displayMenu()
             pygame.display.update()
 
     def update(self):
@@ -160,8 +160,6 @@ class GameManager:
             self._world.setMapElement(x, y, entity)
             if letter == 'H':
                 self._player = entity
-
-
 
         if self._abilityDuration > 0:
             self._abilityButton.enabled = False

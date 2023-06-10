@@ -55,4 +55,26 @@ class Animal(Entity):
         self._world.addLog(self._position, entity.symbol + " was killed by " + self._symbol)
         entity.kill()
         return False
-    
+
+    def breed(self):
+        currentX = self._position[0]
+        currentY = self._position[1]
+        freeFields = []
+
+        for i in range(currentX - 1, currentX + 2):
+            if i < 0 or i > self._world.height - 1:
+                continue
+
+            for j in range(currentY - 1, currentY + 2):
+                if j < 0 or j > self._world.width - 1:
+                    continue
+
+                if self._world.getMapElement(i, j) is None:
+                    freeFields.append((i, j))
+
+        numberOfPossibleFields = len(freeFields)
+        if numberOfPossibleFields > 0:
+            newPosition = freeFields[random.randint(0, numberOfPossibleFields - 1)]
+            self._world.addLog(newPosition, self._symbol + " born")
+            return newPosition
+

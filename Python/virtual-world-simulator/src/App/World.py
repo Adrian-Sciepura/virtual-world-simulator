@@ -37,7 +37,7 @@ class World:
                     self._contextMenuRect = None
                 else:
                     self._contextMenuRect = None
-            elif self._rect.collidepoint(event.pos):
+            elif self._rect.collidepoint(event.pos) and self._map[self._hoverPosition[1]][self._hoverPosition[0]] is None:
                 self.createContextMenu((self._hoverPosition[0] * self._scale, self._hoverPosition[1] * self._scale))
 
         elif event.type == pygame.MOUSEMOTION:

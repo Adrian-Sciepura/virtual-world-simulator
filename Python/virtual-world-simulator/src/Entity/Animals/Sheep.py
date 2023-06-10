@@ -11,7 +11,10 @@ class Sheep(Animal):
 
     def collision(self, entity):
         if isinstance(entity, Sheep):
-            #print("BREED")
+            breedPosition = self.breed()
+            if breedPosition is not None:
+                element = Sheep(self._world, breedPosition)
+                self._world.setMapElement(breedPosition[0], breedPosition[1], element)
             return False
 
         return super().collision(entity)

@@ -13,7 +13,10 @@ class Turtle(Animal):
 
     def collision(self, entity):
         if isinstance(entity, Turtle):
-            # print("BREED")
+            breedPosition = self.breed()
+            if breedPosition is not None:
+                element = Turtle(self._world, breedPosition)
+                self._world.setMapElement(breedPosition[0], breedPosition[1], element)
             return False
 
         if entity.strength < 5:
