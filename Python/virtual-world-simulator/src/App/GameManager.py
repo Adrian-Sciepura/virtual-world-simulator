@@ -53,6 +53,7 @@ class GameManager:
 
     def update(self):
         self._round += 1
+        self._world.clearLogs()
         if self._player.abilityTurnedOn:
             if self._abilityDuration == 0:
                 self._player.abilityTurnedOn = False
@@ -107,6 +108,8 @@ class GameManager:
             font = pygame.font.Font(None, 60)
             self._screen.blit(font.render("Game Over", False, 'Red'), (250, 300))
 
+        self._world.showLastLogs((800, 450), 10)
+
     def newGame(self):
         self._world.restart()
         self.placeEntities()
@@ -133,7 +136,6 @@ class GameManager:
             return
 
         file = open("save.txt", "r")
-
         self._world.restart()
         line = file.readline().strip().split()
         self._world.width = int(line[0])

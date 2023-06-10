@@ -45,4 +45,5 @@ class Plant(Entity):
         numberOfPossibleFields = len(freeFields)
         if numberOfPossibleFields > 0:
             newPosition = freeFields[random.randint(0, numberOfPossibleFields - 1)]
+            self._world.addLog(newPosition, self._symbol + " spread")
             return newPosition

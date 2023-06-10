@@ -23,7 +23,8 @@ class PineHogweed(Plant):
 
                 element = self._world.getMapElement(i, j)
                 if element is not None and element.priority != 0:
-                    element.kill()
+                    if element.kill():
+                        self._world.addLog(element.position, element.symbol + " was killed by touch of " + self._symbol)
 
         spreadPosition = self.spread()
         if spreadPosition is not None:

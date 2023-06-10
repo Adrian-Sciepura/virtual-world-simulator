@@ -48,8 +48,11 @@ class Animal(Entity):
         entityStrength = entity.strength
 
         if entityStrength > self._strength or (entityStrength == self._strength and entity.lifespan > self._lifespan):
+            self._world.addLog(self._position, self._symbol + " was killed by " + entity.symbol)
             self.kill()
             return True
 
+        self._world.addLog(self._position, entity.symbol + " was killed by " + self._symbol)
         entity.kill()
         return False
+    

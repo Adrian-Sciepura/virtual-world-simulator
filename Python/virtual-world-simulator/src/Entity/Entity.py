@@ -20,6 +20,7 @@ class Entity:
     def kill(self):
         self._isAlive = False
         self._world.setMapElement(self._position[0], self._position[1], None)
+        return True
 
     def checkIfAlive(self):
         return self._isAlive

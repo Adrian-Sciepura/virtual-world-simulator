@@ -77,3 +77,7 @@ class Human(Animal):
         if not self._abilityTurnedOn:
             super().kill()
             self._world.gameOver = True
+            self._world.addLog(self._position, "-- HUMAN DIED - GAME OVER --")
+            return True
+
+        return False

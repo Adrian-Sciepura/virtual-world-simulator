@@ -18,6 +18,9 @@ class World:
         self._hoverPosition = None
         self._contextMenuElements = None
         self._contextMenuRect = None
+        self._lastLogs = []
+        self._numberOfLogs = 0
+        self._font = pygame.font.Font(None, 25)
 
     def setSize(self, width, height):
         self._width = width
@@ -31,6 +34,7 @@ class World:
                 if self._contextMenuRect.collidepoint(event.pos):
                     for element in self._contextMenuElements:
                         element.handleEvent(event)
+                    self._contextMenuRect = None
                 else:
                     self._contextMenuRect = None
             elif self._rect.collidepoint(event.pos):
@@ -110,6 +114,7 @@ class World:
             self.drawContextMenu()
 
     def restart(self):
+        self.clearLogs()
         for i in range(self._height):
             for j in range(self._width):
                 self._map[i][j] = None
@@ -138,3 +143,18 @@ class World:
                        element[0],
                        lambda x=element[1]: self.setMapElement(positionInArray[0], positionInArray[1], getEntityFromSymbol(self, (positionInArray[0], positionInArray[1]), x))))
             i += 1
+
+    def addLog(self, position, text):
+        self._numberOfLogs += 1
+        self._lastLogs.append('[' + str(position[0]) + ' ' + str(position[1]) + '] ' + text)
+
+    def clearLogs(self):
+        self._lastLogs = []
+        self._numberOfLogs = 0
+
+    def showLastLogs(self, position, number):
+        howManyToShow = number if number <= self._numberOfLogs else self._numberOfLogs
+
+        for log in range(howManyToShow):
+            self._screen.blit(self._font.render(self._lastLogs[self._numberOfLogs - log - 1], False, 'White'),
+                              (position[0], position[1] + log * 20))
