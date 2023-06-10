@@ -1,5 +1,7 @@
 import src.Entity.Entity
 import pygame
+from src.UI.Button import Button
+from src.App.Other import getEntityFromSymbol
 
 
 class World:
@@ -10,7 +12,38 @@ class World:
         self._gameOver = False
         self._map = [[None for _ in range(width)] for _ in range(height)]
         self._screen = screen
-        self._scale = 35
+        self._scale = 0
+        self._rect = None
+        self.setSize(width, height)
+        self._hoverPosition = None
+        self._contextMenuElements = None
+        self._contextMenuRect = None
+
+    def setSize(self, width, height):
+        self._width = width
+        self._height = height
+        self._scale = int(700 / width)
+        self._rect = pygame.Rect(0, 0, width * self._scale, height * self._scale)
+
+    def handleEvent(self, event):
+        if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+            if self._contextMenuRect is not None:
+                if self._contextMenuRect.collidepoint(event.pos):
+                    for element in self._contextMenuElements:
+                        element.handleEvent(event)
+                else:
+                    self._contextMenuRect = None
+            elif self._rect.collidepoint(event.pos):
+                self.createContextMenu((self._hoverPosition[0] * self._scale, self._hoverPosition[1] * self._scale))
+
+        elif event.type == pygame.MOUSEMOTION:
+            if self._contextMenuRect is not None and self._contextMenuRect.collidepoint(event.pos):
+                for element in self._contextMenuElements:
+                    element.handleEvent(event)
+            elif self._rect.collidepoint(event.pos):
+                self._hoverPosition = (int(event.pos[0] / self._scale), int(event.pos[1] / self._scale))
+            else:
+                self._hoverPosition = None
 
     @property
     def width(self):
@@ -53,13 +86,55 @@ class World:
                     self._screen.blit(self._map[i][j].texture, (j * self._scale, i * self._scale))
 
         for i in range(self._height + 1):
-            pygame.draw.line(self._screen, (255, 255, 255), (0, i * self._scale), (self._width * self._scale, i * self._scale))
+            pygame.draw.line(self._screen, (255, 255, 255), (0, i * self._scale),
+                             (self._width * self._scale, i * self._scale))
 
         for i in range(self._width + 1):
-            pygame.draw.line(self._screen, (255, 255, 255), (i * self._scale, 0), (i * self._scale, self._height * self._scale))
+            pygame.draw.line(self._screen, (255, 255, 255), (i * self._scale, 0),
+                             (i * self._scale, self._height * self._scale))
+
+        if self._hoverPosition is not None:
+            for i in range(2):
+                pygame.draw.line(self._screen, 'BLUE',
+                                 (self._hoverPosition[0] * self._scale, (self._hoverPosition[1] + i) * self._scale),
+                                 ((self._hoverPosition[0] + 1) * self._scale,
+                                  (self._hoverPosition[1] + i) * self._scale), 2)
+
+            for i in range(2):
+                pygame.draw.line(self._screen, 'BLUE',
+                                 ((self._hoverPosition[0] + i) * self._scale, (self._hoverPosition[1]) * self._scale),
+                                 ((self._hoverPosition[0] + i) * self._scale,
+                                  (self._hoverPosition[1] + 1) * self._scale), 2)
+
+        if self._contextMenuRect is not None:
+            self.drawContextMenu()
 
     def restart(self):
         for i in range(self._height):
             for j in range(self._width):
                 self._map[i][j] = None
                 self._gameOver = False
+
+    def drawContextMenu(self):
+        i = 0
+        for element in self._contextMenuElements:
+            element.draw()
+            i += 1
+
+    def createContextMenu(self, position):
+        entitiesToAdd = [("Wolf", 'W'), ("Antelope", 'A'), ("Fox", 'F'), ("Sheep", 'S'), ("Turtle", 'T'),
+                         ("Grass", 'G'), ("Dandelion", 'D'), ("Guarana", 'U'), ("Nightshade", 'N'),
+                         ("Pine Hogweed", 'P')]
+        i = 0
+        self._contextMenuElements = []
+        self._contextMenuRect = pygame.Rect(position[0] + self._scale, position[1], 150, len(entitiesToAdd) * 30)
+        positionInArray = (int(position[1] / self._scale), int(position[0] / self._scale))
+        for element in entitiesToAdd:
+            self._contextMenuElements.append(
+                Button(self._screen,
+                       position[0] + self._scale,
+                       position[1] + i * 30, 150,
+                       30,
+                       element[0],
+                       lambda x=element[1]: self.setMapElement(positionInArray[0], positionInArray[1], getEntityFromSymbol(self, (positionInArray[0], positionInArray[1]), x))))
+            i += 1

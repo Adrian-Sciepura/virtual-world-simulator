@@ -3,19 +3,9 @@ import random
 import queue
 import pygame
 from src.App.World import World
-from src.Entity.Animals.Wolf import Wolf
-from src.Entity.Animals.Antelope import Antelope
-from src.Entity.Animals.Fox import Fox
-from src.Entity.Animals.Sheep import Sheep
-from src.Entity.Animals.Turtle import Turtle
 from src.Entity.Animals.Human import Human
-from src.Entity.Plants.Grass import Grass
-from src.Entity.Plants.Dandelion import Dandelion
-from src.Entity.Plants.Guarana import Guarana
-from src.Entity.Plants.Nightshade import Nightshade
-from src.Entity.Plants.PineHogweed import PineHogweed
-
 from src.UI.Button import Button
+from src.App.Other import getEntityFromSymbol
 
 
 class GameManager:
@@ -23,7 +13,7 @@ class GameManager:
 
     def __init__(self):
         pygame.init()
-        self._screen = pygame.display.set_mode((1200, 720))
+        self._screen = pygame.display.set_mode((1200, 700))
         pygame.display.set_caption('Adrian Ściepura 193350')
         self._newGameButton = Button(self._screen, 800, 200, 200, 50, "New Game", self.newGame)
         self._saveGameButton = Button(self._screen, 800, 260, 200, 50, "Save Game", self.saveGame)
@@ -44,7 +34,6 @@ class GameManager:
 
     def start(self):
         while True:
-            # pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -53,12 +42,13 @@ class GameManager:
                     if self._player.setNewPosition(event.key) and not self._world.gameOver:
                         self.update()
 
+                self._world.handleEvent(event)
                 for bt in self._buttons:
                     bt.handleEvent(event)
 
             self._screen.fill(self.BACKGROUND_COLOR)
-            self._world.drawWorld()
             self.displayMenu()
+            self._world.drawWorld()
             pygame.display.update()
 
     def update(self):
@@ -88,7 +78,7 @@ class GameManager:
         self._world.setMapElement(3, 3, self._player)
 
         freeSpace = self._world.width * self._world.height
-        availableTypes = ['W', 'A', 'F', 'S', 'T', 'G', 'D', 'G', 'N', 'P']
+        availableTypes = ['W', 'A', 'F', 'S', 'T', 'G', 'D', 'U', 'N', 'P']
         x = 0
         y = 0
         typeToPlace = 0
@@ -99,25 +89,7 @@ class GameManager:
             typeToPlace = random.randint(0, 9)
 
             if self._world.getMapElement(y, x) is None:
-                self._world.setMapElement(y, x,
-                                          self.getEntityFromSymbol(self._world, (y, x), availableTypes[typeToPlace]))
-
-    def getEntityFromSymbol(self, world, position, symbol):
-        types = {
-            'W': Wolf(world, position),
-            'A': Antelope(world, position),
-            'F': Fox(world, position),
-            'S': Sheep(world, position),
-            'T': Turtle(world, position),
-            'G': Grass(world, position),
-            'D': Dandelion(world, position),
-            'U': Guarana(world, position),
-            'N': Nightshade(world, position),
-            'P': PineHogweed(world, position),
-            'H': Human(world, position)
-        }
-
-        return types.get(symbol)
+                self._world.setMapElement(y, x, getEntityFromSymbol(self._world, (y, x), availableTypes[typeToPlace]))
 
     def displayMenu(self):
         menuText = [("Adrian Ściepura", 50), ("Round: " + str(self._round), 35),
@@ -150,7 +122,6 @@ class GameManager:
             for j in range(self._world.width):
                 entity = self._world.getMapElement(i, j)
                 if entity is not None:
-                    # file.write(str(entity.symbol) + ' ' + str(entity.position[0]) + ' ' + str(entity.position[1] + ' ' + str(entity.lifespan) + '\n')
                     file.write(
                         str(entity.symbol) + ' ' + str(entity.position[0]) + ' ' + str(entity.position[1]) + ' ' + str(
                             entity.lifespan) + ' ' + str(entity.strength) + '\n')
@@ -174,18 +145,25 @@ class GameManager:
         self._abilityDuration = int(line[0])
         self._abilityCooldown = int(line[1])
 
+
         for line in file:
             letter, x, y, lifespan, strength = line.strip().split()
             x = int(x)
             y = int(y)
             lifespan = int(lifespan)
             strength = int(strength)
-            entity = self.getEntityFromSymbol(self._world, (x, y), letter)
+            entity = getEntityFromSymbol(self._world, (x, y), letter)
             entity.lifespan = lifespan
             entity.strength = strength
             self._world.setMapElement(x, y, entity)
             if letter == 'H':
                 self._player = entity
+
+
+
+        if self._abilityDuration > 0:
+            self._abilityButton.enabled = False
+            self._player.abilityTurnedOn = True
 
         file.close()
 
