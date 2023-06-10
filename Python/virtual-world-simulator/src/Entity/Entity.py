@@ -17,7 +17,7 @@ class Entity:
         else:
             return self._priority > other.priority
 
-    def kill(self):
+    def kill(self, entity):
         self._isAlive = False
         self._world.setMapElement(self._position[0], self._position[1], None)
         return True

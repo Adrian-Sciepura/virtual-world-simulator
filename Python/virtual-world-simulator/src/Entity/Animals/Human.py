@@ -73,9 +73,9 @@ class Human(Animal):
 
         return super().collision(entity)
 
-    def kill(self):
+    def kill(self, entity):
         if not self._abilityTurnedOn:
-            super().kill()
+            super().kill(entity)
             self._world.gameOver = True
             self._world.addLog(self._position, "-- HUMAN DIED - GAME OVER --")
             return True

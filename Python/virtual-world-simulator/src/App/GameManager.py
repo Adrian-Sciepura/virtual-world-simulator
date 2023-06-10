@@ -79,7 +79,7 @@ class GameManager:
         self._world.setMapElement(3, 3, self._player)
 
         freeSpace = self._world.width * self._world.height
-        availableTypes = ['W', 'A', 'F', 'S', 'T', 'G', 'D', 'U', 'N', 'P']
+        availableTypes = ['W', 'A', 'F', 'S', 'T', 'C', 'G', 'D', 'U', 'N', 'P']
         x = 0
         y = 0
         typeToPlace = 0
@@ -87,7 +87,7 @@ class GameManager:
         for i in range(howMany):
             y = random.randint(0, self._world.height - 1)
             x = random.randint(0, self._world.width - 1)
-            typeToPlace = random.randint(0, 9)
+            typeToPlace = random.randint(0, 10)
 
             if self._world.getMapElement(y, x) is None:
                 self._world.setMapElement(y, x, getEntityFromSymbol(self._world, (y, x), availableTypes[typeToPlace]))

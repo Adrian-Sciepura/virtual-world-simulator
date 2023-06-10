@@ -16,7 +16,7 @@ class Plant(Entity):
         self._spreadChance = spreadChance
 
     def collision(self, entity):
-        self.kill()
+        self.kill(entity)
         return True
 
     def update(self):

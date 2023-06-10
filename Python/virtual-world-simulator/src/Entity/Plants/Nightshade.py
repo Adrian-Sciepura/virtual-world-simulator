@@ -17,6 +17,6 @@ class Nightshade(Plant):
         super().update()
 
     def collision(self, entity):
-        entity.kill()
-        self.kill()
+        entity.kill(self)
+        self.kill(entity)
         return True

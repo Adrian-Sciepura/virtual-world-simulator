@@ -127,7 +127,7 @@ class World:
             i += 1
 
     def createContextMenu(self, position):
-        entitiesToAdd = [("Wolf", 'W'), ("Antelope", 'A'), ("Fox", 'F'), ("Sheep", 'S'), ("Turtle", 'T'),
+        entitiesToAdd = [("Wolf", 'W'), ("Antelope", 'A'), ("Fox", 'F'), ("Sheep", 'S'), ("Turtle", 'T'), ("Cyber Sheep", 'C'),
                          ("Grass", 'G'), ("Dandelion", 'D'), ("Guarana", 'U'), ("Nightshade", 'N'),
                          ("Pine Hogweed", 'P')]
         i = 0

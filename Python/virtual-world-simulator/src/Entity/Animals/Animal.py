@@ -49,11 +49,11 @@ class Animal(Entity):
 
         if entityStrength > self._strength or (entityStrength == self._strength and entity.lifespan > self._lifespan):
             self._world.addLog(self._position, self._symbol + " was killed by " + entity.symbol)
-            self.kill()
+            self.kill(entity)
             return True
 
         self._world.addLog(self._position, entity.symbol + " was killed by " + self._symbol)
-        entity.kill()
+        entity.kill(self)
         return False
 
     def breed(self):

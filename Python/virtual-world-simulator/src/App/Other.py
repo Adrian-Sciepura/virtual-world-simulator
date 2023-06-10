@@ -4,6 +4,7 @@ from src.Entity.Animals.Fox import Fox
 from src.Entity.Animals.Sheep import Sheep
 from src.Entity.Animals.Turtle import Turtle
 from src.Entity.Animals.Human import Human
+from src.Entity.Animals.CyberSheep import CyberSheep
 from src.Entity.Plants.Grass import Grass
 from src.Entity.Plants.Dandelion import Dandelion
 from src.Entity.Plants.Guarana import Guarana
@@ -18,6 +19,7 @@ def getEntityFromSymbol(world, position, symbol):
         'F': Fox(world, position),
         'S': Sheep(world, position),
         'T': Turtle(world, position),
+        'C': CyberSheep(world, position),
         'G': Grass(world, position),
         'D': Dandelion(world, position),
         'U': Guarana(world, position),
